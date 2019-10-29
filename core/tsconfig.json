@@ -1,0 +1,12 @@
+{
+	"extends": "./../tsconfig.json",
+	"compileOnSave": false,
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "./dist",
+		"module": "esnext",
+		"typeRoots": [
+			"node_modules/@types"
+		]
+	}
+}

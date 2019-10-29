@@ -1,0 +1,51 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/ui-cron/dist
+/ui-cron/tmp
+/ui-cron/out-tsc
+# Only exists if Bazel was run
+/ui-cron/bazel-out
+
+# dependencies
+/ui-cron/node_modules
+
+# profiling files
+/ui-cron/chrome-profiler-events*.json
+/ui-cron/speed-measure-plugin*.json
+
+# IDEs and editors
+/ui-cron/.idea
+/ui-cron.project
+/ui-cron.classpath
+/ui-cron.c9/
+/ui-cron*.launch
+/ui-cron.settings/
+/ui-cron*.sublime-workspace
+
+# IDE - VSCode
+/ui-cron.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+/ui-cron.history/*
+
+# misc
+/ui-cron/.sass-cache
+/ui-cron/connect.lock
+/ui-cron/coverage
+/ui-cron/libpeerconnection.log
+/ui-cronnpm-debug.log
+/ui-cronyarn-error.log
+/ui-crontestem.log
+/ui-cron/typings
+
+# System Files
+/ui-cron/.DS_Store
+/ui-cron/Thumbs.db
+
+/core/node_modules
+/core/dist
+/ui-cron/projects/ui/node_modules
+/ui-cron/node_modules

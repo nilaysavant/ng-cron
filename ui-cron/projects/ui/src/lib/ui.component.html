@@ -1,0 +1,56 @@
+<ul class="nav nav-tabs mb-2">
+	<button
+		*ngFor="let item of tabs"
+		type="button"
+		class="nav-link"
+		[class.active]="tab === item"
+		(click)="tab = item">
+
+		{{item.label}}
+	</button>
+</ul>
+
+<ng-container [ngSwitch]="tab.type">
+  <ui-cron-month
+    *ngSwitchCase="type.MONTH"
+    [view]="getView(segment.month)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-month>
+
+  <ui-cron-minute
+    *ngSwitchCase="type.MINUTES"
+    [view]="getView(segment.minutes)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-minute>
+
+  <ui-cron-hour
+    *ngSwitchCase="type.HOURS"
+    [view]="getView(segment.hours)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-hour>
+
+  <ui-cron-second
+    *ngSwitchCase="type.SECONDS"
+    [view]="getView(segment.seconds)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-second>
+
+  <ui-cron-year
+    *ngSwitchCase="type.YEAR"
+    [view]="getView(segment.year)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-year>
+
+  <ui-cron-day
+    *ngSwitchCase="type.DAY"
+    [dayOfMonth]="getView(segment.dayOfMonth)"
+    [dayOfWeek]="getView(segment.dayOfWeek)"
+    [disabled]="disabled"
+    (changed)="applyChanges()">
+  </ui-cron-day>
+</ng-container>

@@ -23,7 +23,6 @@ export abstract class UiTabBaseComponent {
   }
 
   protected applyChanges() {
-    console.log('base applyChanges()');
     this.changed.emit();
   }
 }

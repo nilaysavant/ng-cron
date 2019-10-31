@@ -1,0 +1,22 @@
+{
+  "npmScope": "sbzen",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "cron-bootstrap": {
+	  "tags": [],
+	  "implicitDependencies": ["core"]
+    },
+    "bootstrap-example": {
+      "tags": []
+    },
+    "core": {
+      "tags": []
+    }
+  }
+}

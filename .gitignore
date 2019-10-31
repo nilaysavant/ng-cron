@@ -49,3 +49,5 @@
 /core/dist
 /ui-cron/projects/ui/node_modules
 /ui-cron/node_modules
+/dist
+/node_modules

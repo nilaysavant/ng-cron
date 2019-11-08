@@ -1,0 +1,42 @@
+.header {
+	background-color: #1976d2;
+	color: #fff;
+	min-height: 64px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+	z-index: 10;
+	position: relative;
+}
+
+.link {
+	transition: background-color .3s;
+	color: #fff;
+
+	&:hover,
+	&:focus {
+		background-color: #1971ca;
+		text-decoration: none;
+	}
+}
+
+.bar-link {
+	font-size: 1.3rem;
+}
+
+.logo-link {
+	font-size: 1.3rem;
+	color: #fff;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	img {
+		margin-right: 10px;
+		height: 40px;
+	}
+}
+
+.git-link {
+	font-size: 1.7rem;
+}

@@ -1,0 +1,27 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { PrismModule } from '@ngx-prism/core';
+import { QuartzCronModule } from '@sbzen/cron';
+
+import { DocUsageDemoRoutingModule } from './usage-demo-routing.module';
+import { DocUsageDemoComponent } from './usage-demo.component';
+
+@NgModule({
+	imports: [
+		CommonModule,
+		FormsModule,
+
+		PrismModule,
+		QuartzCronModule,
+		DocUsageDemoRoutingModule
+	],
+	declarations: [
+		DocUsageDemoComponent
+	],
+	exports: [
+		DocUsageDemoComponent
+	]
+})
+export class DocUsageDemoModule {}

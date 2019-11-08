@@ -20,7 +20,7 @@
 		  "dist/libs/core",
 		  "libs/core/src/index.ts"
 		],
-      "@sbzen/cron-bootstrap": ["libs/cron-bootstrap/src/index.ts"]
+      "@sbzen/cron": ["libs/cron/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

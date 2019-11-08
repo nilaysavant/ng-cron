@@ -1,0 +1,80 @@
+<div class="c-host">
+	<ul
+		class="{{cssClassPrefix}}nav {{cssClassPrefix}}nav-tabs {{cssClassPrefix}}mb-2 c-tabs"
+		role="tablist"
+		aria-label="Cron Generator Tabs">
+
+		<button
+			*ngFor="let item of tabs"
+			role="tab"
+			#tabEl
+			type="button"
+			class="{{cssClassPrefix}}nav-link {{tab.type}} c-tab"
+			[class.active]="tab === item"
+			[attr.aria-selected]="tab === item"
+			[attr.tabindex]="tab === item ? 0 : -1"
+			(click)="tab = item"
+			(keyup)="navigateTab($event.code, tab.type)">
+
+			{{item.label}}
+		</button>
+	</ul>
+
+	<div
+		class="c-tab-content"
+		role="tabpanel"
+		tabindex="0"
+		[attr.tab-name]="tab.type">
+
+		<ng-container [ngSwitch]="tab.type">
+			<quartz-cron-month
+				*ngSwitchCase="type.MONTH"
+				[view]="getView(segment.month)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-month>
+
+			<quartz-cron-minute
+				*ngSwitchCase="type.MINUTES"
+				[view]="getView(segment.minutes)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-minute>
+
+			<quartz-cron-hour
+				*ngSwitchCase="type.HOURS"
+				[view]="getView(segment.hours)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-hour>
+
+			<quartz-cron-second
+				*ngSwitchCase="type.SECONDS"
+				[view]="getView(segment.seconds)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-second>
+
+			<quartz-cron-year
+				*ngSwitchCase="type.YEAR"
+				[view]="getView(segment.year)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-year>
+
+			<quartz-cron-day
+				*ngSwitchCase="type.DAY"
+				[dayOfMonth]="getView(segment.dayOfMonth)"
+				[dayOfWeek]="getView(segment.dayOfWeek)"
+				[cssClassPrefix]="cssClassPrefix"
+				[disabled]="disabled"
+				(changed)="applyChanges()">
+			</quartz-cron-day>
+		</ng-container>
+	</div>
+</div>

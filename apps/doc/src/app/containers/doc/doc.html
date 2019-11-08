@@ -1,0 +1,22 @@
+<app-header (barChanged)="toggleSideBar()"></app-header>
+
+<div class="container-fluid content-height">
+	<div class="row h-100">
+		<div
+			class="sidebar pl-0"
+			[class.md-show]="showSidebar || showSidebar === null"
+			[class.show]="showSidebar">
+			<app-nav></app-nav>
+		</div>
+
+		<div
+			class="sidebar-bg position-absolute w-100 h-100 d-none d-md-none"
+			[class.d-block]="showSidebar"
+			(click)="showSidebar = false">
+		</div>
+
+		<div class="col content mh-100">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>

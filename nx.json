@@ -8,11 +8,11 @@
     "nx.json": "*"
   },
   "projects": {
-    "cron-bootstrap": {
+    "cron": {
 	  "tags": [],
 	  "implicitDependencies": ["core"]
     },
-    "bootstrap-example": {
+    "doc": {
       "tags": []
     },
     "core": {

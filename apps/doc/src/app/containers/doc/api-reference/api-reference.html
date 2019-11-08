@@ -1,0 +1,96 @@
+<h1 class="doc-title">
+	API Reference
+</h1>
+
+<h2 class="doc-subtitle mt-4">QuartzCronComponent</h2>
+<div class="doc-subtitle mt-3">
+	Selector: <code>quartz-cron</code>
+</div>
+
+<div class="h4">
+	<span class="badge badge-success">Component</span>
+</div>
+
+<div class="card mt-3">
+	<div class="card-header h5">
+		Inputs
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-2">
+					<code>cssClassPrefix</code>
+				</div>
+				<div class="col">
+					The prefix will be used in css classes generating, for example you passed <code>cssClassPrefix="my-"</code> as a result
+					the bootstrap class will be transformed from <code>form-group</code> to <code>my-form-group</code>.
+					<br>
+					<br>
+					<b>Type: </b> <code>string</code>
+					<br>
+					<b>Default value: </b> empty string <code>""</code>
+				</div>
+			</div>
+		</li>
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-2">
+					<code>disabled</code>
+				</div>
+				<div class="col">
+					The disabled state.
+					<br>
+					<br>
+					<b>Type: </b> <code>boolean</code>
+					<br>
+					<b>Default value: </b> <code>false</code>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="card mt-3">
+	<div class="card-header h5">
+		Outputs
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-2">
+					<code>changed</code>
+				</div>
+				<div class="col">
+					An event emitted when the user changed the cron value by UI.
+					<br>
+					Event payload is the string of the newly cron value.
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="card mt-3">
+	<div class="card-header h5">
+		Methods
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-2">
+					<code>writeValue()</code>
+				</div>
+				<div class="col">
+					Writes a new cron value to the component.
+					<br>
+					<br>
+					<code>writeValue(cronValue: string): void</code>
+					<br>
+					<b>Parameter cronValue: </b> <code>string</code>
+					<br>
+					<b>Returns: </b> <code>void</code>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

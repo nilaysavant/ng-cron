@@ -1,39 +1,39 @@
 {
   "version": 1,
   "projects": {
-    "bootstrap-example": {
+    "doc": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/bootstrap-example",
-      "sourceRoot": "apps/bootstrap-example/src",
+      "root": "apps/doc",
+      "sourceRoot": "apps/doc/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/bootstrap-example",
-            "index": "apps/bootstrap-example/src/index.html",
-            "main": "apps/bootstrap-example/src/main.ts",
-            "polyfills": "apps/bootstrap-example/src/polyfills.ts",
-            "tsConfig": "apps/bootstrap-example/tsconfig.app.json",
+            "outputPath": "dist/apps/doc",
+            "index": "apps/doc/src/index.html",
+            "main": "apps/doc/src/main.ts",
+            "polyfills": "apps/doc/src/polyfills.ts",
+            "tsConfig": "apps/doc/tsconfig.app.json",
             "aot": false,
             "assets": [
-              "apps/bootstrap-example/src/favicon.ico",
-              "apps/bootstrap-example/src/assets"
+              "apps/doc/src/favicon.ico",
+              "apps/doc/src/assets"
             ],
-            "styles": ["apps/bootstrap-example/src/styles.scss"],
+            "styles": ["apps/doc/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/bootstrap-example/src/environments/environment.ts",
-                  "with": "apps/bootstrap-example/src/environments/environment.prod.ts"
+                  "replace": "apps/doc/src/environments/environment.ts",
+                  "with": "apps/doc/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -63,69 +63,69 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "bootstrap-example:build"
+            "browserTarget": "doc:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "bootstrap-example:build:production"
+              "browserTarget": "doc:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bootstrap-example:build"
+            "browserTarget": "doc:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/bootstrap-example/tsconfig.app.json",
-              "apps/bootstrap-example/tsconfig.spec.json"
+              "apps/doc/tsconfig.app.json",
+              "apps/doc/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/bootstrap-example/**"]
+            "exclude": ["**/node_modules/**", "!apps/doc/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/bootstrap-example/jest.config.js",
-            "tsConfig": "apps/bootstrap-example/tsconfig.spec.json",
-            "setupFile": "apps/bootstrap-example/src/test-setup.ts"
+            "jestConfig": "apps/doc/jest.config.js",
+            "tsConfig": "apps/doc/tsconfig.spec.json",
+            "setupFile": "apps/doc/src/test-setup.ts"
           }
         }
       }
     },
-    "cron-bootstrap": {
+    "cron": {
       "projectType": "library",
-      "root": "libs/cron-bootstrap",
-      "sourceRoot": "libs/cron-bootstrap/src",
+      "root": "libs/cron",
+      "sourceRoot": "libs/cron/src",
       "prefix": "cron",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/cron-bootstrap/tsconfig.lib.json",
-            "project": "libs/cron-bootstrap/ng-package.json"
+            "tsConfig": "libs/cron/tsconfig.lib.json",
+            "project": "libs/cron/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/cron-bootstrap/tsconfig.lib.json",
-              "libs/cron-bootstrap/tsconfig.spec.json"
+              "libs/cron/tsconfig.lib.json",
+              "libs/cron/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cron-bootstrap/**"]
+            "exclude": ["**/node_modules/**", "!libs/cron/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/cron-bootstrap/jest.config.js",
-            "tsConfig": "libs/cron-bootstrap/tsconfig.spec.json",
-            "setupFile": "libs/cron-bootstrap/src/test-setup.ts"
+            "jestConfig": "libs/cron/jest.config.js",
+            "tsConfig": "libs/cron/tsconfig.spec.json",
+            "setupFile": "libs/cron/src/test-setup.ts"
           }
         }
       },
@@ -180,5 +180,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "bootstrap-example"
+  "defaultProject": "doc"
 }

@@ -46,3 +46,4 @@ jobs:
         BRANCH: gh-pages
         FOLDER: dist/apps/doc
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BUILD_SCRIPT: npm install && npm run build doc

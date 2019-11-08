@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build:doc": "npm run build doc",
     "ng": "ng",
     "nx": "nx",
     "start": "ng serve",

@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -17,9 +17,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, lint
-      run: |
-        npm ci
-        npm run lint
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: cache-build-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          cache-build-${{ env.cache-name }}-
+          cache-build-
+          cache-
+    - name: Install Dependencies
+      run: npm ci
+      env:
+        CI: true
+    - name: Linting
+      run: npm run lint
       env:
         CI: true

@@ -1,84 +1,88 @@
-# sbzen
+# Quartz Cron Component - Angular
 
-This project was generated using [Nx](https://nx.dev).
+[Angular](https://angular.io/) cron widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+Please check our [demo & documentation](https://ng-bootstrap.github.io) and the list of
+[issues](https://github.com/ng-bootstrap/ng-bootstrap/issues) to see all the things we are working on. Feel free to make comments there.
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+<p align="center">
+	<a href="https://badge.fury.io/js/ngx-bootstrap">
+		<img
+			src="https://badge.fury.io/js/ngx-bootstrap.svg"
+			alt="npm version">
+	</a>
+	<a href="https://npmjs.org/ngx-bootstrap">
+		<img
+			src="https://img.shields.io/npm/dm/ngx-bootstrap.svg"
+			alt="npm downloads">
+	</a>
+	<a href="https://travis-ci.org/valor-software/ngx-bootstrap">
+		<img
+			alt=""
+			src="https://travis-ci.org/valor-software/ngx-bootstrap.svg?branch=development">
+	</a>
+	<a
+		target="_blank"
+		href="https://opencollective.com/ngx-bootstrap">
+		<img src="https://opencollective.com/ngx-bootstrap/tiers/backer/badge.svg?label=backer&color=brightgreen">
+	</a>
+</p>
 
-## Quick Start & Documentation
+## Getting Started
 
-[Nx Documentation](https://nx.dev/angular)
+This is an open source project that builds a cron builder component for Angular applications.
+It supports Quartz cron string format for both input and output.
+Inspired by this non-angular implementation.
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+## Installation
+You can use either the npm or yarn command-line tool to install packages.
+```
+npm install --save ng-lightning
+```
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+## Display the cron component
+You need to import the CronBootstrapModule that you want to display by adding the following lines to your ngModule.
 
-## Adding capabilities to your workspace
+```
+import { QuartzCronModule } from '@sbzen/cron';
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+@NgModule ({
+	imports: [
+		QuartzCronModule
+	]
+})
+```
+Add the cron component into yout template
+```
+<quartz-cron></quartz-cron>
+```
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Usage & Demo
+Main source of API documentation and usage scenarios available here: https://valor-software.com/ngx-bootstrap/.
 
-Below are some plugins which you can add to your workspace:
+### How to build lib for development
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+First time:
+ - clone repository
+ - `npm install`
 
-## Generate an application
+Build the library:
+ - `npm run build cron`
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+For local development run:
+ - `npm start bootstrap-example`
 
-> You can use any of the plugins above to generate applications as well.
+## Compatibility
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+The only two required dependencies are Angular and cron-core.
+The Bootstrap CSS is optional as you can use this component with your own styling.
+Here is the versions compatibility list:
 
-## Generate a library
+| Cron          |    Angular    |  Bootstrap CSS |
+| ------------- | ------------- | -------------- |
+| 1.1.1         | 7.x.x         | 4.x.x          |
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are sharable across libraries and applications. They can be imported from `@sbzen/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 
 ## Further help
 
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+Visit the [Documentation](https://nx.dev/angular) to learn more.

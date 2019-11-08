@@ -37,13 +37,8 @@ jobs:
     - name: Build Doc
       run: npm run build doc
       env:
-        CI: true 
+        CI: true
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@master
+      run: npm run deploy-doc
       env:
-        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BASE_BRANCH: master
-        BRANCH: gh-pages
-        FOLDER: dist/apps/doc
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BUILD_SCRIPT: npm install && npm run build doc
+        CI: true

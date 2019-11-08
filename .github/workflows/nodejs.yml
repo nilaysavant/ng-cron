@@ -40,6 +40,6 @@ jobs:
         CI: true 
     - name: Deploy
       uses: maxheld83/ghpages@v0.2.1
-      secrets: [${{ secrets.GITHUB_TOKEN }}]
+      secrets: [secrets.GITHUB_TOKEN]
       env:
         BUILD_DIR: dist/apps/doc

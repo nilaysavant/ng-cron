@@ -1,0 +1,86 @@
+<h1 class="doc-title">
+	Usage & Demo
+</h1>
+
+<p>
+	Cron component supports both approaches ngModel and reactive form.
+</p>
+
+<h2 class="doc-subtitle mt-5">Using without form module</h2>
+<ngx-prism language="js">{{nonFormUsingTs}}</ngx-prism>
+<ngx-prism language="html">{{nonFormUsingHtml}}</ngx-prism>
+
+<div class="py-2">
+	<b>Cron Value: </b>
+	<code>{{nonFormUsingValue}}</code>
+</div>
+<div class="demo">
+	<quartz-cron #cron (changed)="nonFormUsingValue = $event"></quartz-cron>
+</div>
+
+<h2 class="doc-subtitle mt-5">NgModel</h2>
+<ngx-prism language="html">
+	{{ngModel}}
+</ngx-prism>
+
+<div class="py-2">
+	<b>Cron Value: </b>
+	<code>{{ngModelExpression}}</code>
+</div>
+<div class="demo">
+	<quartz-cron [(ngModel)]="ngModelExpression"></quartz-cron>
+</div>
+
+
+<h2 class="doc-subtitle mt-5">Disabled State</h2>
+<ngx-prism language="html">
+	{{ngModelExpressionDisabled}}
+</ngx-prism>
+
+<div class="py-2">
+	<b>Disabled: </b>
+	<code>{{disabled}}</code>
+	<br>
+	<button
+		type="button"
+		class="btn btn-sm btn-secondary"
+		(click)="disabled = !disabled">
+		Toggle state
+	</button>
+</div>
+<div class="demo">
+	<quartz-cron
+		[(ngModel)]="ngModelExpression"
+		[disabled]="disabled">
+	</quartz-cron>
+</div>
+
+<h2 class="doc-subtitle mt-5">Validation</h2>
+<ngx-prism language="html">
+	{{ngModelExpressionRequired}}
+</ngx-prism>
+
+<div class="py-2">
+	<b>Cron Value: </b>
+	<code>{{ngModelExpressionRequiredValue}}</code>
+	<br>
+	<b>Invalid: </b>
+	<code>{{m.invalid}}</code>
+	<br>
+	<b>Dirty: </b>
+	<code>{{m.dirty}}</code>
+	<br>
+	<b>Touched: </b>
+	<code>{{m.touched}}</code>
+	<br>
+	<b>Errors: </b>
+	<code>{{m.errors | json}}</code>
+</div>
+
+<div class="demo">
+	<quartz-cron
+		#m="ngModel"
+		[(ngModel)]="ngModelExpressionRequiredValue"
+		required>
+	</quartz-cron>
+</div>

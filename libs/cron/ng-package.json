@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/cron",
+  "lib": {
+	"entryFile": "src/index.ts",
+	"umdModuleIds": {
+      "@sbzen/core": "sbzen.core"
+	}
+  },
+  "whitelistedNonPeerDependencies": [
+	"@sbzen/core"
+  ]
+}

@@ -1,0 +1,421 @@
+<div class="{{cssClassPrefix}}form-group c-every-weekday">
+	<div class="{{cssClassPrefix}}form-check c-every-weekday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-every-weekday-option"
+			type="radio"
+			[attr.id]="genId(mode.EVERY, segment.dayOfWeek)"
+			[value]="mode.EVERY"
+			[checked]="dayOfWeek.selected === mode.EVERY"
+			[disabled]="isDisabled()"
+			(change)="setEvery()">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-every-weekday-option-label"
+			[attr.for]="genId(mode.EVERY, segment.dayOfWeek)">
+
+			Every day
+		</label>
+	</div>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-increment-weekday">
+	<div class="{{cssClassPrefix}}form-check c-increment-weekday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-increment-weekday-option"
+			type="radio"
+			[attr.id]="genId(mode.INCREMENT, segment.dayOfWeek)"
+			[value]="mode.INCREMENT"
+			[checked]="dayOfWeek.selected === mode.INCREMENT"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.INCREMENT, segment.dayOfWeek, segment.dayOfMonth)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-increment-weekday-option-label"
+			[attr.for]="genId(mode.INCREMENT, segment.dayOfWeek)">
+
+			Every
+		</label>
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-increment-weekday-every"
+		[disabled]="isDisabled(segment.dayOfWeek, mode.INCREMENT)"
+		(change)="setInValue(mode.INCREMENT, segment.dayOfWeek, 1, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfWeekEvery"
+			[value]="item.value"
+			[selected]="getModelValues(mode.INCREMENT, segment.dayOfWeek)[1] === item.value">
+			{{item.value}}
+		</option>
+	</select>
+
+	<label
+		class="c-increment-weekday-option-label2"
+		[attr.for]="genId(mode.INCREMENT, segment.dayOfWeek)">
+		day(s) starting on
+	</label>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-increment-weekday-from"
+		[disabled]="isDisabled(segment.dayOfWeek, mode.INCREMENT)"
+		(change)="setInValue(mode.INCREMENT, segment.dayOfWeek, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfWeek"
+			[value]="item.value"
+			[selected]="getModelValues(mode.INCREMENT, segment.dayOfWeek)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-increment-monthday">
+	<div class="{{cssClassPrefix}}form-check c-increment-monthday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-increment-monthday-option"
+			type="radio"
+			[attr.id]="genId(mode.INCREMENT, segment.dayOfMonth)"
+			[value]="mode.INCREMENT"
+			[checked]="dayOfMonth.selected === mode.INCREMENT"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.INCREMENT, segment.dayOfMonth, segment.dayOfWeek)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-increment-monthday-option-label"
+			[attr.for]="genId(mode.INCREMENT, segment.dayOfMonth)">
+
+			Every
+		</label>
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-increment-monthday-every"
+		[disabled]="isDisabled(segment.dayOfMonth, mode.INCREMENT)"
+		(change)="setInValue(mode.INCREMENT, segment.dayOfMonth, 1, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfMonth"
+			[value]="item.value"
+			[selected]="getModelValues(mode.INCREMENT, segment.dayOfMonth)[1] === item.value">
+			{{item.value}}
+		</option>
+	</select>
+
+	<label
+		class="c-increment-monthday-option-label2"
+		[attr.for]="genId(mode.INCREMENT, segment.dayOfMonth)">
+		day(s) starting on the
+	</label>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-increment-monthday-from"
+		[disabled]="isDisabled(segment.dayOfMonth, mode.INCREMENT)"
+		(change)="setInValue(mode.INCREMENT, segment.dayOfMonth, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfMonthEvery"
+			[value]="item.value"
+			[selected]="getModelValues(mode.INCREMENT, segment.dayOfMonth)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<label
+		class="c-increment-monthday-option-label3"
+		[attr.for]="genId(mode.INCREMENT, segment.dayOfMonth)">
+		of the month
+	</label>
+</div>
+
+<div class="{{cssClassPrefix}}form-group c-and-weekday">
+	<div class="{{cssClassPrefix}}form-check c-and-weekday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-and-weekday-option"
+			type="radio"
+			[attr.id]="genId(mode.AND, segment.dayOfWeek)"
+			[value]="mode.INCREMENT"
+			[checked]="dayOfWeek.selected === mode.AND"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.AND, segment.dayOfWeek, segment.dayOfMonth)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-and-weekday-option-label"
+			[attr.for]="genId(mode.AND, segment.dayOfWeek)">
+
+			Specific day of week (choose one or many)
+		</label>
+	</div>
+
+	<div class="{{cssClassPrefix}}row {{cssClassPrefix}}pl-3 {{cssClassPrefix}}pt-1 c-and-weekday-list">
+		<div
+			*ngFor="let item of daysOfWeekCodes"
+			class="{{cssClassPrefix}}col-2 c-and-weekday-item"
+			[attr.item-value]="item.value">
+
+			<div class="{{cssClassPrefix}}form-check c-and-weekday-item-check">
+				<input
+					class="{{cssClassPrefix}}form-check-input c-and-weekday-item-field"
+					type="checkbox"
+					[attr.id]="genId(mode.AND, segment.dayOfWeek + item.value)"
+					[value]="item.value"
+					[disabled]="isDisabled(segment.dayOfWeek, mode.AND)"
+					[checked]="inSpecificsList(item.value, mode.AND, segment.dayOfWeek)"
+					(change)="toggleSpecifics(item.value, mode.AND, segment.dayOfWeek)">
+
+				<label
+					class="{{cssClassPrefix}}form-check-label c-and-weekday-item-label"
+					[attr.for]="genId(mode.AND, segment.dayOfWeek + item.value)">
+					{{item.label}}
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="{{cssClassPrefix}}form-group c-and-monthday">
+	<div class="{{cssClassPrefix}}form-check c-and-monthday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-and-monthday-option"
+			type="radio"
+			[attr.id]="genId(mode.AND, segment.dayOfMonth)"
+			[value]="mode.INCREMENT"
+			[checked]="dayOfMonth.selected === mode.AND"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.AND, segment.dayOfMonth, segment.dayOfWeek)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-and-monthday-option-label"
+			[attr.for]="genId(mode.AND, segment.dayOfMonth)">
+
+			Specific day of month (choose one or many)
+		</label>
+	</div>
+
+	<div class="{{cssClassPrefix}}row {{cssClassPrefix}}pl-3 {{cssClassPrefix}}pt-1 c-and-monthday-list">
+		<div
+			*ngFor="let item of daysOfMonth"
+			class="{{cssClassPrefix}}col-1 c-and-monthday-item"
+			[attr.item-value]="item.value">
+
+			<div class="{{cssClassPrefix}}form-check c-and-monthday-item-check">
+				<input
+					class="{{cssClassPrefix}}form-check-input c-and-monthday-item-field"
+					type="checkbox"
+					[attr.id]="genId(mode.AND, segment.dayOfMonth + item.value)"
+					[value]="item.value"
+					[disabled]="isDisabled(segment.dayOfMonth, mode.AND)"
+					[checked]="inSpecificsList(item.value, mode.AND, segment.dayOfMonth)"
+					(change)="toggleSpecifics(item.value, mode.AND, segment.dayOfMonth)">
+
+				<label
+					class="{{cssClassPrefix}}form-check-label c-and-monthday-item-label"
+					[attr.for]="genId(mode.AND, segment.dayOfMonth + item.value)">
+					{{item.label}}
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="{{cssClassPrefix}}form-group c-last-monthday">
+	<div class="{{cssClassPrefix}}form-check c-last-monthday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-last-monthday-option"
+			type="radio"
+			[attr.id]="genId(mode.LAST_DAY, segment.dayOfMonth)"
+			[value]="mode.LAST_DAY"
+			[checked]="dayOfMonth.selected === mode.LAST_DAY"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.LAST_DAY, segment.dayOfMonth, segment.dayOfWeek, 'L')">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-last-monthday-option-label"
+			[attr.for]="genId(mode.LAST_DAY, segment.dayOfMonth)">
+
+			On the last day of the month
+		</label>
+	</div>
+</div>
+
+<div class="{{cssClassPrefix}}form-group c-last-weekday">
+	<div class="{{cssClassPrefix}}form-check c-last-weekday-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-last-weekday-option"
+			type="radio"
+			[attr.id]="genId(mode.LAST_DAY_WEEK, segment.dayOfMonth)"
+			[value]="mode.LAST_DAY_WEEK"
+			[checked]="dayOfMonth.selected === mode.LAST_DAY_WEEK"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.LAST_DAY_WEEK, segment.dayOfMonth, segment.dayOfWeek, 'LW')">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-last-weekday-option-label"
+			[attr.for]="genId(mode.LAST_DAY_WEEK, segment.dayOfMonth)">
+
+			On the last weekday of the month
+		</label>
+	</div>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-last-nth">
+	<div class="{{cssClassPrefix}}form-check c-last-nth-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-last-nth-option"
+			type="radio"
+			[attr.id]="genId(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek)"
+			[value]="mode.LAST_NTH_DAY_WEEK"
+			[checked]="dayOfWeek.selected === mode.LAST_NTH_DAY_WEEK"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek, segment.dayOfMonth)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-last-nth-option-label"
+			[attr.for]="genId(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek)">
+
+			On the last
+		</label>
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-last-nth-weekday"
+		[disabled]="isDisabled(segment.dayOfWeek, mode.LAST_NTH_DAY_WEEK)"
+		(change)="setInValue(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfWeek"
+			[value]="item.value + 'L'"
+			[selected]="getModelValues(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<label
+		class="c-last-nth-option-label2"
+		[attr.for]="genId(mode.LAST_NTH_DAY_WEEK, segment.dayOfWeek)">
+		of the month
+	</label>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-day-before-end">
+	<div class="{{cssClassPrefix}}form-check c-day-before-end-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-day-before-end-option"
+			type="radio"
+			[attr.id]="genId(mode.DAYS_BEFORE_END_MONTH, segment.dayOfMonth)"
+			[value]="mode.DAYS_BEFORE_END_MONTH"
+			[checked]="dayOfMonth.selected === mode.DAYS_BEFORE_END_MONTH"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.DAYS_BEFORE_END_MONTH, segment.dayOfMonth, segment.dayOfWeek)">
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-day-before-end-monthday"
+		[disabled]="isDisabled(segment.dayOfMonth, mode.DAYS_BEFORE_END_MONTH)"
+		(change)="setInValue(mode.DAYS_BEFORE_END_MONTH, segment.dayOfMonth, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfMonth"
+			[value]="'L-' + item.value"
+			[selected]="getModelValues(mode.DAYS_BEFORE_END_MONTH, segment.dayOfMonth)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<label
+		class="c-day-before-end-option-label"
+		[attr.for]="genId(mode.DAYS_BEFORE_END_MONTH, segment.dayOfMonth)">
+		day(s) before the end of the month
+	</label>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-nearest">
+	<div class="{{cssClassPrefix}}form-check c-nearest-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-nearest-option"
+			type="radio"
+			[attr.id]="genId(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth)"
+			[value]="mode.NEAREST_WEEKDAY_OF_MONTH"
+			[checked]="dayOfMonth.selected === mode.NEAREST_WEEKDAY_OF_MONTH"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth, segment.dayOfWeek)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-nearest-option-label"
+			[attr.for]="genId(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth)">
+
+			Nearest weekday (Monday to Friday) to the
+		</label>
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-nearest-monthday"
+		[disabled]="isDisabled(segment.dayOfMonth, mode.NEAREST_WEEKDAY_OF_MONTH)"
+		(change)="setInValue(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfMonthEvery"
+			[value]="item.value + 'W'"
+			[selected]="getModelValues(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<label
+		class="c-nearest-option-label2"
+		[attr.for]="genId(mode.NEAREST_WEEKDAY_OF_MONTH, segment.dayOfMonth)">
+		of the month
+	</label>
+</div>
+
+<div class="{{cssClassPrefix}}form-group {{cssClassPrefix}}form-inline c-nth">
+	<div class="{{cssClassPrefix}}form-check c-nth-check">
+		<input
+			class="{{cssClassPrefix}}form-check-input c-nth-option"
+			type="radio"
+			[attr.id]="genId(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek)"
+			[value]="mode.NTH_WEEKDAY_OF_MONTH"
+			[checked]="dayOfWeek.selected === mode.NTH_WEEKDAY_OF_MONTH"
+			[disabled]="isDisabled()"
+			(change)="setSelected(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek, segment.dayOfMonth)">
+
+		<label
+			class="{{cssClassPrefix}}form-check-label c-nth-option-label"
+			[attr.for]="genId(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek)">
+
+			On the
+		</label>
+	</div>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-nth-every"
+		[disabled]="isDisabled(segment.dayOfWeek, mode.NTH_WEEKDAY_OF_MONTH)"
+		(change)="setInValue(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek, 1, $event.target.value)">
+
+		<option
+			*ngFor="let item of limitedDaysOfMonth"
+			[value]="item.value"
+			[selected]="getModelValues(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek)[1] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<select
+		class="{{cssClassPrefix}}form-control {{cssClassPrefix}}form-control-sm {{cssClassPrefix}}mx-1 c-nth-every-weekday"
+		[disabled]="isDisabled(segment.dayOfWeek, mode.NTH_WEEKDAY_OF_MONTH)"
+		(change)="setInValue(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek, 0, $event.target.value)">
+
+		<option
+			*ngFor="let item of daysOfWeek"
+			[value]="item.value"
+			[selected]="getModelValues(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek)[0] === item.value">
+			{{item.label}}
+		</option>
+	</select>
+
+	<label
+		class="c-nth-option-label2"
+		[attr.for]="genId(mode.NTH_WEEKDAY_OF_MONTH, segment.dayOfWeek)">
+		of the month
+	</label>
+</div>

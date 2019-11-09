@@ -39,7 +39,7 @@ jobs:
       env:
         CI: true
     - name: Build Ng Cron
-      run: npm run build ng-cron
+      run: npm run build cron
       env:
         CI: true
     - name: Build Doc

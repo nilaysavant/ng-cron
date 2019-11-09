@@ -63,9 +63,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-@sbzen/core
+@sbzen/cron-core
 
-@sbzen/cron
+@sbzen/ng-cron
 
 core-js
 MIT

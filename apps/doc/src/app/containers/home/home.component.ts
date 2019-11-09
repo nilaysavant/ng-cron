@@ -42,7 +42,7 @@ export class HomeComponent {
 }`;
 
 	module = 
-`import { QuartzCronModule } from '@sbzen/cron';
+`import { QuartzCronModule } from '@sbzen/ng-cron';
 @NgModule({
 	imports: [
 		QuartzCronModule

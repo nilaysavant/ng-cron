@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class DocGetStartedComponent {
 	ngModule = 
-`import { QuartzCronModule } from '@sbzen/cron';
+`import { QuartzCronModule } from '@sbzen/ng-cron';
 
 @NgModule ({
 	imports: [

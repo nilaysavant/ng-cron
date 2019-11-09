@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Segment, Mode, DataModel, ValueModel, ViewData, MonthCode, CoreService } from '@sbzen/core';
+import { Segment, Mode, DataModel, ValueModel, ViewData, MonthCode, CoreService } from '@sbzen/cron-core';
 
 @Injectable()
 export class QuartzCronService {
@@ -101,7 +101,7 @@ export class QuartzCronService {
 
 	hasValue(value: string, type: Segment, mode: Mode) {
 		const values = this.getValues(type, mode);
-		return values.includes(value);
+		return !!~values.indexOf(value);
 	}
 
 	getValues(type: Segment, mode: Mode) {

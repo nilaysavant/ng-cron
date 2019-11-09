@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { QuartzCronComponent } from '@sbzen/cron';
+import { QuartzCronComponent } from '@sbzen/ng-cron';
 
 @Component({
 	templateUrl: './usage-demo.html',

@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Type, Segment, CoreService } from '@sbzen/core';
+import { Type, Segment, CoreService } from '@sbzen/cron-core';
 
 import { tabs } from './tabs/tabs';
 import { QuartzCronService } from './cron.service';

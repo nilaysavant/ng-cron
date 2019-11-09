@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { Mode, Segment, ViewDataItem, CoreService } from '@sbzen/core';
+import { Mode, Segment, ViewDataItem, CoreService } from '@sbzen/cron-core';
 
 import { QuartzCronService } from './../../cron.service';
 import { TabBaseComponent } from './../tab-base.component';
@@ -89,7 +89,7 @@ export class DayComponent extends TabBaseComponent {
 
 	toggleSpecifics(value: string, mode: Mode, segment: TabSegments) {
 		const values = this.quartzCron.getValues(segment, mode);
-		if (!values.includes(value)) {
+		if (!~values.indexOf(value)) {
 			values.push(value);
 			this.applyChanges();
 			return;

@@ -47,6 +47,11 @@ jobs:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: dist/apps/doc
+    - name: Npm Configuration
+      run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+      env:
+        CI: true
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
     - name: Publish Cron Core
       run: npm run publish:cron-code
       env:

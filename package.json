@@ -27,8 +27,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "publish:cron-code": "npm run build core && npm publish dist/libs/core --access=public --new-version",
-    "publish:ng-cron": "npm run build cron && npm publish dist/libs/cron --access=public --new-version",
-    "pub": "npm publish  --access=public"
+    "publish:ng-cron": "npm run build cron && cp README.md dist/libs/cron && npm publish dist/libs/cron --access=public --new-version",
+    "pub": "npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -67,7 +67,6 @@
     "cypress": "3.4.1",
     "dotenv": "6.2.0",
     "eslint": "6.1.0",
-    "gh-pages": "^2.1.1",
     "jest": "24.1.0",
     "jest-preset-angular": "7.0.0",
     "ng-packagr": "5.4.0",

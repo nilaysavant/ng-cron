@@ -1,11 +1,11 @@
 <app-header [hideBar]="true"></app-header>
 
 
-<div class="short py-5">
-	<div class="d-flex justify-content-center">
-		<div class="pr-4 pt-2">
-			<h1>Angular Cron</h1>
-			Bootstrap 4 component for Angular
+<div class="short py-5 px-2 text-center">
+	<div class="d-flex flex-column flex-md-row justify-content-center">
+		<div class="pr-4 pt-2 order-1 order-md-0">
+			<h1>Angular Quartz Cron</h1>
+			UI widget for Angular
 
 			<div class="pt-4 text-center">
 				<a
@@ -15,11 +15,12 @@
 				</a>
 			</div>
 		</div>
+
 		<div>
 			<img
 				class="logo"
 				src="assets/logo.png"
-				atr="Angular Cron">
+				atr="Angular Quartz Cron">
 		</div>
 	</div>
 </div>
@@ -28,13 +29,13 @@
 	<div class="row py-4">
 		<div
 			*ngFor="let feature of features"
-			class="col-4">
+			class="col-sm-4">
 
 			<div class="row">
-				<div class="col-4 icon text-center">
+				<div class="col-lg-4 icon text-center">
 					<i class="{{feature.icon}}"></i>
 				</div>
-				<div class="col-8">
+				<div class="col-lg-8 text-center text-lg-left">
 					<h2>{{feature.title}}</h2>
 					<p>{{feature.desc}}</p>
 				</div>
@@ -43,12 +44,12 @@
 	</div>
 
 	<div class="row mt-5">
-		<div class="col-5">
+		<div class="col-md-5">
 			<ngx-prism language="html">{{template}}</ngx-prism>
 			<ngx-prism language="js">{{component}}</ngx-prism>
 			<ngx-prism language="js">{{module}}</ngx-prism>
 		</div>
-		<div class="col-7">
+		<div class="col-md-7">
 			<input
 				class="form-control mb-4"
 				readonly

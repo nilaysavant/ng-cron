@@ -32,7 +32,6 @@ ngOnInit() {
 }`;
 
 	ngOnInit() {
-		console.log(this.cron);
 		this.cron.writeValue('0,1,2 2/4 6/2 ? 2-7 SUN,MON 2019/1');
 	}
 }

@@ -30,12 +30,12 @@ jobs:
       run: npm ci
       env:
         CI: true
-    # - name: Linting
-    #   run: npm run lint
-    #   env:
-    #     CI: true
+    - name: Linting
+      run: npm run lint
+      env:
+        CI: true
     - name: Build Doc
-      run: npm run build doc
+      run: npm run build doc -- --base-href /ng-cron
       env:
         CI: true 
     - name: Deploy

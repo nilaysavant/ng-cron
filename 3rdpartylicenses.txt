@@ -66,6 +66,7 @@ SOFTWARE.
 @sbzen/cron-core
 
 @sbzen/ng-cron
+MIT
 
 core-js
 MIT

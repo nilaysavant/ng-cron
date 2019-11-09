@@ -30,7 +30,7 @@ jobs:
       run: npm ci
       env:
         CI: true
-    - name: Linting
+    # - name: Linting
     #   run: npm run lint
     #   env:
     #     CI: true

@@ -26,8 +26,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "publish:cron-code": "npm build core && npm publish dist/libs/core --access=public --new-version",
-    "publish:ng-cron": "npm build cron && npm publish dist/libs/cron --access=public --new-version",
+    "publish:cron-code": "npm run build core && npm publish dist/libs/core --access=public --new-version",
+    "publish:ng-cron": "npm run build cron && npm publish dist/libs/cron --access=public --new-version",
     "pub": "npm publish  --access=public"
   },
   "private": true,

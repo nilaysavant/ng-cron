@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 
-import { ViewDataItem, Mode, Segment } from '@sbzen/core';
+import { ViewDataItem, Mode, Segment } from '@sbzen/cron-core';
 
 import { QuartzCronService } from './../cron.service';
 import { TabBaseComponent } from './tab-base.component';
@@ -43,7 +43,7 @@ export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 
 	toggleSpecifics(value: string, mode: Mode) {
 		const values = this.quartzCron.getValues(this.segment, mode);
-		if (!values.includes(value)) {
+		if (!~values.indexOf(value)) {
 			values.push(value);
 			this.applyChanges();
 			return;

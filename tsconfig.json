@@ -16,11 +16,11 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@sbzen/core": [
+			"@sbzen/cron-core": [
 				"dist/libs/core",
 				"libs/core/src/index.ts"
 			],
-			"@sbzen/cron": ["libs/cron/src/index.ts"]
+			"@sbzen/ng-cron": ["libs/cron/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

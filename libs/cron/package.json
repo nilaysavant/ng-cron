@@ -1,8 +1,8 @@
 {
-  "name": "@sbzen/cron",
+  "name": "@sbzen/ng-cron",
   "version": "0.0.1",
   "dependencies": {
-	"@sbzen/core": "1.0.0"
+	"@sbzen/cron-core": "0.0.1"
   },
   "peerDependencies": {
     "@angular/common": "^8.2.4",

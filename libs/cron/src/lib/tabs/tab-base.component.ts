@@ -1,6 +1,6 @@
 import { EventEmitter, Output, Input } from '@angular/core';
 
-import { Mode } from '@sbzen/core';
+import { Mode } from '@sbzen/cron-core';
 
 export abstract class TabBaseComponent {
 	@Output() changed = new EventEmitter<never>();

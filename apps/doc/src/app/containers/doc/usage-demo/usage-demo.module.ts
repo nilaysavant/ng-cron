@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { PrismModule } from '@ngx-prism/core';
-import { QuartzCronModule } from '@sbzen/cron';
+import { QuartzCronModule } from '@sbzen/ng-cron';
 
 import { DocUsageDemoRoutingModule } from './usage-demo-routing.module';
 import { DocUsageDemoComponent } from './usage-demo.component';

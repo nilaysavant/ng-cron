@@ -1,6 +1,9 @@
-name: Node CI
+name: Release
 
-on: [push]
+on:
+  push:
+    branches:
+      master
 
 jobs:
   build:
@@ -34,15 +37,21 @@ jobs:
       run: npm run lint
       env:
         CI: true
-    - name: Build Cron Core
-      run: npm run build core
-      env:
-        CI: true
-    - name: Build Ng Cron
-      run: npm run build cron
-      env:
-        CI: true
     - name: Build Doc
       run: npm run build doc -- --base-href /ng-cron/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=false --sourceMap=false
       env:
-        CI: true
+        CI: true 
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: dist/apps/doc
+    - name: Publish Cron Core
+      run: npm run publish:cron-code
+      env:
+        CI: true 
+    - name: Publish Ng Cron
+      run: npm run publish:ng-cron
+      env:
+        CI: true 

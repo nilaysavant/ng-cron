@@ -26,20 +26,20 @@ jobs:
           cache-build-${{ env.cache-name }}-
           cache-build-
           cache-
-    - name: Install Dependencies
-      run: npm ci
-      env:
-        CI: true
-    - name: Linting
-      run: npm run lint
-      env:
-        CI: true
-    - name: Build Doc
-      run: npm run build doc
-      env:
-        CI: true 
+    # - name: Install Dependencies
+    #   run: npm ci
+    #   env:
+    #     CI: true
+    # - name: Linting
+    #   run: npm run lint
+    #   env:
+    #     CI: true
+    # - name: Build Doc
+    #   run: npm run build doc
+    #   env:
+    #     CI: true 
     - name: Deploy
       uses: maxheld83/ghpages@v0.2.1
       env:
-        BUILD_DIR: dist/apps/doc
+        BUILD_DIR: src
         secrets: ${{secrets.GITHUB_TOKEN}}

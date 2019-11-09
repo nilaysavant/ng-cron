@@ -35,7 +35,7 @@ jobs:
       env:
         CI: true
     - name: Build Doc
-      run: npm run build doc -- --base-href /ng-cron/
+      run: npm run build doc -- --base-href /ng-cron/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=true --sourceMap=false
       env:
         CI: true 
     - name: Deploy

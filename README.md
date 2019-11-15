@@ -6,12 +6,12 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/)
 [issues](https://github.com/bzenkosergey/ng-cron/issues) to see all the things we are working on. Feel free to make comments there.
 
 <p align="center">
-	<a href="https://badge.fury.io/js/@sbzen/ng-cron">
+	<a href="https://badge.fury.io/js/%40sbzen%2Fng-cron">
 		<img
 			src="https://badge.fury.io/js/%40sbzen%2Fng-cron.svg"
 			alt="npm version">
 	</a>
-	<a href="https://npmjs.org/@sbzen/ng-cron">
+	<a href="https://npmjs.org/%40sbzen%2Fng-cron">
 		<img
 			src="https://img.shields.io/npm/dm/%40sbzen%2Fng-cron.svg"
 			alt="npm downloads">

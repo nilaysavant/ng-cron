@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Segment, CoreService } from '@sbzen/cron-core';
 
@@ -16,8 +16,9 @@ export class SecondComponent extends TabSingleSegmentComponent {
 
 	constructor(
 		private coreService: CoreService,
+		cd: ChangeDetectorRef,
 		quartzCron: QuartzCronService
 	) {
-		super(Segment.seconds, quartzCron);
+		super(Segment.seconds, quartzCron, cd);
 	}
 }

@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, ChangeDetectorRef } from '@angular/core';
 
 import { ViewDataItem, Mode, Segment } from '@sbzen/cron-core';
 
@@ -12,7 +12,8 @@ export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 
 	constructor(
 		private segment: Segment,
-		protected quartzCron: QuartzCronService
+		protected quartzCron: QuartzCronService,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -24,6 +25,8 @@ export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 
 	setSelected(mode: Mode) {
 		this.view.selected = mode;
+		this.cd.detectChanges();
+		this.cd.detach();
 		this.applyChanges();
 	}
 

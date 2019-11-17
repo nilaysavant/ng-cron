@@ -13,9 +13,9 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 <p align="center">
 	<table>
 		<tr>
-			<td>
+			<td align="center" valign="middle">
 				<img
-					style="display:inline-block;vertical-align:top;"
+					style="max-width:200px"
 					src="https://bzenkosergey.github.io/ng-cron/angular/assets/logo.png"
 					alt="ng-cron">
 			</td>
@@ -26,7 +26,7 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 						Demo & documentation
 					</a>
 					<br>
-					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/apps/angular-doc">
+					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/libs/ng-cron">
 						Github location
 					</a>
 				</h3>
@@ -48,9 +48,9 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td align="center" valign="middle" style="padding-top:30px">
 				<img
-					style="display:inline-block;vertical-align:top;"
+					style="max-width:200px"
 					src="https://bzenkosergey.github.io/ng-cron/react/assets/logo.png"
 					alt="re-cron">
 			</td>
@@ -61,7 +61,7 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 						Demo & documentation
 					</a>
 					<br>
-					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/apps/react-doc">
+					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/libs/re-cron">
 						Github location
 					</a>
 				</h3>

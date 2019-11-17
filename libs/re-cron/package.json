@@ -1,6 +1,6 @@
 {
   "name": "@sbzen/re-cron",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Quartz Cron Component - React",
   "author": "Serhii Bzenko <bzenkosergey@gmail.com>",
   "license": "MIT",

@@ -9,7 +9,7 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/r
 	<a href="https://bzenkosergey.github.io/ng-cron/react/">
 		<img
 			src="https://bzenkosergey.github.io/ng-cron/react/assets/logo.png"
-			alt="ng-cron">
+			alt="re-cron">
 	</a>
 </p>
 

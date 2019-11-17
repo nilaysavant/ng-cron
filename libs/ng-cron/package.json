@@ -1,6 +1,6 @@
 {
   "name": "@sbzen/ng-cron",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Quartz Cron Component - Angular",
   "author": "Serhii Bzenko <bzenkosergey@gmail.com>",
   "license": "MIT",

@@ -1,73 +1,86 @@
-# Quartz Cron Component - Angular
+# Quartz Cron Component - Angular/React
 
-[Angular](https://angular.io/) cron widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
+This is an open source project that builds a cron builder component for applications based on different framaworks.
 
-Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/) and the list of
+The widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
+
+It supports Quartz cron string format for both input and output.
+Inspired by this [implementation](https://www.freeformatter.com/cron-expression-generator-quartz.html).
+
+Please check our demo & documentations ([Angular](https://bzenkosergey.github.io/ng-cron/angular/), [React](https://bzenkosergey.github.io/ng-cron/react/)) and the list of
 [issues](https://github.com/bzenkosergey/ng-cron/issues) to see all the things we are working on. Feel free to make comments there.
 
 <p align="center">
-	<a href="https://badge.fury.io/js/%40sbzen%2Fng-cron">
-		<img
-			src="https://badge.fury.io/js/%40sbzen%2Fng-cron.svg"
-			alt="npm version">
-	</a>
-	<a href="https://npmjs.org/%40sbzen%2Fng-cron">
-		<img
-			src="https://img.shields.io/npm/dm/%40sbzen%2Fng-cron.svg"
-			alt="npm downloads">
-	</a>
+	<table>
+		<tr>
+			<td>
+				<img
+					style="display:inline-block;vertical-align:top;"
+					src="https://bzenkosergey.github.io/ng-cron/angular/assets/logo.png"
+					alt="ng-cron">
+			</td>
+			<td>
+				<h2>Angular Cron:</h2>
+				<h3>
+					<a href="https://bzenkosergey.github.io/ng-cron/angular/">
+						Demo & documentation
+					</a>
+					<br>
+					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/apps/angular-doc">
+						Github location
+					</a>
+				</h3>
+				<div>
+					<code>npm install --save @sbzen/ng-cron</code>
+					<br>
+					<br>
+				</div>
+				<a href="https://badge.fury.io/js/%40sbzen%2Fng-cron">
+					<img
+						src="https://badge.fury.io/js/%40sbzen%2Fng-cron.svg"
+						alt="npm version">
+				</a>
+				<a href="https://npmjs.org/%40sbzen%2Fng-cron">
+					<img
+						src="https://img.shields.io/npm/dm/%40sbzen%2Fng-cron.svg"
+						alt="npm downloads">
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img
+					style="display:inline-block;vertical-align:top;"
+					src="https://bzenkosergey.github.io/ng-cron/react/assets/logo.png"
+					alt="re-cron">
+			</td>
+			<td>
+				<h2>React Cron:</h2>
+				<h3>
+					<a href="https://bzenkosergey.github.io/ng-cron/react/">
+						Demo & documentation
+					</a>
+					<br>
+					<a href="https://github.com/BzenkoSergey/ng-cron/tree/master/apps/react-doc">
+						Github location
+					</a>
+				</h3>
+				<div>
+					<code>npm install --save @sbzen/re-cron</code>
+					<br>
+					<br>
+				</div>
+				<a href="https://badge.fury.io/js/%40sbzen%2Fre-cron">
+					<img
+						src="https://badge.fury.io/js/%40sbzen%2Fre-cron.svg"
+						alt="npm version">
+				</a>
+				<a href="https://npmjs.org/%40sbzen%2Fre-cron">
+					<img
+						src="https://img.shields.io/npm/dm/%40sbzen%2Fre-cron.svg"
+						alt="npm downloads">
+				</a>
+			</td>
+		</tr>
+	</table>
 </p>
-
-## Getting Started
-
-This is an open source project that builds a cron builder component for Angular applications.
-It supports Quartz cron string format for both input and output.
-Inspired by this [non-angular](https://www.freeformatter.com/cron-expression-generator-quartz.html) implementation.
-
-## Installation
-You can use either the npm or yarn command-line tool to install packages.
-```
-npm install --save @sbzen/ng-cron
-```
-
-## Display the cron component
-You need to import the QuartzCronModule that you want to display by adding the following lines to your ngModule.
-
-```
-import { QuartzCronModule } from '@sbzen/ng-cron';
-
-@NgModule ({
-	imports: [
-		QuartzCronModule
-	]
-})
-```
-Add the cron component into yout template
-```
-<quartz-cron></quartz-cron>
-```
-
-## Usage & Demo
-Main source of API documentation and usage scenarios available here: https://bzenkosergey.github.io/ng-cron/.
-
-### How to build lib for development
-
-First time:
- - clone repository
- - `npm install`
-
-Build the library:
- - `npm run build cron`
-
-For local development run:
- - `npm start doc`
-
-## Compatibility
-
-The only two required dependencies are Angular and cron-core.
-The Bootstrap CSS is optional as you can use this component with your own styling.
-Here is the versions compatibility list:
-
-| Ng Cron          |    Angular    |  Bootstrap CSS |
-| -------------    | ------------- | -------------- |
-| 0.0.1            | 7.x.x         | 4.x.x          |

@@ -1,0 +1,45 @@
+.doc {
+	.content-height {
+		height: calc(100% - 64px);
+	}
+
+	.content {
+		overflow-y: auto;
+		padding: 1.2rem 1rem 1rem;
+		@media (min-width: 992px) {
+			padding: 1.2rem 3rem 2rem;
+		}
+	}
+
+	.sidebar {
+		position: absolute;
+		left: 0;
+		margin-left: -200px;
+		max-width: 200px;
+		width: 200px;
+		height: 100%;
+		z-index: 2;
+		transition: margin-left .3s;
+		
+		@media (min-width: 768px) {
+			position: static;
+			flex: 0 0 200px;
+		}
+
+		&.show {
+			display: block !important;
+			margin-left: 0;
+		}
+
+		@media (min-width: 768px) {
+			&.md-show {
+				margin-left: 0;
+			}
+		}
+
+		&-bg {
+			background-color: rgba(0, 0, 0, .6);
+			z-index: 1;
+		}
+	}
+}

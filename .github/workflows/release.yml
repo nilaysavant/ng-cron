@@ -37,16 +37,24 @@ jobs:
       run: npm run lint
       env:
         CI: true
-    - name: Build Doc
-      run: npm run build doc -- --base-href /ng-cron/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=false --sourceMap=false
+    - name: Build Angular Doc
+      run: npm run build angular-doc -- --base-href /ng-cron/angular/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=false --sourceMap=false
       env:
         CI: true 
+    - name: Build React Doc
+      run: npm run build react-doc -- --base-href /ng-cron/react/
+      env:
+        CI: true
+    - name: Copy Docs files
+      run: npm run doc-pages
+      env:
+        CI: true
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: dist/apps/doc
+        PUBLISH_DIR: docs
     - name: Npm Configuration
       run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
       env:
@@ -58,5 +66,9 @@ jobs:
         CI: true 
     - name: Publish Ng Cron
       run: npm run publish:ng-cron
+      env:
+        CI: true 
+    - name: Publish Re Cron
+      run: npm run publish:re-cron
       env:
         CI: true 

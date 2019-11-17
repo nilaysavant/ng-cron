@@ -8,14 +8,19 @@
     "nx.json": "*"
   },
   "projects": {
-    "cron": {
-	  "tags": [],
-	  "implicitDependencies": ["core"]
-    },
-    "doc": {
+    "ng-cron": {
       "tags": []
     },
-    "core": {
+    "angular-doc": {
+      "tags": []
+    },
+    "cron-core": {
+      "tags": []
+    },
+    "react-doc": {
+      "tags": []
+    },
+    "re-cron": {
       "tags": []
     }
   }

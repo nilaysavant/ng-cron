@@ -13,14 +13,14 @@ import { ReCronDay } from './tabs/day/day';
 import { tabs, Tab } from './tabs/tabs';
 import { QuartzCronDI } from './cron-di';
 
-type ReCronProps = {
+export type ReCronProps = {
 	cssClassPrefix?: string;
 	disabled?: boolean,
 	value?: string,
 	onChange?: (cronValue: string) => void
 }
 
-type ReCronState = {
+export type ReCronState = {
 	tab: Tab,
 	session: number
 };
@@ -167,3 +167,5 @@ export class ReCron extends React.Component<ReCronProps, ReCronState> {
 		return prefixed.concat(noPrefixClasses).join(' ');
 	}
 }
+
+export default ReCron;

@@ -16,8 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sbzen/cron-core": ["dist/libs/core", "libs/core/src/index.ts"],
-      "@sbzen/ng-cron": ["libs/cron/src/index.ts"],
+      "@sbzen/cron-core": ["libs/cron-core/src/index.ts"],
+      "@sbzen/ng-cron": ["libs/ng-cron/src/index.ts"],
       "@sbzen/re-cron": ["libs/re-cron/src/index.ts"]
     }
   },

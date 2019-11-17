@@ -1,6 +1,27 @@
 {
-  "name": "re-cron",
+  "name": "@sbzen/re-cron",
   "version": "0.0.1",
+  "description": "Quartz Cron Component - React",
+  "author": "Serhii Bzenko <bzenkosergey@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/BzenkoSergey/ng-cron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BzenkoSergey/ng-cron/issues"
+  },
+  "homepage": "https://github.com/BzenkoSergey/ng-cron#readme",
+  "keywords": [
+    "react",
+    "bootstap",
+	"cron",
+	"quartz",
+	"quartz cron"
+  ],
+  "dependencises": {
+	"@sbzen/cron-core": "0.0.2"
+  },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './app.scss';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Home } from './containers/home/home';
 import { Doc } from './containers/doc/doc';
@@ -20,7 +20,7 @@ export class App extends React.Component<{}, AppState> {
 		}
 	}
 
-	protected handleChange(value) {
+	protected handleChange(value: string) {
 		this.setState({ value });
 	}
 

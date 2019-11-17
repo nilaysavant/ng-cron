@@ -8,7 +8,7 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/a
 <p align="center">
 	<a href="https://bzenkosergey.github.io/ng-cron/angular/">
 		<img
-			style="width:200px"
+			width="200"
 			src="https://bzenkosergey.github.io/ng-cron/angular/assets/logo.png"
 			alt="ng-cron">
 	</a>

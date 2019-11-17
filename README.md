@@ -15,7 +15,7 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 		<tr>
 			<td align="center" valign="middle">
 				<img
-					style="width:200px"
+					width="200"
 					src="https://bzenkosergey.github.io/ng-cron/angular/assets/logo.png"
 					alt="ng-cron">
 			</td>
@@ -50,7 +50,7 @@ Please check our demo & documentations ([Angular](https://bzenkosergey.github.io
 		<tr>
 			<td align="center" valign="middle" style="padding-top:30px">
 				<img
-					style="width:200px"
+					width="200"
 					src="https://bzenkosergey.github.io/ng-cron/react/assets/logo.png"
 					alt="re-cron">
 			</td>

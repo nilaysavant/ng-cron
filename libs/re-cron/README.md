@@ -8,7 +8,7 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/r
 <p align="center">
 	<a href="https://bzenkosergey.github.io/ng-cron/react/">
 		<img
-			style="max-width:200px"
+			style="width:200px"
 			src="https://bzenkosergey.github.io/ng-cron/react/assets/logo.png"
 			alt="re-cron">
 	</a>

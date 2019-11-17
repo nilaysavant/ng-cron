@@ -42,7 +42,15 @@ jobs:
       run: npm run build ng-cron
       env:
         CI: true
-    - name: Build Doc
-      run: npm run build angular-doc -- --base-href /ng-cron/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=false --sourceMap=false
+    - name: Build Re Cron
+      run: npm run build re-cron
+      env:
+        CI: true
+    - name: Build Angular Doc
+      run: npm run build angular-doc -- --base-href /ng-cron/angular/ --aot=true --buildOptimizer=true --extractCss=true --es5BrowserSupport=false --optimization=true --prod=true --serviceWorker=false --sourceMap=false
+      env:
+        CI: true
+    - name: Build React Doc
+      run: npm run build react-doc -- --base-href /ng-cron/react/
       env:
         CI: true

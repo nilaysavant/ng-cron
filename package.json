@@ -26,8 +26,10 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+	"doc-pages": "mkdir docs && mkdir docs/react && mkdir docs/angular && cp -R dist/apps/angular-doc/ docs/angular && cp -R dist/apps/react-doc/ docs/react",
     "publish:cron-code": "npm run build cron-core && npm publish dist/libs/cron-core --access=public || true",
-    "publish:ng-cron": "npm run build ng-cron && cp README.md dist/libs/ng-cron && npm publish dist/libs/ng-cron --access=public || true",
+    "publish:ng-cron": "npm run build ng-cron && npm publish dist/libs/ng-cron --access=public || true",
+    "publish:re-cron": "npm run build re-cron && npm publish dist/libs/re-cron --access=public || true",
     "pub": "npm publish --access=public"
   },
   "private": true,

@@ -11,12 +11,14 @@
   "bugs": {
     "url": "https://github.com/BzenkoSergey/ng-cron/issues"
   },
-  "homepage": "https://github.com/BzenkoSergey/ng-cron#readme",
+  "homepage": "https://bzenkosergey.github.io/ng-cron/react/",
   "keywords": [
     "react",
     "bootstap",
 	"cron",
 	"quartz",
+	"cron builder",
+	"cron generator",
 	"quartz cron"
   ],
   "dependencises": {

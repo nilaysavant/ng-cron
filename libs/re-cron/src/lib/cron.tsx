@@ -35,6 +35,10 @@ export class ReCron extends React.Component<ReCronProps, ReCronState> {
 		};
 	}
 
+	componentWillUnmount() {
+		QuartzCronDI.destroy(this.state.session);
+	}
+
 	render() {
 		QuartzCronDI.get(this.state.session).fillFromExpression(this.props.value);
 

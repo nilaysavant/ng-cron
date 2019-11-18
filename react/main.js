@@ -656,6 +656,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../../libs/re-cron/src/lib/cron-base.abstract.ts":
+/*!************************************************************************************!*\
+  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/cron-base.abstract.ts ***!
+  \************************************************************************************/
+/*! exports provided: CronBaseComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CronBaseComponent", function() { return CronBaseComponent; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
+
+
+class CronBaseComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props, session) {
+    super(props);
+    this.session = session;
+  }
+
+  getCssClassPrefix() {
+    return this.props.cssClassPrefix || '';
+  }
+
+  genClassName(classes) {
+    var noPrefixClasses = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var prefixed = classes.map(c => this.getCssClassPrefix() + c);
+    return prefixed.concat(noPrefixClasses).join(' ');
+  }
+
+  getQuartzCron() {
+    return _cron_di__WEBPACK_IMPORTED_MODULE_1__["QuartzCronDI"].get(this.session);
+  }
+
+}
+
+/***/ }),
+
 /***/ "../../../libs/re-cron/src/lib/cron-di.ts":
 /*!*************************************************************************!*\
   !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/cron-di.ts ***!
@@ -839,7 +878,7 @@ class QuartzCronService {
 
   getValues(type, mode) {
     var store = this.view[type];
-    return store.values[mode].values;
+    return store.values[mode].values.concat();
   }
 
   genDataModel() {
@@ -877,17 +916,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReCron", function() { return ReCron; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _cron_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cron.scss */ "../../../libs/re-cron/src/lib/cron.scss");
-/* harmony import */ var _cron_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cron_scss__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _tabs_second_second__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tabs/second/second */ "../../../libs/re-cron/src/lib/tabs/second/second.tsx");
-/* harmony import */ var _tabs_minute_minute__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tabs/minute/minute */ "../../../libs/re-cron/src/lib/tabs/minute/minute.tsx");
-/* harmony import */ var _tabs_hour_hour__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tabs/hour/hour */ "../../../libs/re-cron/src/lib/tabs/hour/hour.tsx");
-/* harmony import */ var _tabs_month_month__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tabs/month/month */ "../../../libs/re-cron/src/lib/tabs/month/month.tsx");
-/* harmony import */ var _tabs_year_year__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs/year/year */ "../../../libs/re-cron/src/lib/tabs/year/year.tsx");
-/* harmony import */ var _tabs_day_day__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tabs/day/day */ "../../../libs/re-cron/src/lib/tabs/day/day.tsx");
-/* harmony import */ var _tabs_tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tabs/tabs */ "../../../libs/re-cron/src/lib/tabs/tabs.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
+/* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
+/* harmony import */ var _tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabs */ "../../../libs/re-cron/src/lib/tabs/index.ts");
+/* harmony import */ var _cron_base_abstract__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cron-base.abstract */ "../../../libs/re-cron/src/lib/cron-base.abstract.ts");
+/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
+/* harmony import */ var _tabs_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tabs/tabs */ "../../../libs/re-cron/src/lib/tabs/tabs.ts");
+/* harmony import */ var _cron_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cron.scss */ "../../../libs/re-cron/src/lib/cron.scss");
+/* harmony import */ var _cron_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_cron_scss__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -895,26 +930,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-class ReCron extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class ReCron extends _cron_base_abstract__WEBPACK_IMPORTED_MODULE_3__["CronBaseComponent"] {
   constructor(props) {
-    super(props);
+    super(props, Date.now());
     this.state = {
-      tab: _tabs_tabs__WEBPACK_IMPORTED_MODULE_9__["tabs"][0],
-      session: Date.now()
+      tab: _tabs_tabs__WEBPACK_IMPORTED_MODULE_5__["tabs"][0],
+      session: this.session
     };
   }
 
   componentWillUnmount() {
-    _cron_di__WEBPACK_IMPORTED_MODULE_10__["QuartzCronDI"].destroy(this.state.session);
+    _cron_di__WEBPACK_IMPORTED_MODULE_4__["QuartzCronDI"].destroy(this.session);
   }
 
   render() {
-    _cron_di__WEBPACK_IMPORTED_MODULE_10__["QuartzCronDI"].get(this.state.session).fillFromExpression(this.props.value);
-    console.log('RENDER');
+    this.getQuartzCron().fillFromExpression(this.props.value);
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "c-host"
     }, this.genTabs(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -926,43 +956,43 @@ class ReCron extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   genContent() {
-    var second = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_second_second__WEBPACK_IMPORTED_MODULE_3__["ReCronSecond"], {
+    var second = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronSecond"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var minute = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_minute_minute__WEBPACK_IMPORTED_MODULE_4__["ReCronMinute"], {
+    var minute = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronMinute"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var hour = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_hour_hour__WEBPACK_IMPORTED_MODULE_5__["ReCronHour"], {
+    var hour = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronHour"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var month = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_month_month__WEBPACK_IMPORTED_MODULE_6__["ReCronMonth"], {
+    var month = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronMonth"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var year = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_year_year__WEBPACK_IMPORTED_MODULE_7__["ReCronYear"], {
+    var year = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronYear"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var day = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs_day_day__WEBPACK_IMPORTED_MODULE_8__["ReCronDay"], {
+    var day = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_2__["ReCronDay"], {
       session: this.state.session,
       cssClassPrefix: this.getCssClassPrefix(),
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
     });
-    var map = new Map([[_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].SECONDS, second], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].MINUTES, minute], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].HOURS, hour], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].MONTH, month], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].YEAR, year], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_2__["Type"].DAY, day]]);
+    var map = new Map([[_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].SECONDS, second], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].MINUTES, minute], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].HOURS, hour], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].MONTH, month], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].YEAR, year], [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].DAY, day]]);
     return map.get(this.state.tab.type);
   }
 
@@ -972,7 +1002,7 @@ class ReCron extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: className,
       role: "tablist",
       "aria-label": "Cron Generator Tabs"
-    }, _tabs_tabs__WEBPACK_IMPORTED_MODULE_9__["tabs"].map(t => this.genTab(t)));
+    }, _tabs_tabs__WEBPACK_IMPORTED_MODULE_5__["tabs"].map(t => this.genTab(t)));
   }
 
   genTab(item) {
@@ -990,7 +1020,7 @@ class ReCron extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   applyChanges() {
-    var str = _cron_di__WEBPACK_IMPORTED_MODULE_10__["QuartzCronDI"].get(this.state.session).toString();
+    var str = this.getQuartzCron().toString();
 
     if (this.props.onChange) {
       this.props.onChange(str);
@@ -1001,16 +1031,6 @@ class ReCron extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     this.setState({
       tab: item
     });
-  }
-
-  getCssClassPrefix() {
-    return this.props.cssClassPrefix || '';
-  }
-
-  genClassName(classes) {
-    var noPrefixClasses = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    var prefixed = classes.map(c => this.getCssClassPrefix() + c);
-    return prefixed.concat(noPrefixClasses).join(' ');
   }
 
 }
@@ -1031,44 +1051,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-base.component */ "../../../libs/re-cron/src/lib/tabs/tab-base.component.ts");
+/* harmony import */ var _tab_base_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-base.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-base.abstract.ts");
 
 
 
-
-class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBaseComponent"] {
+class ReCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_2__["TabBaseComponent"] {
   constructor(props) {
-    super(props);
-    this.resets = {
-      daysOfMonth: () => {
-        var dayOfMonth = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
-        dayOfMonth.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NONE;
-        dayOfMonth.values.NONE.values = ['?'];
-        this.getQuartzCron().setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, dayOfMonth);
-      },
-      daysOfWeek: () => {
-        var dayOfWeek = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
-        dayOfWeek.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NONE;
-        dayOfWeek.values.NONE.values = ['?'];
-        this.getQuartzCron().setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, dayOfWeek);
-      }
-    };
-    var daysOfMonthEvery = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, true);
+    super(props, [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek]);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
+    var daysOfMonthEvery = coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, true);
     this.state = {
-      daysOfWeekEvery: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, true),
-      daysOfWeek: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
-      daysOfWeekCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getDaysOfWeekCodes(),
+      daysOfWeekEvery: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, true),
+      daysOfWeek: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      daysOfWeekCodes: coreService.getDaysOfWeekCodes(),
       daysOfMonthEvery: daysOfMonthEvery,
-      daysOfMonth: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      daysOfMonth: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       limitedDaysOfMonth: daysOfMonthEvery.slice(0, 5),
-      dayOfMonth: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
-      dayOfWeek: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
+      dayOfMonth: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      dayOfWeek: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     };
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.genEvery(), this.genDayOfWeekIncrement(), this.genDayOfMonthIncrement(), this.genDayOfWeekAnd(), this.genDayOfMonthAnd(), this.genDayOfMonthLastDay(), this.genDayOfMonthLastDayWeek(), this.genDayOfWeekLastNTHDayWeek(), this.genDayOfMonthDaysBeforeEndMonth(), this.genDayOfMonthNearestWeekDayOfMonth(), this.genDayOfWeekNTHWeekDayOfMonth());
+  }
+
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every-weekday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-weekday-check'])
@@ -1083,7 +1092,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
-    }, "Every day"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Every day")));
+  }
+
+  genDayOfWeekIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment-weekday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-weekday-check'])
@@ -1100,9 +1113,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-every']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[1],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, 1, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[1],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.state.daysOfWeekEvery.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: item.value,
@@ -1113,15 +1126,19 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, "day(s) starting on"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-from']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.state.daysOfWeek.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genDayOfMonthIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment-monthday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-monthday-check'])
@@ -1138,9 +1155,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-every']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[1],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, 1, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[1],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.state.daysOfMonth.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
@@ -1151,9 +1168,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, "day(s) starting on the"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-from']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.state.daysOfMonthEvery.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
@@ -1162,7 +1179,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "c-increment-monthday-option-label3",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
-    }, "of the month")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "of the month"));
+  }
+
+  genDayOfWeekAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and-weekday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-weekday-check'])
@@ -1191,14 +1212,18 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
         type: "checkbox",
         id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek + item.value),
         value: item.value,
-        disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
+        disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
         checked: this.inSpecificsList(item.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
         onChange: () => this.toggleSpecifics(item.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: this.genClassName(['form-check-label'], ['c-and-weekday-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek + item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genDayOfMonthAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and-monthday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-monthday-check'])
@@ -1227,14 +1252,18 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
         type: "checkbox",
         id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth + item.value),
         value: item.value,
-        disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
+        disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
         checked: this.inSpecificsList(item.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
         onChange: () => this.toggleSpecifics(item.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: this.genClassName(['form-check-label'], ['c-and-monthday-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth + item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genDayOfMonthLastDay() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-last-monthday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-last-monthday-check'])
@@ -1249,7 +1278,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-last-monthday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
-    }, "On the last day of the month"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "On the last day of the month")));
+  }
+
+  genDayOfMonthLastDayWeek() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-last-weekday'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-last-weekday-check'])
@@ -1264,7 +1297,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-last-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
-    }, "On the last weekday of the month"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "On the last weekday of the month")));
+  }
+
+  genDayOfWeekLastNTHDayWeek() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-last-nth'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-last-nth-check'])
@@ -1281,9 +1318,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, "On the last")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-last-nth-weekday']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.state.daysOfWeek.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: item.value + 'L',
@@ -1292,7 +1329,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "c-last-nth-option-label2",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
-    }, "of the month")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "of the month"));
+  }
+
+  genDayOfMonthDaysBeforeEndMonth() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-day-before-end'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-day-before-end-check'])
@@ -1306,9 +1347,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-day-before-end-monthday']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.state.daysOfMonth.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: 'L-' + item.value,
@@ -1317,7 +1358,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "c-day-before-end-option-label",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
-    }, "day(s) before the end of the month")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "day(s) before the end of the month"));
+  }
+
+  genDayOfMonthNearestWeekDayOfMonth() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-nearest'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-nearest-check'])
@@ -1334,9 +1379,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, "Nearest weekday (Monday to Friday) to the")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-nearest-monthday']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.state.daysOfMonthEvery.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value + 'W',
@@ -1345,7 +1390,11 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "c-nearest-option-label2",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
-    }, "of the month")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "of the month"));
+  }
+
+  genDayOfWeekNTHWeekDayOfMonth() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-nth'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-nth-check'])
@@ -1362,9 +1411,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, "On the")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[1],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, 1, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[1],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, 1, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.state.limitedDaysOfMonth.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: item.value,
@@ -1372,9 +1421,9 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
       }, item.label);
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every-weekday']),
-      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
-      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, 0, e.target.value)
+      disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)[0],
+      onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, 0, e.target.value, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.state.daysOfWeek.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
@@ -1383,94 +1432,53 @@ class ReCronDay extends _tab_base_component__WEBPACK_IMPORTED_MODULE_3__["TabBas
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "c-nth-option-label2",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
-    }, "of the month")));
-  }
-
-  applyChanges() {
-    var dayOfMonth = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
-    var dayOfWeek = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
-    this.setState({
-      dayOfMonth,
-      dayOfWeek
-    });
-    super.applyChanges();
+    }, "of the month"));
   }
 
   setEvery() {
-    var dayOfMonth = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
+    var dayOfMonth = this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
     dayOfMonth.values.NONE.values = ['?'];
-    this.getQuartzCron().setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, dayOfMonth);
-    var dayOfWeek = this.getQuartzCron().getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
+    dayOfMonth.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NONE;
+    this.setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, dayOfMonth);
+    var dayOfWeek = this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
     dayOfWeek.values.EVERY.values = ['*'];
     dayOfWeek.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY;
-    this.getQuartzCron().setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, dayOfWeek);
+    this.setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, dayOfWeek);
     this.applyChanges();
   }
 
   setSelected(mode, segment, reset, value) {
-    var view = this.getQuartzCron().getView(segment);
+    var view = this.getView(segment);
     view.selected = mode;
-    this.getQuartzCron().setView(segment, view);
+    this.setView(segment, view);
 
     if (reset === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth) {
-      this.resets.daysOfMonth();
+      this.resetsDaysOfMonth();
     }
 
     if (reset === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek) {
-      this.resets.daysOfWeek();
+      this.resetDaysOfWeek();
     }
 
     if (value) {
-      this.setInValue(mode, segment, 0, value);
+      this.setInValue(mode, 0, value, segment);
     }
 
     this.applyChanges();
   }
 
-  isDisabled(segment, mode) {
-    var disabled = this.props.disabled;
-
-    if (segment && mode) {
-      disabled = disabled || this.state[segment].selected !== mode;
-    }
-
-    return disabled;
+  resetsDaysOfMonth() {
+    var dayOfMonth = this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
+    dayOfMonth.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NONE;
+    dayOfMonth.values.NONE.values = ['?'];
+    this.setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, dayOfMonth);
   }
 
-  setInValue(mode, segment, index, value) {
-    var view = this.getQuartzCron().getView(segment);
-    var values = view.values[mode].values;
-    values[index] = value;
-    this.getQuartzCron().setView(segment, view);
-    this.applyChanges();
-  }
-
-  getModelValues(mode, segment) {
-    return this.state[segment].values[mode].values;
-  }
-
-  inSpecificsList(value, mode, segment) {
-    return this.getQuartzCron().hasValue(value, segment, mode);
-  }
-
-  toggleSpecifics(value, mode, segment) {
-    var view = this.getQuartzCron().getView(segment);
-    var values = view.values[mode].values;
-
-    if (!~values.indexOf(value)) {
-      values.push(value);
-      this.applyChanges();
-      return;
-    }
-
-    var i = values.indexOf(value);
-    values.splice(i, 1);
-    this.getQuartzCron().setView(segment, view);
-    this.applyChanges();
-  }
-
-  getQuartzCron() {
-    return _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session);
+  resetDaysOfWeek() {
+    var dayOfWeek = this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
+    dayOfWeek.selected = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NONE;
+    dayOfWeek.values.NONE.values = ['?'];
+    this.setView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, dayOfWeek);
   }
 
 }
@@ -1490,24 +1498,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-single-segment.component */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts");
+/* harmony import */ var _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-single-segment.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx");
 
 
 
-
-class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__["TabSingleSegmentComponent"] {
+class ReCronHour extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__["TabSingleSegmentComponent"] {
   constructor(props) {
-    super(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours, props);
+    super(props, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
     this.state = {
-      hourCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours, true),
-      hours: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours),
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours)
+      hourCodes: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours, true),
+      hoursList: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours),
+      hours: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].hours)
     };
   }
 
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-check'])
@@ -1516,7 +1523,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
+      checked: this.state.hours.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
       disabled: this.isDisabled(),
       onChange: () => {
         this.setEvery();
@@ -1524,7 +1531,11 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY)
-    }, "Every hour"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Every hour")));
+  }
+
+  genIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-check'])
@@ -1533,7 +1544,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
+      checked: this.state.hours.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1542,7 +1553,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value)
     }, this.state.hourCodes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -1555,14 +1566,18 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "hour(s) starting at hour"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value)
-    }, this.state.hours.map(item => {
+    }, this.state.hoursList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-check'])
@@ -1571,7 +1586,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
+      checked: this.state.hours.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1579,7 +1594,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }, "Specific hour (choose one or many)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])
-    }, this.state.hours.map(item => {
+    }, this.state.hoursList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: this.genClassName(['col-1'], ['c-and-item']),
         "item-value": item.value,
@@ -1598,7 +1613,11 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
         className: this.genClassName(['form-check-label'], ['c-and-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genRange() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-range'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-range-check'])
@@ -1607,7 +1626,7 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
+      checked: this.state.hours.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1616,9 +1635,9 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "Every hour between hour")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 0, e.target.value)
-    }, this.state.hours.map(item => {
+    }, this.state.hoursList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
@@ -1629,17 +1648,53 @@ class ReCronHour extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "and hour"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 1, e.target.value)
-    }, this.state.hours.map(item => {
+    }, this.state.hoursList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))));
+    })));
   }
 
 }
+
+/***/ }),
+
+/***/ "../../../libs/re-cron/src/lib/tabs/index.ts":
+/*!****************************************************************************!*\
+  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/tabs/index.ts ***!
+  \****************************************************************************/
+/*! exports provided: ReCronDay, ReCronHour, ReCronMinute, ReCronMonth, ReCronSecond, ReCronYear */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _day_day__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./day/day */ "../../../libs/re-cron/src/lib/tabs/day/day.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronDay", function() { return _day_day__WEBPACK_IMPORTED_MODULE_0__["ReCronDay"]; });
+
+/* harmony import */ var _hour_hour__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hour/hour */ "../../../libs/re-cron/src/lib/tabs/hour/hour.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronHour", function() { return _hour_hour__WEBPACK_IMPORTED_MODULE_1__["ReCronHour"]; });
+
+/* harmony import */ var _minute_minute__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./minute/minute */ "../../../libs/re-cron/src/lib/tabs/minute/minute.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronMinute", function() { return _minute_minute__WEBPACK_IMPORTED_MODULE_2__["ReCronMinute"]; });
+
+/* harmony import */ var _month_month__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./month/month */ "../../../libs/re-cron/src/lib/tabs/month/month.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronMonth", function() { return _month_month__WEBPACK_IMPORTED_MODULE_3__["ReCronMonth"]; });
+
+/* harmony import */ var _second_second__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./second/second */ "../../../libs/re-cron/src/lib/tabs/second/second.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronSecond", function() { return _second_second__WEBPACK_IMPORTED_MODULE_4__["ReCronSecond"]; });
+
+/* harmony import */ var _year_year__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./year/year */ "../../../libs/re-cron/src/lib/tabs/year/year.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReCronYear", function() { return _year_year__WEBPACK_IMPORTED_MODULE_5__["ReCronYear"]; });
+
+
+
+
+
+
+
 
 /***/ }),
 
@@ -1656,24 +1711,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-single-segment.component */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts");
+/* harmony import */ var _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-single-segment.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx");
 
 
 
-
-class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__["TabSingleSegmentComponent"] {
+class ReCronMinute extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__["TabSingleSegmentComponent"] {
   constructor(props) {
-    super(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes, props);
+    super(props, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
     this.state = {
-      minuteCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes, true),
-      minutes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes),
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes)
+      minuteCodes: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes, true),
+      minutesList: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes),
+      minutes: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].minutes)
     };
   }
 
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-check'])
@@ -1682,7 +1736,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
+      checked: this.state.minutes.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
       disabled: this.isDisabled(),
       onChange: () => {
         this.setEvery();
@@ -1690,7 +1744,11 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY)
-    }, "Every minute"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Every minute")));
+  }
+
+  genIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-check'])
@@ -1699,7 +1757,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
+      checked: this.state.minutes.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1708,7 +1766,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value)
     }, this.state.minuteCodes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -1721,14 +1779,18 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "minute(s) starting at minute"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value)
-    }, this.state.minutes.map(item => {
+    }, this.state.minutesList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-check'])
@@ -1737,7 +1799,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
+      checked: this.state.minutes.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1745,7 +1807,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }, "Specific minute (choose one or many)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])
-    }, this.state.minutes.map(item => {
+    }, this.state.minutesList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: this.genClassName(['col-1'], ['c-and-item']),
         "item-value": item.value,
@@ -1764,7 +1826,11 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
         className: this.genClassName(['form-check-label'], ['c-and-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genRange() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-range'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-range-check'])
@@ -1773,7 +1839,7 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
+      checked: this.state.minutes.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1782,9 +1848,9 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "Every minute between minute")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 0, e.target.value)
-    }, this.state.minutes.map(item => {
+    }, this.state.minutesList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
@@ -1795,14 +1861,14 @@ class ReCronMinute extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "and minute"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 1, e.target.value)
-    }, this.state.minutes.map(item => {
+    }, this.state.minutesList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))));
+    })));
   }
 
 }
@@ -1822,24 +1888,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-single-segment.component */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts");
+/* harmony import */ var _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-single-segment.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx");
 
 
 
-
-class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__["TabSingleSegmentComponent"] {
+class ReCronMonth extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__["TabSingleSegmentComponent"] {
   constructor(props) {
-    super(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month, props);
+    super(props, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
     this.state = {
-      monthCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getMonthCodes(),
-      monthes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month),
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month)
+      monthCodes: coreService.getMonthCodes(),
+      monthes: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month),
+      month: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].month)
     };
   }
 
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-check'])
@@ -1848,7 +1913,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
+      checked: this.state.month.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
       disabled: this.isDisabled(),
       onChange: () => {
         this.setEvery();
@@ -1856,7 +1921,11 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY)
-    }, "Every month"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Every month")));
+  }
+
+  genIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-check'])
@@ -1865,7 +1934,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
+      checked: this.state.month.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1874,7 +1943,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value)
     }, this.state.monthes.map((item, i) => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -1887,14 +1956,18 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
     }, "month(s) starting at month"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value)
     }, this.state.monthes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-check'])
@@ -1903,7 +1976,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
+      checked: this.state.month.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1930,7 +2003,11 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
         className: this.genClassName(['form-check-label'], ['c-and-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genRange() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-range'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-range-check'])
@@ -1939,7 +2016,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
+      checked: this.state.month.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -1948,7 +2025,7 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
     }, "Every month between month")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 0, e.target.value)
     }, this.state.monthes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -1961,14 +2038,14 @@ class ReCronMonth extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE
     }, "and month"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 1, e.target.value)
     }, this.state.monthes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))));
+    })));
   }
 
 }
@@ -1988,24 +2065,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tab-single-segment.component */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts");
+/* harmony import */ var _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-single-segment.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx");
 
 
 
-
-class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__["TabSingleSegmentComponent"] {
+class ReCronSecond extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__["TabSingleSegmentComponent"] {
   constructor(props) {
-    super(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds, props);
+    super(props, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
     this.state = {
-      secondCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds, true),
-      seconds: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds),
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds)
+      secondCodes: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds, true),
+      secondsList: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds),
+      seconds: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds)
     };
   }
 
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-check'])
@@ -2014,7 +2090,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
+      checked: this.state.seconds.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
       disabled: this.isDisabled(),
       onChange: () => {
         this.setEvery();
@@ -2022,7 +2098,11 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY)
-    }, "Every second"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Every second")));
+  }
+
+  genIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-check'])
@@ -2031,7 +2111,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
+      checked: this.state.seconds.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2040,7 +2120,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value)
     }, this.state.secondCodes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -2053,14 +2133,18 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "second(s) starting at second"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value)
-    }, this.state.seconds.map(item => {
+    }, this.state.secondsList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-check'])
@@ -2069,7 +2153,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
+      checked: this.state.seconds.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2077,7 +2161,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }, "Specific second (choose one or many)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])
-    }, this.state.seconds.map(item => {
+    }, this.state.secondsList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: this.genClassName(['col-1'], ['c-and-item']),
         "item-value": item.value,
@@ -2096,7 +2180,11 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
         className: this.genClassName(['form-check-label'], ['c-and-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genRange() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-range'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-range-check'])
@@ -2105,7 +2193,7 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
+      checked: this.state.seconds.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2114,9 +2202,9 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "Every second between second")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 0, e.target.value)
-    }, this.state.seconds.map(item => {
+    }, this.state.secondsList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
@@ -2127,36 +2215,42 @@ class ReCronSecond extends _tab_single_segment_component__WEBPACK_IMPORTED_MODUL
     }, "and second"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 1, e.target.value)
-    }, this.state.seconds.map(item => {
+    }, this.state.secondsList.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))));
+    })));
   }
 
 }
 
 /***/ }),
 
-/***/ "../../../libs/re-cron/src/lib/tabs/tab-base.component.ts":
-/*!*****************************************************************************************!*\
-  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/tabs/tab-base.component.ts ***!
-  \*****************************************************************************************/
+/***/ "../../../libs/re-cron/src/lib/tabs/tab-base.abstract.ts":
+/*!****************************************************************************************!*\
+  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/tabs/tab-base.abstract.ts ***!
+  \****************************************************************************************/
 /*! exports provided: TabBaseComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabBaseComponent", function() { return TabBaseComponent; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cron_base_abstract__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../cron-base.abstract */ "../../../libs/re-cron/src/lib/cron-base.abstract.ts");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-class TabBaseComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  constructor() {
-    super(...arguments);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+class TabBaseComponent extends _cron_base_abstract__WEBPACK_IMPORTED_MODULE_0__["CronBaseComponent"] {
+  constructor(props, segments) {
+    super(props, props.session);
+    this.segments = segments;
     this.sessionId = Date.now().toString();
   }
 
@@ -2164,23 +2258,72 @@ class TabBaseComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
     return "".concat(mode, "-").concat(extra).concat(this.sessionId);
   }
 
-  genClassName(classes) {
-    var noPrefixClasses = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    var prefixed = classes.map(c => this.props.cssClassPrefix + c);
-    return prefixed.concat(noPrefixClasses).join(' ');
+  inSpecificsList(value, mode, segment) {
+    return this.getQuartzCron().hasValue(value, segment, mode);
   }
 
   applyChanges() {
+    var newState = {};
+    this.segments.forEach(s => {
+      newState[s] = this.getView(s);
+    });
+    this.setState(_objectSpread({}, this.state, {}, newState));
     this.props.onChange();
+  }
+
+  setInValue(mode, index, value, segment) {
+    var view = this.getView(segment);
+    var values = view.values[mode].values;
+    values[index] = value;
+    this.setView(segment, view);
+    this.applyChanges();
+  }
+
+  isDisabled(mode, segment) {
+    var disabled = this.props.disabled;
+
+    if (segment && mode) {
+      var view = this.getView(segment);
+      disabled = disabled || view.selected !== mode;
+    }
+
+    return disabled;
+  }
+
+  getValues(mode, segment) {
+    return this.getQuartzCron().getValues(segment, mode);
+  }
+
+  getView(segment) {
+    return this.getQuartzCron().getView(segment);
+  }
+
+  setView(segment, view) {
+    return this.getQuartzCron().setView(segment, view);
+  }
+
+  toggleSpecifics(value, mode, segment) {
+    var view = this.getView(segment);
+    var values = view.values[mode].values;
+
+    if (!~values.indexOf(value)) {
+      values.push(value);
+    } else {
+      var i = values.indexOf(value);
+      values.splice(i, 1);
+    }
+
+    this.setView(segment, view);
+    this.applyChanges();
   }
 
 }
 
 /***/ }),
 
-/***/ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts":
+/***/ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx":
 /*!***************************************************************************************************!*\
-  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/tabs/tab-single-segment.component.ts ***!
+  !*** /home/runner/work/ng-cron/ng-cron/libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx ***!
   \***************************************************************************************************/
 /*! exports provided: TabSingleSegmentComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2188,73 +2331,55 @@ class TabBaseComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabSingleSegmentComponent", function() { return TabSingleSegmentComponent; });
-/* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_base_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tab-base.component */ "../../../libs/re-cron/src/lib/tabs/tab-base.component.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
+/* harmony import */ var _tab_base_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tab-base.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-base.abstract.ts");
 
 
 
-class TabSingleSegmentComponent extends _tab_base_component__WEBPACK_IMPORTED_MODULE_2__["TabBaseComponent"] {
-  constructor(segment, props) {
-    super(props);
+class TabSingleSegmentComponent extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_2__["TabBaseComponent"] {
+  constructor(props, segment) {
+    super(props, [segment]);
     this.segment = segment;
   }
 
-  getQuartzCron() {
-    return _cron_di__WEBPACK_IMPORTED_MODULE_1__["QuartzCronDI"].get(this.props.session);
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.genEvery(), this.genIncrement(), this.genAnd(), this.genRange());
   }
 
   setEvery() {
-    var view = this.getQuartzCron().getView(this.segment);
+    var view = this.getView(this.segment);
     view.values.EVERY.values = ['*'];
-    this.getQuartzCron().setView(this.segment, view);
-    this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_0__["Mode"].EVERY);
+    this.setView(this.segment, view);
+    this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY);
   }
 
   setSelected(mode) {
-    var view = this.getQuartzCron().getView(this.segment);
+    var view = this.getView(this.segment);
     view.selected = mode;
-    this.getQuartzCron().setView(this.segment, view);
+    this.setView(this.segment, view);
     this.applyChanges();
   }
 
   setInValue(mode, index, value) {
-    var source = this.getModelValues(mode);
-    source[index] = value;
-    this.applyChanges();
-  }
-
-  getModelValues(mode) {
-    return this.state.view.values[mode].values;
+    super.setInValue(mode, index, value, this.segment);
   }
 
   inSpecificsList(value, mode) {
-    return _cron_di__WEBPACK_IMPORTED_MODULE_1__["QuartzCronDI"].get(this.props.session).hasValue(value, this.segment, mode);
+    return super.inSpecificsList(value, mode, this.segment);
+  }
+
+  getValues(mode) {
+    return super.getValues(mode, this.segment);
   }
 
   toggleSpecifics(value, mode) {
-    var values = _cron_di__WEBPACK_IMPORTED_MODULE_1__["QuartzCronDI"].get(this.props.session).getValues(this.segment, mode);
-
-    if (!~values.indexOf(value)) {
-      values.push(value);
-      this.applyChanges();
-      return;
-    }
-
-    var i = values.indexOf(value);
-    values.splice(i, 1);
-    this.applyChanges();
+    super.toggleSpecifics(value, mode, this.segment);
   }
 
   isDisabled(mode) {
-    return this.props.disabled || mode && this.state.view.selected !== mode;
-  }
-
-  applyChanges() {
-    this.setState({
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_1__["QuartzCronDI"].get(this.props.session).getView(this.segment)
-    });
-    super.applyChanges();
+    return super.isDisabled(mode, this.segment);
   }
 
 }
@@ -2308,24 +2433,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _cron_di__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../cron-di */ "../../../libs/re-cron/src/lib/cron-di.ts");
-/* harmony import */ var _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-single-segment.component */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.component.ts");
+/* harmony import */ var _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tab-single-segment.abstract */ "../../../libs/re-cron/src/lib/tabs/tab-single-segment.abstract.tsx");
 
 
 
-
-class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_3__["TabSingleSegmentComponent"] {
+class ReCronYear extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODULE_2__["TabSingleSegmentComponent"] {
   constructor(props) {
-    super(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year, props);
+    super(props, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year);
+    var coreService = new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]();
     this.state = {
-      yearCodes: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year, true),
-      years: new _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["CoreService"]().getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year),
-      view: _cron_di__WEBPACK_IMPORTED_MODULE_2__["QuartzCronDI"].get(this.props.session).getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year)
+      yearCodes: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year, true),
+      years: coreService.getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year),
+      year: this.getView(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year)
     };
   }
 
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  genEvery() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-every'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-every-check'])
@@ -2334,7 +2458,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
+      checked: this.state.year.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
       disabled: this.isDisabled(),
       onChange: () => {
         this.setEvery();
@@ -2342,7 +2466,11 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: this.genClassName(['form-check-label'], ['c-every-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY)
-    }, "Any year"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Any year")));
+  }
+
+  genIncrement() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-increment'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-increment-check'])
@@ -2351,7 +2479,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
+      checked: this.state.year.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2360,7 +2488,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "Every")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 1, e.target.value)
     }, this.state.yearCodes.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -2373,14 +2501,18 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "year(s) starting at year"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, 0, e.target.value)
     }, this.state.years.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genAnd() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group'], ['c-and'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-and-check'])
@@ -2389,7 +2521,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
+      checked: this.state.year.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2416,7 +2548,11 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
         className: this.genClassName(['form-check-label'], ['c-and-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, item.value)
       }, item.label)));
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })));
+  }
+
+  genRange() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-group', 'form-inline'], ['c-range'])
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: this.genClassName(['form-check'], ['c-range-check'])
@@ -2425,7 +2561,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
-      checked: this.state.view.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
+      checked: this.state.year.selected === _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE,
       disabled: this.isDisabled(),
       onChange: () => this.setSelected(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2434,7 +2570,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "Every year between year")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[0],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 0, e.target.value)
     }, this.state.years.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -2447,14 +2583,14 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
     }, "and year"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
       className: this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to']),
       disabled: this.isDisabled(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
-      value: this.getModelValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
+      value: this.getValues(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE)[1],
       onChange: e => this.setInValue(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE, 1, e.target.value)
     }, this.state.years.map(item => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         key: item.value,
         value: item.value
       }, item.label);
-    }))));
+    })));
   }
 
 }
@@ -2468,7 +2604,7 @@ class ReCronYear extends _tab_single_segment_component__WEBPACK_IMPORTED_MODULE_
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsaWJzL3JlLWNyb24vc3JjL2xpYi9jcm9uLnNjc3MifQ== */"
+module.exports = ".c-tab-content {\n  outline: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3J1bm5lci93b3JrL25nLWNyb24vbmctY3Jvbi9saWJzL3JlLWNyb24vc3JjL2xpYi9jcm9uLnNjc3MiLCJsaWJzL3JlLWNyb24vc3JjL2xpYi9jcm9uLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQyxhQUFBO0FDQ0QiLCJmaWxlIjoibGlicy9yZS1jcm9uL3NyYy9saWIvY3Jvbi5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmMtdGFiLWNvbnRlbnQge1xuXHRvdXRsaW5lOiBub25lOztcbn0iLCIuYy10YWItY29udGVudCB7XG4gIG91dGxpbmU6IG5vbmU7XG59Il19 */"
 
 /***/ }),
 
@@ -3103,7 +3239,7 @@ class Compatibility extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       className: "mt-4"
     }, "The only two required dependencies are React and cron-core.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "The Bootstrap CSS is optional as you can use this component with your own styling."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
       className: "table mt-4"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Ng-Cron"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "React"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Bootstrap CSS"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "0.0.1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "16.x.x"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "4.x.x")))));
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Re-Cron"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "React"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Bootstrap CSS"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "0.0.1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "16.x.x"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "4.x.x")))));
   }
 
 }

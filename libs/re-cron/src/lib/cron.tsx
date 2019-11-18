@@ -1,48 +1,41 @@
 import React from 'react';
+import { Type } from '@sbzen/cron-core';
+
+import { ReCronSecond, ReCronMinute, ReCronHour, ReCronMonth, ReCronYear, ReCronDay } from './tabs';
+import { CronBaseComponent, CronBaseProps } from './cron-base.abstract';
+import { QuartzCronDI } from './cron-di';
+import { tabs, Tab } from './tabs/tabs';
 
 import './cron.scss';
 
-import { Type } from '@sbzen/cron-core';
-
-import { ReCronSecond } from './tabs/second/second';
-import { ReCronMinute } from './tabs/minute/minute';
-import { ReCronHour } from './tabs/hour/hour';
-import { ReCronMonth } from './tabs/month/month';
-import { ReCronYear } from './tabs/year/year';
-import { ReCronDay } from './tabs/day/day';
-import { tabs, Tab } from './tabs/tabs';
-import { QuartzCronDI } from './cron-di';
-
 export type ReCronProps = {
-	cssClassPrefix?: string;
 	disabled?: boolean,
 	value?: string,
 	onChange?: (cronValue: string) => void
-}
+} & CronBaseProps;
 
 export type ReCronState = {
-	tab: Tab,
-	session: number
+	tab: Tab;
+	session: number;
 };
 
-export class ReCron extends React.Component<ReCronProps, ReCronState> {
+export class ReCron extends CronBaseComponent<ReCronProps, ReCronState> {
 	constructor(props: ReCronProps) {
-		super(props);
+		super(props, Date.now());
 
 		this.state = {
 			tab: tabs[0],
-			session: Date.now()
+			session: this.session
 		};
 	}
 
 	componentWillUnmount() {
-		QuartzCronDI.destroy(this.state.session);
+		QuartzCronDI.destroy(this.session);
 	}
 
 	render() {
-		QuartzCronDI.get(this.state.session).fillFromExpression(this.props.value);
+		this.getQuartzCron().fillFromExpression(this.props.value);
 
-		console.log('RENDER');
 		return (
 			<div className="c-host">
 				{this.genTabs()}
@@ -150,7 +143,7 @@ export class ReCron extends React.Component<ReCronProps, ReCronState> {
 	}
 
 	private applyChanges() {
-		const str = QuartzCronDI.get(this.state.session).toString();
+		const str = this.getQuartzCron().toString();
 		if (this.props.onChange) {
 			this.props.onChange(str);
 		}
@@ -160,15 +153,6 @@ export class ReCron extends React.Component<ReCronProps, ReCronState> {
 		this.setState({
 			tab: item
 		});
-	}
-
-	private getCssClassPrefix() {
-		return this.props.cssClassPrefix || '';
-	}
-
-	private genClassName(classes: string[], noPrefixClasses: string[] = []) {
-		const prefixed = classes.map(c => this.getCssClassPrefix() + c);
-		return prefixed.concat(noPrefixClasses).join(' ');
 	}
 }
 

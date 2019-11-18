@@ -19,7 +19,7 @@ export class Compatibility extends React.Component {
 				<table className="table mt-4">
 					<thead>
 						<tr>
-							<th>Ng-Cron</th>
+							<th>Re-Cron</th>
 							<th>React</th>
 							<th>Bootstrap CSS</th>
 						</tr>

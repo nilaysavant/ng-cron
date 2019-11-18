@@ -107,7 +107,7 @@ export class QuartzCronService {
 
 	getValues(type: Segment, mode: Mode) {
 		const store = this.view[type];
-		return store.values[mode].values;
+		return store.values[mode].values.concat();
 	}
 
 	private genDataModel() {

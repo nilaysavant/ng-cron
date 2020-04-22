@@ -4,6 +4,7 @@ const glob = require('glob');
 const distPath = './dist/libs/ng-cron';
 
 glob('/**/*.d.ts', {
+	cwd: __dirname,
 	root: distPath
 }, (_er, files) => {
 	files.forEach(f => {

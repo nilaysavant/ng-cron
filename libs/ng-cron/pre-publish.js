@@ -1,7 +1,7 @@
 const fs = require('fs');
 const glob = require('glob');
 
-const distPath = './../../dist/libs/ng-cron';
+const distPath = './dist/libs/ng-cron';
 
 glob('/**/*.d.ts', {
 	root: distPath

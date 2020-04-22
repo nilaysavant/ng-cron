@@ -2,4 +2,5 @@
 
 ### Bug Fixes
 
-* **packaging:** auto clean relative paths in generate type definitions ([#26](https://github.com/BzenkoSergey/ng-cron/issues/26)) ([d33da600c51cb41fb420c195fa1cd2eb8b87390e](https://github.com/BzenkoSergey/ng-cron/commit/d33da600c51cb41fb420c195fa1cd2eb8b87390e))
+* **packaging:** auto clean relative paths in generate type definitions ([#26](https://github.com/BzenkoSergey/ng-cron/issues/26)) ([b43944debc6f5bc4afdab930c411912f86f92ec5](https://github.com/BzenkoSergey/ng-cron/commit/b43944debc6f5bc4afdab930c411912f86f92ec5))
+

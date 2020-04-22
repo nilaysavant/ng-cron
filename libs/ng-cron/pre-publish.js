@@ -7,6 +7,10 @@ glob('/**/*.d.ts', {
 	cwd: __dirname,
 	root: distPath
 }, (_er, files) => {
+	console.log('==== ng-cron: prebuild, files: ' + files.length);
+	console.log('==== ng-cron: prebuild, cwd: ' + __dirname);
+	console.log('==== ng-cron: prebuild, distPath: ' + distPath);
+
 	files.forEach(f => {
 		const content = fs.readFileSync(f).toString();
 		const cleared = content

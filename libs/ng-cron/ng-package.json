@@ -2,7 +2,10 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/libs/ng-cron",
   "lib": {
-	"entryFile": "src/index.ts"
+	"entryFile": "src/index.ts",
+	"umdModuleIds": {
+		"@sbzen/cron-core": "@sbzen/cron-core"
+	}
   },
   "whitelistedNonPeerDependencies": [
 	"@sbzen/cron-core"

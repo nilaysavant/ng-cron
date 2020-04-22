@@ -15,7 +15,8 @@ glob('/**/*.d.ts', {
 		const content = fs.readFileSync(f).toString();
 		const cleared = content
 			.toString()
-			.replace(/import\(.*dist\/libs\/cron-core"\)/gm, 'import(\'@sbzen/cron-core\')');
+			.replace(/import\(.*dist\/libs\/cron-core"\)/gm, 'import(\'@sbzen/cron-core\')')
+			.replace(/import\(.*dist\/libs\/cron-core\/sbzen-cron-core"\)/gm, 'import(\'@sbzen/cron-core\')');
 
 		fs.writeFileSync(f, cleared);
 	});

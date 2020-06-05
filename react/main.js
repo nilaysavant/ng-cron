@@ -2305,12 +2305,18 @@ class TabBaseComponent extends _cron_base_abstract__WEBPACK_IMPORTED_MODULE_0__[
   toggleSpecifics(value, mode, segment) {
     var view = this.getView(segment);
     var values = view.values[mode].values;
+    var isRemoving = !!~values.indexOf(value);
 
-    if (!~values.indexOf(value)) {
-      values.push(value);
-    } else {
+    if (isRemoving && values.length === 1) {
+      this.applyChanges();
+      return;
+    }
+
+    if (isRemoving) {
       var i = values.indexOf(value);
       values.splice(i, 1);
+    } else {
+      values.push(value);
     }
 
     this.setView(segment, view);

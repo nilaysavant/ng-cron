@@ -100,6 +100,7 @@
 					[value]="item.value"
 					[disabled]="isDisabled(mode.AND)"
 					[checked]="inSpecificsList(item.value, mode.AND)"
+					(click)="handleSpecificsChange($event, item.value, mode.AND)"
 					(change)="toggleSpecifics(item.value, mode.AND)">
 
 				<label

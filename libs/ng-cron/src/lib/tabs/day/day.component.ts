@@ -87,9 +87,20 @@ export class DayComponent extends TabBaseComponent {
 		return this.quartzCron.hasValue(value, segment, mode);
 	}
 
+	handleSpecificsChange(e: Event, value: string, mode: Mode, segment: TabSegments) {
+		const values = this.quartzCron.getValues(segment, mode);
+		const isRemoving = !!~values.indexOf(value);
+		if (isRemoving && values.length === 1) {
+			e.preventDefault();
+			return;
+		}
+	}
+
 	toggleSpecifics(value: string, mode: Mode, segment: TabSegments) {
 		const values = this.quartzCron.getValues(segment, mode);
-		if (!~values.indexOf(value)) {
+		const isRemoving = !!~values.indexOf(value);
+	
+		if (!isRemoving) {
 			values.push(value);
 			this.applyChanges();
 			return;

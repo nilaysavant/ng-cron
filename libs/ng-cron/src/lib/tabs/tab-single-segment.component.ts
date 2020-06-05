@@ -25,15 +25,15 @@ export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 
 	setSelected(mode: Mode) {
 		this.view.selected = mode;
-		this.cd.detectChanges();
-		this.cd.detach();
 		this.applyChanges();
+		this.cd.detectChanges();
 	}
 
 	setInValue(mode: Mode, index: 0|1, value: string) {
 		const source = this.getModelValues(mode);
 		source[index] = value;
 		this.applyChanges();
+		this.cd.detectChanges();
 	}
 
 	getModelValues(mode: Mode) {
@@ -44,17 +44,30 @@ export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 		return this.quartzCron.hasValue(value, this.segment, mode);
 	}
 
+	handleSpecificsChange(e: Event, value: string, mode: Mode) {
+		const values = this.quartzCron.getValues(this.segment, mode);
+		const isRemoving = !!~values.indexOf(value);
+		if (isRemoving && values.length === 1) {
+			e.preventDefault();
+			return;
+		}
+	}
+
 	toggleSpecifics(value: string, mode: Mode) {
 		const values = this.quartzCron.getValues(this.segment, mode);
-		if (!~values.indexOf(value)) {
+		const isRemoving = !!~values.indexOf(value);
+
+		if (!isRemoving) {
 			values.push(value);
 			this.applyChanges();
+			this.cd.detectChanges();
 			return;
 		}
 
 		const i = values.indexOf(value);
 		values.splice(i, 1);
 		this.applyChanges();
+		this.cd.detectChanges();
 	}
 
 	isDisabled(mode?: Mode) {

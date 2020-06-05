@@ -76,7 +76,7 @@ export class ModeUtils {
 			return str.split(Separator.INCREMENT);
 		}
 		if (Mode.AND === mode) {
-			return str.split(Separator.AND);
+			return str.split(Separator.AND).filter(value => !!value);
 		}
 		if (Mode.RANGE === mode) {
 			return str.split(Separator.RANGE);

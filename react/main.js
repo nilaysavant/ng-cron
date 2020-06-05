@@ -384,7 +384,7 @@ class ModeUtils {
     }
 
     if (Mode.AND === mode) {
-      return str.split(_separator_enum__WEBPACK_IMPORTED_MODULE_0__["Separator"].AND);
+      return str.split(_separator_enum__WEBPACK_IMPORTED_MODULE_0__["Separator"].AND).filter(value => !!value);
     }
 
     if (Mode.RANGE === mode) {

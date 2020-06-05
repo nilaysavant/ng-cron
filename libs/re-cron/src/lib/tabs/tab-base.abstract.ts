@@ -75,14 +75,18 @@ export abstract class TabBaseComponent<P extends TabBaseProps, S extends TabBase
 	protected toggleSpecifics(value: string, mode: Mode, segment: Segments) {
 		const view = this.getView(segment);
 		const values = view.values[mode].values;
-
-		if (!~values.indexOf(value)) {
-			values.push(value);
-		} else {
-			const i = values.indexOf(value);
-			values.splice(i, 1);
+		const isRemoving = !!~values.indexOf(value);
+		if (isRemoving && values.length === 1) {
+			this.applyChanges();
+			return;
 		}
 
+		if (isRemoving) {
+			const i = values.indexOf(value);
+			values.splice(i, 1);
+		} else {
+			values.push(value);
+		}
 		this.setView(segment, view);
 		this.applyChanges();
 	}

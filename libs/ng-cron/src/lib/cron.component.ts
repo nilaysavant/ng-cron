@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, forwardRef, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Type, Segment, CoreService } from '@sbzen/cron-core';
@@ -42,7 +42,10 @@ export class QuartzCronComponent implements ControlValueAccessor {
 	tabs = tabs;
 	tab = this.tabs[0];
 
-	constructor(private quartzCron: QuartzCronService) {}
+	constructor(
+		private quartzCron: QuartzCronService,
+		private cd: ChangeDetectorRef
+	) {}
 
 	navigateTab(code: string, type: Type) {
 		if (code !== 'ArrowRight' && code !== 'ArrowLeft') {
@@ -63,6 +66,7 @@ export class QuartzCronComponent implements ControlValueAccessor {
 
 		this.tab = this.tabs[toPos];
 		tabEls[toPos].focus();
+		this.cd.detectChanges();
 	}
 
 	getView(segment: Segment) {
@@ -71,6 +75,7 @@ export class QuartzCronComponent implements ControlValueAccessor {
 
 	writeValue(cronValue: string) {
 		this.quartzCron.fillFromExpression(cronValue);
+		this.cd.detectChanges();
 	}
 
 	registerOnChange(fn: (cronValue: string) => {}) {

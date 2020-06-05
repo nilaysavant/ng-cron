@@ -161,6 +161,7 @@
 					[value]="item.value"
 					[disabled]="isDisabled(segment.dayOfWeek, mode.AND)"
 					[checked]="inSpecificsList(item.value, mode.AND, segment.dayOfWeek)"
+					(click)="handleSpecificsChange($event, item.value, mode.AND, segment.dayOfWeek)"
 					(change)="toggleSpecifics(item.value, mode.AND, segment.dayOfWeek)">
 
 				<label
@@ -206,6 +207,7 @@
 					[value]="item.value"
 					[disabled]="isDisabled(segment.dayOfMonth, mode.AND)"
 					[checked]="inSpecificsList(item.value, mode.AND, segment.dayOfMonth)"
+					(click)="handleSpecificsChange($event, item.value, mode.AND, segment.dayOfMonth)"
 					(change)="toggleSpecifics(item.value, mode.AND, segment.dayOfMonth)">
 
 				<label

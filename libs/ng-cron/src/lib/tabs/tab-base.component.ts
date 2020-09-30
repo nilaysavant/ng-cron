@@ -1,7 +1,8 @@
-import { EventEmitter, Output, Input } from '@angular/core';
+import { Directive, EventEmitter, Output, Input } from '@angular/core';
 
 import { Mode } from '@sbzen/cron-core';
 
+@Directive()
 export abstract class TabBaseComponent {
 	@Output() changed = new EventEmitter<never>();
 	@Input() cssClassPrefix = '';

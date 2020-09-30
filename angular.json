@@ -101,7 +101,7 @@
       "prefix": "cron",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/ng-cron/tsconfig.lib.json",
             "project": "libs/ng-cron/ng-package.json"
@@ -139,7 +139,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/cron-core/tsconfig.lib.json",
             "project": "libs/cron-core/ng-package.json"

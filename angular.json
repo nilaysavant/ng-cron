@@ -184,7 +184,7 @@
             ],
             "styles": ["apps/react-doc/src/styles.scss"],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/babel"
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
@@ -223,8 +223,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+			"builder": "@nrwl/linter:lint",
           "options": {
+			"linter": "eslint",
             "tsConfig": [
               "apps/react-doc/tsconfig.app.json",
               "apps/react-doc/tsconfig.spec.json"

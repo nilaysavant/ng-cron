@@ -248,8 +248,9 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+			"builder": "@nrwl/linter:lint",
           "options": {
+			"linter": "eslint",
             "tsConfig": [
               "libs/re-cron/tsconfig.lib.json",
               "libs/re-cron/tsconfig.spec.json"
@@ -258,12 +259,13 @@
           }
         },
         "build": {
-          "builder": "@nrwl/web:bundle",
+          "builder": "@nrwl/web:package",
           "options": {
             "outputPath": "dist/libs/re-cron",
             "tsConfig": "libs/re-cron/tsconfig.lib.json",
             "project": "libs/re-cron/package.json",
-            "entryFile": "libs/re-cron/src/index.ts",
+			"entryFile": "libs/re-cron/src/index.ts",
+			"external": ["react", "react-dom"],
             "babelConfig": "@nrwl/react/plugins/bundle-babel",
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup"
           }

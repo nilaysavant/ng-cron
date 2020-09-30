@@ -1,12 +1,11 @@
-import { ChangeDetectorRef, ElementRef, Input, Injectable, ViewChild } from '@angular/core';
+import { Directive, ChangeDetectorRef, ElementRef, Input, ViewChild } from '@angular/core';
 import * as _ from 'lodash-es';
 
 import { PrismInterface } from './prism.interface';
 import { CallbackType } from './prism.type';
 import { PrismService } from './prism.service';
 
-
-@Injectable()
+@Directive()
 export abstract class PrismHoodClass implements PrismInterface {
 	@ViewChild('el', { read: ElementRef }) el: ElementRef;
 

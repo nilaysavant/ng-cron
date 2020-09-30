@@ -42,7 +42,7 @@ jobs:
       env:
         CI: true 
     - name: Build React Doc
-      run: npm run build react-doc -- --base-href /ng-cron/react/
+      run: npm run build cron-core && npm run build re-cron && npm run build react-doc -- --base-href /ng-cron/react/
       env:
         CI: true
     - name: Copy Docs files

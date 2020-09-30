@@ -14,7 +14,7 @@ import { PrismService } from './prism.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	providers: [PrismService],
-	selector: 'ngx-prism',
+	selector: 'app-ngx-prism',
 	templateUrl: './prism.html'
 })
 

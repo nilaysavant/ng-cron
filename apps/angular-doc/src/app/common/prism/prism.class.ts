@@ -14,7 +14,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	__properties: any;
 
 	_cd: any;
-	@Input('cd')
+	@Input()
 	set cd(cd: any) {
 		this._cd = cd;
 		if (this.ready === true) {
@@ -26,7 +26,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	}
 
 	public _async = false;
-	@Input('async')
+	@Input()
 	set async(async: boolean) {
 		this._async = async;
 	}
@@ -35,7 +35,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	}
 
 	public _callback: CallbackType | undefined;
-	@Input('callback')
+	@Input()
 	set callback(callback: CallbackType | undefined) {
 		this._callback = callback;
 	}
@@ -44,7 +44,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	}
 
 	public _code: string;
-	@Input('code')
+	@Input()
 	set code(code: string) {
 		this._code = code;
 		if (this.ready) {
@@ -58,7 +58,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	}
 
 	public _hooks: Object;
-	@Input('hooks')
+	@Input()
 	set hooks(hooks: Object) {
 		this._hooks = hooks;
 		if (hooks instanceof Object) {
@@ -73,7 +73,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 	}
 
 	public _language: string;
-	@Input('language') set language(language: string) {
+	@Input() set language(language: string) {
 		if (language) {
 			if (typeof (language) === 'string') {
 				this._language = language;
@@ -89,7 +89,7 @@ export abstract class PrismHoodClass implements PrismInterface {
 		return this._language;
 	}
 
-	@Input('interpolation') public interpolation?: Object | undefined;
+	@Input() public interpolation?: Object | undefined;
 
 	constructor(
 		public changeDetectorRef: ChangeDetectorRef,

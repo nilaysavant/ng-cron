@@ -101,7 +101,7 @@
       "prefix": "cron",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/ng-cron/tsconfig.lib.json",
             "project": "libs/ng-cron/ng-package.json"
@@ -139,7 +139,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/cron-core/tsconfig.lib.json",
             "project": "libs/cron-core/ng-package.json"
@@ -184,7 +184,7 @@
             ],
             "styles": ["apps/react-doc/src/styles.scss"],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/babel"
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
@@ -223,8 +223,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+			"builder": "@nrwl/linter:lint",
           "options": {
+			"linter": "eslint",
             "tsConfig": [
               "apps/react-doc/tsconfig.app.json",
               "apps/react-doc/tsconfig.spec.json"
@@ -248,8 +249,9 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+			"builder": "@nrwl/linter:lint",
           "options": {
+			"linter": "eslint",
             "tsConfig": [
               "libs/re-cron/tsconfig.lib.json",
               "libs/re-cron/tsconfig.spec.json"
@@ -258,12 +260,13 @@
           }
         },
         "build": {
-          "builder": "@nrwl/web:bundle",
+          "builder": "@nrwl/web:package",
           "options": {
             "outputPath": "dist/libs/re-cron",
             "tsConfig": "libs/re-cron/tsconfig.lib.json",
             "project": "libs/re-cron/package.json",
-            "entryFile": "libs/re-cron/src/index.ts",
+			"entryFile": "libs/re-cron/src/index.ts",
+			"external": ["react", "react-dom"],
             "babelConfig": "@nrwl/react/plugins/bundle-babel",
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup"
           }

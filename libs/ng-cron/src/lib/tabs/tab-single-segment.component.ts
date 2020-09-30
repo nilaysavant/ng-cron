@@ -1,10 +1,11 @@
-import { Input, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, ChangeDetectorRef } from '@angular/core';
 
 import { ViewDataItem, Mode, Segment } from '@sbzen/cron-core';
 
 import { QuartzCronService } from './../cron.service';
 import { TabBaseComponent } from './tab-base.component';
 
+@Directive()
 export abstract class TabSingleSegmentComponent extends TabBaseComponent {
 	@Input() view: ViewDataItem;
 

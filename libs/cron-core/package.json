@@ -1,4 +1,13 @@
 {
 	"name": "@sbzen/cron-core",
-	"version": "0.0.3"
+	"version": "0.0.4",
+	"author": "Serhii Bzenko <bzenkosergey@gmail.com>",
+	"license" : "MIT",
+	"repository": {
+	  "type": "git",
+	  "url": "git+ssh://git@github.com/BzenkoSergey/ng-cron.git"
+	},
+	"bugs": {
+		"url": "https://github.com/BzenkoSergey/ng-cron/issues"
+	}
 }

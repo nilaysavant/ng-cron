@@ -22,7 +22,7 @@
 	"quartz cron"
   ],
   "dependencies": {
-	"@sbzen/cron-core": "0.0.3"
+	"@sbzen/cron-core": "0.0.4"
   },
   "peerDependencies": {
     "react": "*",

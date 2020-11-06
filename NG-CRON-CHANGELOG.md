@@ -1,3 +1,7 @@
+# [0.0.10] (2020-11-06)
+
+* set MIT license to cron-core dependency
+
 # [0.0.10] (2020-09-30)
 
 ### Bug Fixes

@@ -1,5 +1,8 @@
 {
-	"presets": ["@nrwl/react/babel"],
-	"plugins": []
-  }
-  
+  "presets": [
+	  "@nrwl/react/babel",
+	  "@babel/preset-typescript",
+	  "@babel/preset-react"
+	],
+  "plugins": []
+}

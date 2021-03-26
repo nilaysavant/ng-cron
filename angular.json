@@ -21,8 +21,13 @@
             "polyfills": "apps/angular-doc/src/polyfills.ts",
             "tsConfig": "apps/angular-doc/tsconfig.app.json",
             "aot": false,
-            "assets": ["apps/angular-doc/src/favicon.ico", "apps/angular-doc/src/assets"],
-            "styles": ["apps/angular-doc/src/styles.scss"],
+            "assets": [
+              "apps/angular-doc/src/favicon.ico",
+              "apps/angular-doc/src/assets"
+            ],
+            "styles": [
+              "apps/angular-doc/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -36,7 +41,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -55,7 +59,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -81,16 +88,21 @@
               "apps/angular-doc/tsconfig.app.json",
               "apps/angular-doc/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/angular-doc/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/angular-doc/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/angular-doc/jest.config.js",
-            "tsConfig": "apps/angular-doc/tsconfig.spec.json",
             "setupFile": "apps/angular-doc/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/apps/angular-doc"
+          ]
         }
       }
     },
@@ -114,16 +126,21 @@
               "libs/ng-cron/tsconfig.lib.json",
               "libs/ng-cron/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ng-cron/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ng-cron/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ng-cron/jest.config.js",
-            "tsConfig": "libs/ng-cron/tsconfig.spec.json",
             "setupFile": "libs/ng-cron/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/libs/ng-cron"
+          ]
         }
       },
       "schematics": {
@@ -152,15 +169,20 @@
               "libs/cron-core/tsconfig.lib.json",
               "libs/cron-core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/cron-core/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/cron-core/jest.config.js",
-            "tsConfig": "libs/cron-core/tsconfig.spec.json"
-          }
+            "jestConfig": "libs/cron-core/jest.config.js"
+          },
+          "outputs": [
+            "coverage/libs/cron-core"
+          ]
         }
       }
     },
@@ -182,7 +204,9 @@
               "apps/react-doc/src/favicon.ico",
               "apps/react-doc/src/assets"
             ],
-            "styles": ["apps/react-doc/src/styles.scss"],
+            "styles": [
+              "apps/react-doc/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -209,7 +233,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -223,22 +250,27 @@
           }
         },
         "lint": {
-			"builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-			"linter": "eslint",
-            "tsConfig": [
-              "apps/react-doc/tsconfig.app.json",
-              "apps/react-doc/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/react-doc/**"]
+            "lintFilePatterns": [
+              "apps/react-doc/**/*.ts",
+              "apps/react-doc/**/*.tsx",
+              "apps/react-doc/**/*.spec.ts",
+              "apps/react-doc/**/*.spec.tsx",
+              "apps/react-doc/**/*.spec.js",
+              "apps/react-doc/**/*.spec.jsx",
+              "apps/react-doc/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/react-doc/jest.config.js",
-            "tsConfig": "apps/react-doc/tsconfig.spec.json"
-          }
+            "jestConfig": "apps/react-doc/jest.config.js"
+          },
+          "outputs": [
+            "coverage/apps/react-doc"
+          ]
         }
       }
     },
@@ -249,14 +281,17 @@
       "schematics": {},
       "architect": {
         "lint": {
-			"builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-			"linter": "eslint",
-            "tsConfig": [
-              "libs/re-cron/tsconfig.lib.json",
-              "libs/re-cron/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/re-cron/**"]
+            "lintFilePatterns": [
+              "libs/re-cron/**/*.ts",
+              "libs/re-cron/**/*.tsx",
+              "libs/re-cron/**/*.spec.ts",
+              "libs/re-cron/**/*.spec.tsx",
+              "libs/re-cron/**/*.spec.js",
+              "libs/re-cron/**/*.spec.jsx",
+              "libs/re-cron/**/*.d.ts"
+            ]
           }
         },
         "build": {
@@ -265,18 +300,27 @@
             "outputPath": "dist/libs/re-cron",
             "tsConfig": "libs/re-cron/tsconfig.lib.json",
             "project": "libs/re-cron/package.json",
-			"entryFile": "libs/re-cron/src/index.ts",
-			"external": ["react", "react-dom"],
+            "entryFile": "libs/re-cron/src/index.ts",
+            "external": [
+              "react",
+              "react-dom"
+            ],
             "babelConfig": "@nrwl/react/plugins/bundle-babel",
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup"
-          }
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/re-cron/jest.config.js",
-            "tsConfig": "libs/re-cron/tsconfig.spec.json"
-          }
+            "jestConfig": "libs/re-cron/jest.config.js"
+          },
+          "outputs": [
+            "coverage/libs/re-cron"
+          ]
         }
       }
     }

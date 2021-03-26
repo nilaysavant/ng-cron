@@ -1,16 +1,11 @@
 import { Mode, ModeUtils } from './mode.enum';
-import { DataModel } from './data.model';
 import { Segment } from './segment.enum';
 import { ValueModel } from './value.model';
 import { WeekDayUtils } from './week-day.enum';
 import { MonthUtils } from './month.enum';
+import { DataModel } from './data.model';
 
-export interface CronJobsSelectOption {
-	value: string;
-	label: string;
-}
-
-export class CoreService {
+export abstract class CoreService {
 	private seconds = this.genList(0, 59);
 	private secondsEvery = this.genList(1, 60);
 
@@ -31,6 +26,10 @@ export class CoreService {
 
 	private month = this.createOptions(MonthUtils.list());
 	private monthEvery = this.genList(1, 12);
+
+	abstract toString(model: DataModel): string;
+	abstract toModel(expression?: string): DataModel;
+	abstract stringifySegment(v: ValueModel): string;
 
 	getDaysOfWeekCodes() {
 		return WeekDayUtils
@@ -79,55 +78,29 @@ export class CoreService {
 		return [];
 	}
 
-	toModel(expression?: string) {
-		const model = new DataModel();
-		if (!expression) {
-			model.dayOfMonth.values = ['?'];
-			model.hours.mode = Mode.AND;
-			model.hours.values = ['0'];
-			model.minutes.mode = Mode.AND;
-			model.minutes.values = ['0'];
-			model.seconds.mode = Mode.AND;
-			model.seconds.values = ['0'];
-			return model;
-		}
-		const keys = Object.keys(model) as (keyof DataModel)[];
-		expression.split(' ')
-			.forEach((s, i) => {
-				const key = keys[i];
-				const v = this.parseSegment(s);
-				model[key] = v;
-			});
-		return model;
-	}
-
-	toString(model: DataModel) {
-		const values = [
-			this.stringifySegment(model.seconds),
-			this.stringifySegment(model.minutes),
-			this.stringifySegment(model.hours),
-			this.stringifySegment(model.dayOfMonth),
-			this.stringifySegment(model.month),
-			this.stringifySegment(model.dayOfWeek),
-			this.stringifySegment(model.year)
-		];
-		return values.join(' ');
-	}
-
-	stringifySegment(v: ValueModel) {
-		const mode = v.mode;
-		if (ModeUtils.containsSeparator(mode)) {
-			return v.values.join(ModeUtils.getSeparator(mode));
-		}
-		return v.values.join('');
-	}
-
-	private parseSegment(segment: string) {
+	protected parseSegment(segment: string, valueType: Segment) {
 		const mode = ModeUtils.detect(segment);
-		return new ValueModel({
-			mode,
-			values: ModeUtils.parseToValues(segment, mode)
-		});
+		const rawValues = ModeUtils.parseToValues(segment, mode);
+		const values = this.normalizeValues(mode, rawValues, valueType);
+		return new ValueModel({ mode, values });
+	}
+
+	private normalizeValues(mode: Mode, values: string[], valueType: Segment) {
+
+		// conver 1,2,3 to SUN,MON,TUE
+		if (valueType === Segment.dayOfWeek && mode === Mode.AND) {
+			return values
+				.map(v => {
+					const value = +v;
+					if (isNaN(value)) {
+						return v;
+					}
+					const weekDay = WeekDayUtils.list()[value];
+					return WeekDayUtils.getCode(weekDay);
+				})
+				.filter(v => !!v);
+		}
+		return values;
 	}
 
 	private createOptions(labels: string[]) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, CoreService, Mode, ViewDataItem, CronJobsSelectOption } from '@sbzen/cron-core';
+import { Segment, QuartzService, Mode, ViewDataItem, CronJobsSelectOption } from '@sbzen/cron-core';
 
 import { TabBaseProps, TabBaseState, TabBaseComponent } from './../tab-base.abstract';
 
@@ -19,7 +19,7 @@ type ReCronDayState = {
 export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, TabSegments> {
 	constructor(props: TabBaseProps) {
 		super(props, [Segment.dayOfMonth, Segment.dayOfWeek]);
-		const coreService = new CoreService();
+		const coreService = new QuartzService();
 		const daysOfMonthEvery = coreService.getList(Segment.dayOfMonth, true);
 		this.state = {
 			daysOfWeekEvery: coreService.getList(Segment.dayOfWeek, true),
@@ -52,6 +52,12 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 	}
 
 	private genEvery() {
+		const isChecked = [
+			this.state.dayOfWeek.selected === Mode.EVERY,
+			this.state.dayOfMonth.selected !== Mode.INCREMENT,
+			this.state.dayOfMonth.selected !== Mode.AND
+		].every(r => !!r);
+
 		return (
 			<div className={this.genClassName(['form-group'], ['c-every-weekday'])}>
 				<div className={this.genClassName(['form-check'], ['c-every-weekday-check'])}>
@@ -60,7 +66,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 						type="radio"
 						id={this.genId(Mode.EVERY, Segment.dayOfWeek)}
 						value={Mode.EVERY}
-						checked={this.state.dayOfWeek.selected === Mode.EVERY}
+						checked={isChecked}
 						disabled={this.isDisabled()}
 						onChange={() => this.setEvery()} />
 
@@ -68,7 +74,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 						className={this.genClassName(['form-check-label'], ['c-every-weekday-option-label'])}
 						htmlFor={this.genId(Mode.EVERY, Segment.dayOfWeek)}>
 
-						Every day
+						{this.props.localization.quartz.day.every.label}
 					</label>
 				</div>
 			</div>
@@ -92,7 +98,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 						className={this.genClassName(['form-check-label'], ['c-increment-weekday-option-label'])}
 						htmlFor={this.genId(Mode.INCREMENT, Segment.dayOfWeek)}>
 
-						Every
+						{this.props.localization.quartz.day.dayOfWeekIncrement.label1}
 					</label>
 				</div>
 
@@ -116,7 +122,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-increment-weekday-option-label2"
 					htmlFor={this.genId(Mode.INCREMENT, Segment.dayOfWeek)}>
-					day(s) starting on
+					{this.props.localization.quartz.day.dayOfWeekIncrement.label2}
 				</label>
 
 				<select
@@ -130,7 +136,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
 							</option>
 						);
 					})}
@@ -155,8 +161,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-increment-monthday-option-label'])}
 						htmlFor={this.genId(Mode.INCREMENT, Segment.dayOfMonth)}>
-
-						Every
+						{this.props.localization.quartz.day.dayOfMonthIncrement.label1}
 					</label>
 				</div>
 
@@ -180,7 +185,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-increment-monthday-option-label2"
 					htmlFor={this.genId(Mode.INCREMENT, Segment.dayOfMonth)}>
-					day(s) starting on the
+					{this.props.localization.quartz.day.dayOfMonthIncrement.label2}
 				</label>
 
 				<select
@@ -194,7 +199,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.dayOfMonth[item.label]}
 							</option>
 						);
 					})}
@@ -203,7 +208,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-increment-monthday-option-label3"
 					htmlFor={this.genId(Mode.INCREMENT, Segment.dayOfMonth)}>
-					of the month
+					{this.props.localization.quartz.day.dayOfMonthIncrement.label3}
 				</label>
 			</div>
 		);
@@ -225,8 +230,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-and-weekday-option-label'])}
 						htmlFor={this.genId(Mode.AND, Segment.dayOfWeek)}>
-
-						Specific day of week (choose one or many)
+						{this.props.localization.quartz.day.dayOfWeekAnd.label}
 					</label>
 				</div>
 
@@ -251,7 +255,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 									<label
 										className={this.genClassName(['form-check-label'], ['c-and-weekday-item-label'])}
 										htmlFor={this.genId(Mode.AND, Segment.dayOfWeek + item.value)}>
-										{item.label}
+										{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
 									</label>
 								</div>
 							</div>
@@ -278,8 +282,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-and-monthday-option-label'])}
 						htmlFor={this.genId(Mode.AND, Segment.dayOfMonth)}>
-
-						Specific day of month (choose one or many)
+						{this.props.localization.quartz.day.dayOfMonthAnd.label}
 					</label>
 				</div>
 
@@ -331,8 +334,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-last-monthday-option-label'])}
 						htmlFor={this.genId(Mode.LAST_DAY, Segment.dayOfMonth)}>
-
-						On the last day of the month
+						{this.props.localization.quartz.day.dayOfMonthLastDay.label}
 					</label>
 				</div>
 			</div>
@@ -355,8 +357,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-last-weekday-option-label'])}
 						htmlFor={this.genId(Mode.LAST_DAY_WEEK, Segment.dayOfMonth)}>
-
-						On the last weekday of the month
+						{this.props.localization.quartz.day.dayOfMonthLastDayWeek.label}
 					</label>
 				</div>
 			</div>
@@ -380,7 +381,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 						className={this.genClassName(['form-check-label'], ['c-last-nth-option-label'])}
 						htmlFor={this.genId(Mode.LAST_NTH_DAY_WEEK, Segment.dayOfWeek)}>
 
-						On the last
+						{this.props.localization.quartz.day.dayOfWeekLastNTHDayWeek.label1}
 					</label>
 				</div>
 
@@ -395,7 +396,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								value={item.value + 'L'}
 								key={item.value + 'L'}>
-								{item.label}
+								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
 							</option>
 						);
 					})}
@@ -404,7 +405,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-last-nth-option-label2"
 					htmlFor={this.genId(Mode.LAST_NTH_DAY_WEEK, Segment.dayOfWeek)}>
-					of the month
+					{this.props.localization.quartz.day.dayOfWeekLastNTHDayWeek.label2}
 				</label>
 			</div>
 		);
@@ -444,7 +445,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-day-before-end-option-label"
 					htmlFor={this.genId(Mode.DAYS_BEFORE_END_MONTH, Segment.dayOfMonth)}>
-					day(s) before the end of the month
+					{this.props.localization.quartz.day.dayOfMonthDaysBeforeEndMonth.label}
 				</label>
 			</div>
 		);
@@ -466,8 +467,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-nearest-option-label'])}
 						htmlFor={this.genId(Mode.NEAREST_WEEKDAY_OF_MONTH, Segment.dayOfMonth)}>
-
-						Nearest weekday (Monday to Friday) to the
+						{this.props.localization.quartz.day.dayOfMonthNearestWeekDayOfMonth.label1}
 					</label>
 				</div>
 
@@ -482,7 +482,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								key={item.value + 'W'}
 								value={item.value + 'W'}>
-								{item.label}
+								{this.props.localization.common.dayOfMonth[item.label]}
 							</option>
 						);
 					})}
@@ -491,7 +491,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-nearest-option-label2"
 					htmlFor={this.genId(Mode.NEAREST_WEEKDAY_OF_MONTH, Segment.dayOfMonth)}>
-					of the month
+					{this.props.localization.quartz.day.dayOfMonthNearestWeekDayOfMonth.label2}
 				</label>
 			</div>
 		);
@@ -513,8 +513,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 					<label
 						className={this.genClassName(['form-check-label'], ['c-nth-option-label'])}
 						htmlFor={this.genId(Mode.NTH_WEEKDAY_OF_MONTH, Segment.dayOfWeek)}>
-
-						On the
+						{this.props.localization.quartz.day.dayOfWeekNTHWeekDayOfMonth.label1}
 					</label>
 				</div>
 
@@ -529,7 +528,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								value={item.value}
 								key={item.value}>
-								{item.label}
+								{this.props.localization.common.dayOfMonth[item.label]}
 							</option>
 						);
 					})}
@@ -546,7 +545,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
 							</option>
 						);
 					})}
@@ -555,7 +554,7 @@ export class ReCronDay extends TabBaseComponent<TabBaseProps, ReCronDayState, Ta
 				<label
 					className="c-nth-option-label2"
 					htmlFor={this.genId(Mode.NTH_WEEKDAY_OF_MONTH, Segment.dayOfWeek)}>
-					of the month
+					{this.props.localization.quartz.day.dayOfWeekNTHWeekDayOfMonth.label2}
 				</label>
 			</div>
 		);

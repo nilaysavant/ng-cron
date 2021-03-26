@@ -1,11 +1,14 @@
 import React from 'react';
-import { Mode, Segment, ViewDataItem } from '@sbzen/cron-core';
+import { Mode, Segment, ViewDataItem, CronType } from '@sbzen/cron-core';
 
-import { CronBaseComponent, CronBaseProps } from '../cron-base.abstract';
+import { localization } from './../../cron-localization';
+import { CronBaseComponent, CronBaseProps } from './../../cron-base.abstract';
+import { UnixCronDI } from './../unix-di';
 
 export type TabBaseProps = {
 	disabled: boolean,
 	onChange: () => void,
+	localization: typeof localization,
 	session: number
 } & CronBaseProps;
 
@@ -89,5 +92,9 @@ export abstract class TabBaseComponent<P extends TabBaseProps, S extends TabBase
 		}
 		this.setView(segment, view);
 		this.applyChanges();
+	}
+
+	private getQuartzCron() {
+		return UnixCronDI.get(this.session);
 	}
 }

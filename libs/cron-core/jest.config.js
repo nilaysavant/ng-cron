@@ -1,9 +1,9 @@
 module.exports = {
-  name: "cron-core",
-  preset: "../../jest.config.js",
+  preset: '../../jest.preset.js',
   transform: {
-    "^.+\\.[tj]sx?$": "ts-jest"
+    '^.+\\.[tj]sx?$': 'ts-jest',
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "html"],
-  coverageDirectory: "../../coverage/libs/cron-core"
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
+  coverageDirectory: '../../coverage/libs/cron-core',
+  displayName: 'cron-core',
 };

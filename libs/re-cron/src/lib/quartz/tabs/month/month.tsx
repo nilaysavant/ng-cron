@@ -1,23 +1,23 @@
 import React from 'react';
-import { Segment, CoreService, Mode, CronJobsSelectOption } from '@sbzen/cron-core';
+import { Segment, QuartzService, Mode, CronJobsSelectOption } from '@sbzen/cron-core';
 
 import { TabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { TabBaseProps, TabBaseState } from './../tab-base.abstract';
 
-type ReCronSecondState = {
-	secondCodes: CronJobsSelectOption[];
-	secondsList: CronJobsSelectOption[];
-} & TabBaseState<Segment.seconds>;
+type ReCronMonthState = {
+	monthCodes: CronJobsSelectOption[];
+	monthes: CronJobsSelectOption[];
+} & TabBaseState<Segment.month>;
 
-export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, Segment.seconds> {
+export class ReCronMonth extends TabSingleSegmentComponent<ReCronMonthState, Segment.month> {
 	constructor(props: TabBaseProps) {
-		super(props, Segment.seconds);
+		super(props, Segment.month);
 
-		const coreService = new CoreService();
+		const coreService = new QuartzService();
 		this.state = {
-			secondCodes: coreService.getList(Segment.seconds, true),
-			secondsList: coreService.getList(Segment.seconds),
-			seconds: this.getView(Segment.seconds)
+			monthCodes: coreService.getMonthCodes(),
+			monthes: coreService.getList(Segment.month),
+			month: this.getView(Segment.month)
 		};
 	}
 
@@ -30,14 +30,14 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 						type="radio"
 						id={this.genId(Mode.EVERY)}
 						value={Mode.EVERY}
-						checked={this.state.seconds.selected === Mode.EVERY}
+						checked={this.state.month.selected === Mode.EVERY}
 						disabled={this.isDisabled()}
 						onChange={() => {this.setEvery()}} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-every-option-label'])}
 						htmlFor={this.genId(Mode.EVERY)}>
-						Every second
+						{this.props.localization.quartz.month.every.label}
 					</label>
 				</div>
 			</div>
@@ -54,14 +54,14 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 						type="radio"
 						id={this.genId(Mode.INCREMENT)}
 						value={Mode.INCREMENT}
-						checked={this.state.seconds.selected === Mode.INCREMENT}
+						checked={this.state.month.selected === Mode.INCREMENT}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.INCREMENT)} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-increment-option-label'])}
 						htmlFor={this.genId(Mode.INCREMENT)}>
-						Every
+						{this.props.localization.quartz.month.increment.label1}
 					</label>
 				</div>
 
@@ -71,12 +71,12 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 					value={this.getValues(Mode.INCREMENT)[1]}
 					onChange={(e) => this.setInValue(Mode.INCREMENT, 1, e.target.value)}>
 
-					{this.state.secondCodes.map(item => {
+					{this.state.monthes.map((item, i) => {
 						return (
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.value}
+								{i + 1}
 							</option>
 						);
 					})}
@@ -85,7 +85,7 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 				<label
 					className="c-increment-option-label2"
 					htmlFor={this.genId(Mode.INCREMENT)}>
-					second(s) starting at second
+					{this.props.localization.quartz.month.increment.label2}
 				</label>
 
 				<select
@@ -94,12 +94,12 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 					value={this.getValues(Mode.INCREMENT)[0]}
 					onChange={(e) => this.setInValue(Mode.INCREMENT, 0, e.target.value)}>
 
-					{this.state.secondsList.map(item => {
+					{this.state.monthes.map(item => {
 						return (
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.month[item.label.toLowerCase()]}
 							</option>
 						);
 					})}
@@ -117,22 +117,22 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 						type="radio"
 						id={this.genId(Mode.AND)}
 						value={Mode.AND}
-						checked={this.state.seconds.selected === Mode.AND}
+						checked={this.state.month.selected === Mode.AND}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.AND)} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-and-option-label'])}
 						htmlFor={this.genId(Mode.AND)}>
-						Specific second (choose one or many)
+						{this.props.localization.quartz.month.and.label}
 					</label>
 				</div>
 
 				<div className={this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])}>
-					{this.state.secondsList.map(item => {
+					{this.state.monthCodes.map(item => {
 						return (
 							<div
-								className={this.genClassName(['col-1'], ['c-and-item'])}
+								className={this.genClassName(['col-2'], ['c-and-item'])}
 								item-value={item.value}
 								key={this.genId(Mode.AND, item.value)}>
 
@@ -149,7 +149,7 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 									<label
 										className={this.genClassName(['form-check-label'], ['c-and-item-label'])}
 										htmlFor={this.genId(Mode.AND, item.value)}>
-										{item.label}
+										{this.props.localization.common.month[item.label.toLowerCase()]}
 									</label>
 								</div>
 							</div>
@@ -170,14 +170,15 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 						type="radio"
 						id={this.genId(Mode.RANGE)}
 						value={Mode.RANGE}
-						checked={this.state.seconds.selected === Mode.RANGE}
+						checked={this.state.month.selected === Mode.RANGE}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.RANGE)}/>
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-range-option-label'])}
 						htmlFor={this.genId(Mode.RANGE)}>
-						Every second between second
+						
+						{this.props.localization.quartz.month.range.label1}
 					</label>
 				</div>
 
@@ -187,12 +188,12 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 					value={this.getValues(Mode.RANGE)[0]}
 					onChange={(e) => this.setInValue(Mode.RANGE, 0, e.target.value)}>
 
-					{this.state.secondsList.map(item => {
+					{this.state.monthes.map(item => {
 						return (
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.month[item.label.toLowerCase()]}
 							</option>
 						);
 					})}
@@ -201,7 +202,8 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 				<label
 					className="c-range-option-label2"
 					htmlFor={this.genId(Mode.RANGE)}>
-					and second
+					
+					{this.props.localization.quartz.month.range.label2}
 				</label>
 
 				<select
@@ -210,12 +212,12 @@ export class ReCronSecond extends TabSingleSegmentComponent<ReCronSecondState, S
 					value={this.getValues(Mode.RANGE)[1]}
 					onChange={(e) => this.setInValue(Mode.RANGE, 1, e.target.value)}>
 
-					{this.state.secondsList.map(item => {
+					{this.state.monthes.map(item => {
 						return (
 							<option
 								key={item.value}
 								value={item.value}>
-								{item.label}
+								{this.props.localization.common.month[item.label.toLowerCase()]}
 							</option>
 						);
 					})}

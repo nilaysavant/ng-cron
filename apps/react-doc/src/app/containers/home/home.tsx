@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 
-import { ReCron } from '@sbzen/re-cron';
+import { ReCron, CronType, Tab } from '@sbzen/re-cron';
 
 import { Header } from './../../shared/header/header';
 
@@ -20,12 +20,36 @@ type HomeState = {
 	code: string;
 }
 
+const localization = {
+	tabs: {
+		seconds: 'Секунды'
+	},
+	second: {
+		every: {
+			label: 'Каждая секунда'
+		}
+	},
+	common: {
+		month: {
+			january: 'Январь'
+		},
+		dayOfWeek: {
+			sunday: 'Воскресение'
+		},
+		dayOfMonth: {
+			'1st': '1й'
+		}
+	}
+}
+
 export class Home extends React.Component<any, HomeState> {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			cronValue: '2,0,4,3,1 0/1 3/2 ? * 4/5 *',
+			
+			// cronValue: '2,0,4,3,1 0/1 3/2 ? * WED *',
+			cronValue: '0 0 1,15 * 3',
 			features: [
 				{
 					icon: 'fab fa-angellist',
@@ -163,7 +187,12 @@ export class App extends React.Component {
 								value={this.state.cronValue} />
 
 							<ReCron
+								// hideTabs={true}
+								// activeTab={Tab.MINUTES}
+								// tabs={[Tab.DAY, Tab.MINUTES, Tab.SECONDS]}
 								value={this.state.cronValue}
+								cronType={CronType.UNIX}
+								// localization={localization}
 								onChange={(e) => this.handleChange(e)}>
 							</ReCron>
 						</div>

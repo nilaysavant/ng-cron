@@ -1,9 +1,9 @@
-import { CoreService } from '@sbzen/cron-core';
+import { UnixService } from '@sbzen/cron-core';
 
-import { QuartzCronService } from './cron.service';
+import { CronService } from './../cron.service';
 
-export class QuartzCronDI {
-	private static map = new Map<number, QuartzCronService>();
+export class UnixCronDI {
+	private static map = new Map<number, CronService>();
 
 	static get(session: number) {
 		if (!this.map.has(session)) {
@@ -17,7 +17,7 @@ export class QuartzCronDI {
 	}
 
 	private static create(session: number) {
-		const inst = new QuartzCronService(new CoreService());
+		const inst = new CronService(new UnixService());
 		this.map.set(session, inst);
 	}
 }

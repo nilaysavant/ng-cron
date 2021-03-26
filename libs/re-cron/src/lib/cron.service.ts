@@ -1,6 +1,6 @@
 import { Segment, Mode, DataModel, ViewDataItem, ValueModel, ViewData, MonthCode, CoreService } from '@sbzen/cron-core';
 
-export class QuartzCronService {
+export class CronService {
 	private view: ViewData = {
 		seconds: {
 			selected: Mode.AND,

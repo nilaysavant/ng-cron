@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { QuartzCronDI } from './cron-di';
-
 export type CronBaseProps = {
 	cssClassPrefix?: string;
 }
@@ -21,9 +19,5 @@ export abstract class CronBaseComponent<P extends CronBaseProps, S> extends Reac
 	protected genClassName(classes: string[], noPrefixClasses: string[] = []) {
 		const prefixed = classes.map(c => this.getCssClassPrefix() + c);
 		return prefixed.concat(noPrefixClasses).join(' ');
-	}
-
-	protected getQuartzCron() {
-		return QuartzCronDI.get(this.session);
 	}
 }

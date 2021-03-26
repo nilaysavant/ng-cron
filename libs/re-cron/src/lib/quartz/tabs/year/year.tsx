@@ -1,23 +1,23 @@
 import React from 'react';
-import { Segment, CoreService, Mode, CronJobsSelectOption } from '@sbzen/cron-core';
+import { Segment, QuartzService, Mode, CronJobsSelectOption } from '@sbzen/cron-core';
 
 import { TabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { TabBaseProps, TabBaseState } from './../tab-base.abstract';
 
-type ReCronHourState = {
-	hourCodes: CronJobsSelectOption[];
-	hoursList: CronJobsSelectOption[];
-} & TabBaseState<Segment.hours>;
+type ReCronYearState = {
+	yearCodes: CronJobsSelectOption[];
+	years: CronJobsSelectOption[];
+} & TabBaseState<Segment.year>;
 
-export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segment.hours> {
+export class ReCronYear extends TabSingleSegmentComponent<ReCronYearState, Segment.year> {
 	constructor(props: TabBaseProps) {
-		super(props, Segment.hours);
+		super(props, Segment.year);
 
-		const coreService = new CoreService();
+		const coreService = new QuartzService();
 		this.state = {
-			hourCodes: coreService.getList(Segment.hours, true),
-			hoursList: coreService.getList(Segment.hours),
-			hours: this.getView(Segment.hours)
+			yearCodes: coreService.getList(Segment.year, true),
+			years: coreService.getList(Segment.year),
+			year: this.getView(Segment.year)
 		};
 	}
 
@@ -30,14 +30,14 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 						type="radio"
 						id={this.genId(Mode.EVERY)}
 						value={Mode.EVERY}
-						checked={this.state.hours.selected === Mode.EVERY}
+						checked={this.state.year.selected === Mode.EVERY}
 						disabled={this.isDisabled()}
 						onChange={() => {this.setEvery()}} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-every-option-label'])}
 						htmlFor={this.genId(Mode.EVERY)}>
-						Every hour
+						{this.props.localization.quartz.year.every.label}
 					</label>
 				</div>
 			</div>
@@ -54,14 +54,14 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 						type="radio"
 						id={this.genId(Mode.INCREMENT)}
 						value={Mode.INCREMENT}
-						checked={this.state.hours.selected === Mode.INCREMENT}
+						checked={this.state.year.selected === Mode.INCREMENT}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.INCREMENT)} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-increment-option-label'])}
 						htmlFor={this.genId(Mode.INCREMENT)}>
-						Every
+						{this.props.localization.quartz.year.increment.label1}
 					</label>
 				</div>
 
@@ -71,7 +71,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 					value={this.getValues(Mode.INCREMENT)[1]}
 					onChange={(e) => this.setInValue(Mode.INCREMENT, 1, e.target.value)}>
 
-					{this.state.hourCodes.map(item => {
+					{this.state.yearCodes.map(item => {
 						return (
 							<option
 								key={item.value}
@@ -85,7 +85,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 				<label
 					className="c-increment-option-label2"
 					htmlFor={this.genId(Mode.INCREMENT)}>
-					hour(s) starting at hour
+					{this.props.localization.quartz.year.increment.label2}
 				</label>
 
 				<select
@@ -94,7 +94,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 					value={this.getValues(Mode.INCREMENT)[0]}
 					onChange={(e) => this.setInValue(Mode.INCREMENT, 0, e.target.value)}>
 
-					{this.state.hoursList.map(item => {
+					{this.state.years.map(item => {
 						return (
 							<option
 								key={item.value}
@@ -117,19 +117,19 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 						type="radio"
 						id={this.genId(Mode.AND)}
 						value={Mode.AND}
-						checked={this.state.hours.selected === Mode.AND}
+						checked={this.state.year.selected === Mode.AND}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.AND)} />
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-and-option-label'])}
 						htmlFor={this.genId(Mode.AND)}>
-						Specific hour (choose one or many)
+						{this.props.localization.quartz.year.and.label}
 					</label>
 				</div>
 
 				<div className={this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])}>
-					{this.state.hoursList.map(item => {
+					{this.state.years.map(item => {
 						return (
 							<div
 								className={this.genClassName(['col-1'], ['c-and-item'])}
@@ -170,14 +170,14 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 						type="radio"
 						id={this.genId(Mode.RANGE)}
 						value={Mode.RANGE}
-						checked={this.state.hours.selected === Mode.RANGE}
+						checked={this.state.year.selected === Mode.RANGE}
 						disabled={this.isDisabled()}
 						onChange={() => this.setSelected(Mode.RANGE)}/>
 
 					<label
 						className={this.genClassName(['form-check-label'], ['c-range-option-label'])}
 						htmlFor={this.genId(Mode.RANGE)}>
-						Every hour between hour
+						{this.props.localization.quartz.year.range.label1}
 					</label>
 				</div>
 
@@ -187,7 +187,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 					value={this.getValues(Mode.RANGE)[0]}
 					onChange={(e) => this.setInValue(Mode.RANGE, 0, e.target.value)}>
 
-					{this.state.hoursList.map(item => {
+					{this.state.years.map(item => {
 						return (
 							<option
 								key={item.value}
@@ -201,7 +201,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 				<label
 					className="c-range-option-label2"
 					htmlFor={this.genId(Mode.RANGE)}>
-					and hour
+					{this.props.localization.quartz.year.range.label2}
 				</label>
 
 				<select
@@ -210,7 +210,7 @@ export class ReCronHour extends TabSingleSegmentComponent<ReCronHourState, Segme
 					value={this.getValues(Mode.RANGE)[1]}
 					onChange={(e) => this.setInValue(Mode.RANGE, 1, e.target.value)}>
 
-					{this.state.hoursList.map(item => {
+					{this.state.years.map(item => {
 						return (
 							<option
 								key={item.value}

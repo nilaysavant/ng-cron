@@ -36,6 +36,7 @@ export abstract class TabSingleSegmentComponent<S extends TabBaseState<SingleSeg
 
 	protected setSelected(mode: Mode) {
 		const view = this.getView(this.segment);
+		console.log('setSelected', mode);
 		view.selected = mode;
 		this.setView(this.segment, view);
 		this.applyChanges();

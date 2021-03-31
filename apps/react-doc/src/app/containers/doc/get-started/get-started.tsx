@@ -41,8 +41,9 @@ export class App extends React.Component {
 					<a
 						target="blank"
 						href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">
-						Quartz cron string format
+						Quartz
 					</a>
+					{' '}and Unix cron string formats
 					{' '}for both input and output.
 					<br />
 					Inspired by this{' '}

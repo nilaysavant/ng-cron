@@ -3,25 +3,13 @@ import { Type } from '@sbzen/cron-core';
 
 import { CronHostComponent } from './../cron-host.abstract';
 import { CronProps } from './../cron-props.type';
-import { CronState } from './../cron-state.type';
-import { ReCronSecond, ReCronMinute, ReCronHour, ReCronMonth, ReCronYear, ReCronDay } from './tabs';
+import { QuartzCronSecond, QuartzCronMinute, QuartzCronHour, QuartzCronMonth, QuartzCronYear, QuartzCronDay } from './tabs';
 import { QuartzCronDI } from './quartz-di';
-import { tabs } from './tabs/tabs';
 
 import './../cron.scss';
 
 export type ReQuartzCronProps = CronProps;
-export class ReQuartzCron extends CronHostComponent<ReQuartzCronProps, CronState> {
-	constructor(props: ReQuartzCronProps) {
-		super(props, Date.now());
-		const [activeTab] = this.props.activeTab ? [this.props.activeTab] : this.getTabs();
-
-		this.state = {
-			tab: activeTab,
-			session: this.session
-		};
-	}
-
+export class ReQuartzCron extends CronHostComponent<ReQuartzCronProps> {
 	componentWillUnmount() {
 		QuartzCronDI.destroy(this.session);
 	}
@@ -30,69 +18,72 @@ export class ReQuartzCron extends CronHostComponent<ReQuartzCronProps, CronState
 		return this.renderHost(this.state.tab, 'c-quartz');
 	}
 
-	protected changeTab(tab: Type) {
-		this.setState({ tab });
-	}
-
 	protected getTabs() {
-		return this.props.tabs || tabs;
+		return this.props.tabs || [
+			Type.SECONDS,
+			Type.MINUTES,
+			Type.HOURS,
+			Type.DAY,
+			Type.MONTH,
+			Type.YEAR
+		];
 	}
 
 	protected genContent() {
 		const cronLocalization = this.getLocalization();
 		const second = (
-			<ReCronSecond
+			<QuartzCronSecond
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronSecond>
+			</QuartzCronSecond>
 		);
 		const minute = (
-			<ReCronMinute
+			<QuartzCronMinute
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronMinute>
+			</QuartzCronMinute>
 		);
 		const hour = (
-			<ReCronHour
+			<QuartzCronHour
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronHour>
+			</QuartzCronHour>
 		);
 		const month = (
-			<ReCronMonth
+			<QuartzCronMonth
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronMonth>
+			</QuartzCronMonth>
 		);
 		const year = (
-			<ReCronYear
+			<QuartzCronYear
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronYear>
+			</QuartzCronYear>
 		);
 		const day = (
-			<ReCronDay
+			<QuartzCronDay
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronDay>
+			</QuartzCronDay>
 		);
 		const map = new Map<Type, JSX.Element>([
 			[Type.SECONDS, second],

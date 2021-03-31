@@ -1,10 +1,11 @@
 import React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
+import { HashLink } from 'react-router-hash-link';
 
 import { ReCron } from '@sbzen/re-cron';
 
-import './customization.scss';
+import './css-styling.scss';
 
 type CustomizationState = {
 	highlightSpecificHtml: string;
@@ -15,7 +16,7 @@ type CustomizationState = {
 	wholeRedesignScss: string;
 };
 
-export class Customization extends React.Component<{}, CustomizationState> {
+export class CustomizationCssStyling extends React.Component<{}, CustomizationState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -104,21 +105,30 @@ export class Customization extends React.Component<{}, CustomizationState> {
 	render() {
 		return (
 			<div>
-				<h1 className="doc-title">
-					Customization
-				</h1>
-
+				<h1 className="doc-title">CSS styling</h1>
 				<p>
 					This is a bootstrap 4 based component, but any time it can be used without any dependencies and will be absolutely unstyled.
 				</p>
 
-				There are two kind of customizations you can do.
+				There are two kind of customizations you can do:
+
 				<ul>
-					<li>Some corrections</li>
-					<li>Whole redesign</li>
+					<li>
+						<HashLink smooth to="#some-corrections">
+							Some corrections
+						</HashLink>
+					</li>
+					<li>
+						<HashLink smooth to="#whole-redesign">
+							Whole redesign
+						</HashLink>
+					</li>
 				</ul>
 
-				<div className="mt-4">
+				<div
+					id="some-corrections"
+					className="mt-4">
+
 					<h2 className="doc-subtitle">Some corrections</h2>
 					<p>
 						Every html element has specific css class and you can use that to make some ui corrections.
@@ -135,7 +145,7 @@ export class Customization extends React.Component<{}, CustomizationState> {
 								{...defaultProps}
 								theme={oceanicNext}
 								code={this.state.highlightSpecificHtml}
-								language="jsx">
+								language="tsx">
 
 								{({ className, style, tokens, getLineProps, getTokenProps }) => (
 									<pre className={className} style={style}>
@@ -184,7 +194,7 @@ export class Customization extends React.Component<{}, CustomizationState> {
 								{...defaultProps}
 								theme={oceanicNext}
 								code={this.state.highlightSpecificVerticalHtml}
-								language="jsx">
+								language="tsx">
 
 								{({ className, style, tokens, getLineProps, getTokenProps }) => (
 									<pre className={className} style={style}>
@@ -226,7 +236,10 @@ export class Customization extends React.Component<{}, CustomizationState> {
 					</div>
 				</div>
 
-				<div className="mt-5">
+				<div
+					id="whole-redesign"
+					className="mt-5">
+
 					<h2 className="doc-subtitle">Whole redesign</h2>
 					<p>
 						The template uses the bootstrap 4 css classes without any custom styling or overridings.
@@ -238,7 +251,7 @@ export class Customization extends React.Component<{}, CustomizationState> {
 						{...defaultProps}
 						theme={oceanicNext}
 						code={this.state.wholeRedesignHtml}
-						language="jsx">
+						language="tsx">
 
 						{({ className, style, tokens, getLineProps, getTokenProps }) => (
 							<pre className={className} style={style}>

@@ -8,7 +8,10 @@ import { DeviceService } from './../../shared/device.service';
 import { GetStarted } from './get-started/get-started';
 import { ApiReference } from './api-reference/api-reference';
 import { Compatibility } from './compatibility/compatibility';
-import { Customization } from './customization/customization';
+import { CustomizationVisibilityProps } from './customization/visibility-props/visibility-props';
+import { CustomizationCssStyling } from './customization/css-styling/css-styling';
+import { Localization } from './localization/localization';
+import { CronFormat } from './cron-format/cron-format';
 import { UsageDemo } from './usage-demo/usage-demo';
 
 import './doc.scss';
@@ -62,8 +65,21 @@ export class Doc extends React.Component<{}, HomeState> {
 								<Route path={'/doc/compatibility'}>
 									<Compatibility />
 								</Route>
+								<Route path={'/doc/localization'}>
+									<Localization />
+								</Route>
+								<Route path={'/doc/customization/visibility-props'}>
+									<CustomizationVisibilityProps />
+								</Route>
+								<Route path={'/doc/customization/css-styling'}>
+									<CustomizationCssStyling />
+								</Route>
+
 								<Route path={'/doc/customization'}>
-									<Customization />
+									<Redirect to="/doc/customization/visibility-props"/>
+								</Route>
+								<Route path={'/doc/cron-format'}>
+									<CronFormat />
 								</Route>
 								<Route path={'/doc/usage-demo'}>
 									<UsageDemo />

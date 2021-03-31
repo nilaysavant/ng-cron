@@ -21,6 +21,7 @@
 	"cron generator",
 	"quartz cron"
   ],
+  "sideEffects": ["*.css"],
   "dependencies": {
 	"@sbzen/cron-core": "0.0.4"
   },

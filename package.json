@@ -5,8 +5,8 @@
   "scripts": {
     "ng": "ng",
     "nx": "nx",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "nx serve",
+    "build": "nx build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -25,6 +25,7 @@
     "update:check": "ng update",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+	"rect-doc-prerender": "tsc --project apps/react-doc/tsconfig.prerender.json && node dist/out-tsc/apps/react-doc/src/prerender",
     "doc-pages": "mkdir docs && mkdir docs/react && mkdir docs/angular && cp -R README.md docs/ && cp -R dist/apps/angular-doc/* docs/angular/ && cp -R dist/apps/react-doc/* docs/react/",
     "publish:cron-code": "npm run build cron-core && npm publish dist/libs/cron-core --access=public || true",
     "publish:ng-cron": "npm run build ng-cron && node libs/ng-cron/pre-publish && npm publish dist/libs/ng-cron --access=public || true",
@@ -53,7 +54,8 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router-dom": "5.1.2",
-    "rxjs": "6.5.5",
+    "react-router-hash-link": "^2.4.0",
+    "rxjs": "6.6.6",
     "tslib": "2.0.1",
     "zone.js": "0.11.1"
   },

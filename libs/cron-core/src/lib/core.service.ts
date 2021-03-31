@@ -6,77 +6,90 @@ import { MonthUtils } from './month.enum';
 import { DataModel } from './data.model';
 
 export abstract class CoreService {
-	private seconds = this.genList(0, 59);
-	private secondsEvery = this.genList(1, 60);
+	private static seconds = CoreService.genList(0, 59);
+	private static secondsEvery = CoreService.genList(1, 60);
 
-	private minutes = this.genList(0, 59);
-	private minutesEvery = this.genList(1, 60);
+	private static minutes = CoreService.genList(0, 59);
+	private static minutesEvery = CoreService.genList(1, 60);
 
-	private hours = this.genList(0, 23);
-	private hoursEvery = this.genList(1, 24);
+	private static hours = CoreService.genList(0, 23);
+	private static hoursEvery = CoreService.genList(1, 24);
 
-	private year = this.genList(2019, 2098);
-	private yearEvery = this.genList(1, 93);
+	private static year = CoreService.genList(2019, 2098);
+	private static yearEvery = CoreService.genList(1, 93);
 
-	private dayOfMonth = this.genList(1, 31);
-	private dayOfMonthEvery = this.createOptions(MonthUtils.everyList());
+	private static dayOfMonth = CoreService.genList(1, 31);
+	private static dayOfMonthEvery = CoreService.createOptions(MonthUtils.everyList());
 
-	private dayOfWeek = this.createOptions(WeekDayUtils.list());
-	private dayOfWeekEvery = this.genList(1, 7);
+	private static dayOfWeek = CoreService.createOptions(WeekDayUtils.list());
+	private static dayOfWeekEvery = CoreService.genList(1, 7);
 
-	private month = this.createOptions(MonthUtils.list());
-	private monthEvery = this.genList(1, 12);
+	private static month = CoreService.createOptions(MonthUtils.list());
+	private static monthEvery = CoreService.genList(1, 12);
+
+	private static genList(from: number, to: number) {
+		const list: {value: string, label: string}[] = [];
+		for (let x = from; x <= to; x++) {
+			list.push({value: `${x}`, label: `${x}`});
+		}
+		return list;
+	}
+
+	private static createOptions(labels: string[]) {
+		return labels.map((v, i) => {
+			return {
+				label: v,
+				value: (i + 1).toString()
+			};
+		});
+	}
+
+	static getDaysOfWeekCodes() {
+		return WeekDayUtils
+			.list()
+			.map(v => ({
+				value: WeekDayUtils.getCode(v),
+				label: v
+			}));
+	}
+
+	static getMonthCodes() {
+		return MonthUtils
+			.list()
+			.map(v => ({
+				value: MonthUtils.getCode(v),
+				label: v
+			}));
+	}
+
+	static getList(segment: Segment, every = false) {
+		if (segment === Segment.seconds) {
+			return every ? CoreService.secondsEvery : CoreService.seconds;
+		}
+		if (segment === Segment.minutes) {
+			return every ? CoreService.minutesEvery : CoreService.minutes;
+		}
+		if (segment === Segment.hours) {
+			return every ? CoreService.hoursEvery : CoreService.hours;
+		}
+		if (segment === Segment.dayOfMonth) {
+			return every ? CoreService.dayOfMonthEvery : CoreService.dayOfMonth;
+		}
+		if (segment === Segment.year) {
+			return every ? CoreService.yearEvery : CoreService.year;
+		}
+		if (segment === Segment.month) {
+			return every ? CoreService.monthEvery : CoreService.month;
+		}
+		if (segment === Segment.dayOfWeek) {
+			return every ? CoreService.dayOfWeekEvery : CoreService.dayOfWeek;
+		}
+		return [];
+	}
 
 	abstract toString(model: DataModel): string;
 	abstract toModel(expression?: string): DataModel;
 	abstract stringifySegment(v: ValueModel): string;
-
-	getDaysOfWeekCodes() {
-		return WeekDayUtils
-			.list()
-			.map(v => {
-				return {
-					value: WeekDayUtils.getCode(v),
-					label: v
-				};
-			});
-	}
-
-	getMonthCodes() {
-		return MonthUtils
-			.list()
-			.map(v => {
-				return {
-					value: MonthUtils.getCode(v),
-					label: v
-				};
-			});
-	}
-
-	getList(segment: Segment, every = false) {
-		if (segment === Segment.seconds) {
-			return every ? this.secondsEvery : this.seconds;
-		}
-		if (segment === Segment.minutes) {
-			return every ? this.minutesEvery : this.minutes;
-		}
-		if (segment === Segment.hours) {
-			return every ? this.hoursEvery : this.hours;
-		}
-		if (segment === Segment.dayOfMonth) {
-			return every ? this.dayOfMonthEvery : this.dayOfMonth;
-		}
-		if (segment === Segment.year) {
-			return every ? this.yearEvery : this.year;
-		}
-		if (segment === Segment.month) {
-			return every ? this.monthEvery : this.month;
-		}
-		if (segment === Segment.dayOfWeek) {
-			return every ? this.dayOfWeekEvery : this.dayOfWeek;
-		}
-		return [];
-	}
 
 	protected parseSegment(segment: string, valueType: Segment) {
 		const mode = ModeUtils.detect(segment);
@@ -86,7 +99,6 @@ export abstract class CoreService {
 	}
 
 	private normalizeValues(mode: Mode, values: string[], valueType: Segment) {
-
 		// conver 1,2,3 to SUN,MON,TUE
 		if (valueType === Segment.dayOfWeek && mode === Mode.AND) {
 			return values
@@ -101,22 +113,5 @@ export abstract class CoreService {
 				.filter(v => !!v);
 		}
 		return values;
-	}
-
-	private createOptions(labels: string[]) {
-		return labels.map((v, i) => {
-			return {
-				label: v,
-				value: (i + 1).toString()
-			};
-		});
-	}
-
-	private genList(from: number, to: number) {
-		const list: {value: string, label: string}[] = [];
-		for (let x = from; x <= to; x++) {
-			list.push({value: `${x}`, label: `${x}`});
-		}
-		return list;
 	}
 }

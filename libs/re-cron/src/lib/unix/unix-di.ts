@@ -1,23 +1,21 @@
-import { UnixService } from '@sbzen/cron-core';
-
-import { CronService } from './../cron.service';
+import { UnixService, CronUnixUIService } from '@sbzen/cron-core';
 
 export class UnixCronDI {
-	private static map = new Map<number, CronService>();
+	private static map = new Map<string, CronUnixUIService>();
 
-	static get(session: number) {
+	static get(session: string) {
 		if (!this.map.has(session)) {
 			this.create(session);
 		}
 		return this.map.get(session);
 	}
 
-	static destroy(session: number) {
+	static destroy(session: string) {
 		this.map.delete(session);
 	}
 
-	private static create(session: number) {
-		const inst = new CronService(new UnixService());
+	private static create(session: string) {
+		const inst = new CronUnixUIService(new UnixService());
 		this.map.set(session, inst);
 	}
 }

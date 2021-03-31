@@ -1,23 +1,23 @@
-import { QuartzService } from '@sbzen/cron-core';
-
-import { CronService } from './../cron.service';
+import { QuartzService, CronQuartzUIService } from '@sbzen/cron-core';
 
 export class QuartzCronDI {
-	private static map = new Map<number, CronService>();
+	private static map = new Map<string, CronQuartzUIService>();
 
-	static get(session: number) {
+	static get(session: string) {
 		if (!this.map.has(session)) {
 			this.create(session);
 		}
 		return this.map.get(session);
 	}
 
-	static destroy(session: number) {
+	static destroy(session: string) {
+		const service = this.get(session);
+		service.destroy();
 		this.map.delete(session);
 	}
 
-	private static create(session: number) {
-		const inst = new CronService(new QuartzService());
+	private static create(session: string) {
+		const inst = new CronQuartzUIService(new QuartzService());
 		this.map.set(session, inst);
 	}
 }

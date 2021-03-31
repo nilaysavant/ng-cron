@@ -1,23 +1,17 @@
 import React from 'react';
 
+import { Mode } from '@sbzen/cron-core';
+
 export type CronBaseProps = {
 	cssClassPrefix?: string;
 }
 
-export abstract class CronBaseComponent<P extends CronBaseProps, S> extends React.Component<P, S> {
-	constructor(
-		props: P,
-		protected session: number
-	) {
-		super(props);
-	}
-
+export abstract class CronBaseComponent<P extends { session: string } & CronBaseProps, S = {}> extends React.Component<P, S> {
 	protected getCssClassPrefix() {
 		return this.props.cssClassPrefix || '';
 	}
 
-	protected genClassName(classes: string[], noPrefixClasses: string[] = []) {
-		const prefixed = classes.map(c => this.getCssClassPrefix() + c);
-		return prefixed.concat(noPrefixClasses).join(' ');
+	protected genId(mode: Mode, extra?: string) {
+		return `${mode}-${extra}${this.props.session}`;
 	}
 }

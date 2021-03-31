@@ -1,226 +1,85 @@
 import React from 'react';
-import { Segment, QuartzService, Mode, CronJobsSelectOption } from '@sbzen/cron-core';
+import { Segment, QuartzService, Mode, Type } from '@sbzen/cron-core';
 
-import { TabSingleSegmentComponent } from './../tab-single-segment.abstract';
-import { TabBaseProps, TabBaseState } from './../tab-base.abstract';
+import { SimpleEvery, SimpleAnd, SimpleRange } from './../../../shared';
+import { QuartzTabSingleSegmentComponent } from './../tab-single-segment.abstract';
+import { SimpleIncrement } from './../shared';
 
-type ReCronYearState = {
-	yearCodes: CronJobsSelectOption[];
-	years: CronJobsSelectOption[];
-} & TabBaseState<Segment.year>;
+export class QuartzCronYear extends QuartzTabSingleSegmentComponent {
+	private readonly uiService = this.getQuartzCron();
+	private readonly uiServiceApi = this.uiService.getApi<Type.YEAR>(Type.YEAR);
+	private readonly yearCodes = QuartzService.getList(Segment.year, true);
+	private readonly years = QuartzService.getList(Segment.year);
 
-export class ReCronYear extends TabSingleSegmentComponent<ReCronYearState, Segment.year> {
-	constructor(props: TabBaseProps) {
-		super(props, Segment.year);
-
-		const coreService = new QuartzService();
-		this.state = {
-			yearCodes: coreService.getList(Segment.year, true),
-			years: coreService.getList(Segment.year),
-			year: this.getView(Segment.year)
-		};
+	constructor(props) {
+		super(props, [Segment.year]);
 	}
 
 	protected genEvery() {
 		return (
-			<div className={this.genClassName(['form-group'], ['c-every'])}>
-				<div className={this.genClassName(['form-check'], ['c-every-check'])}>
-					<input
-						className={this.genClassName(['form-check-input'], ['c-every-option'])}
-						type="radio"
-						id={this.genId(Mode.EVERY)}
-						value={Mode.EVERY}
-						checked={this.state.year.selected === Mode.EVERY}
-						disabled={this.isDisabled()}
-						onChange={() => {this.setEvery()}} />
-
-					<label
-						className={this.genClassName(['form-check-label'], ['c-every-option-label'])}
-						htmlFor={this.genId(Mode.EVERY)}>
-						{this.props.localization.quartz.year.every.label}
-					</label>
-				</div>
-			</div>
+			<SimpleEvery
+				cssClassPrefix={this.getCssClassPrefix()}
+				checked={this.uiServiceApi.isEverySelected()}
+				disabled={this.uiService.isDisabled()}
+				segmentId={this.genId(Mode.EVERY)}
+				onSelect={() => this.uiServiceApi.selectEvery()}
+				label={this.props.localization.quartz.year.every.label}/>
 		);
 	}
 
 	protected genIncrement() {
 		return (
-			<div className={this.genClassName(['form-group', 'form-inline'], ['c-increment'])}>
-				<div className={this.genClassName(['form-check'], ['c-increment-check'])}>
-				
-					<input
-						className={this.genClassName(['form-check-input'], ['c-increment-option'])}
-						type="radio"
-						id={this.genId(Mode.INCREMENT)}
-						value={Mode.INCREMENT}
-						checked={this.state.year.selected === Mode.INCREMENT}
-						disabled={this.isDisabled()}
-						onChange={() => this.setSelected(Mode.INCREMENT)} />
-
-					<label
-						className={this.genClassName(['form-check-label'], ['c-increment-option-label'])}
-						htmlFor={this.genId(Mode.INCREMENT)}>
-						{this.props.localization.quartz.year.increment.label1}
-					</label>
-				</div>
-
-				<select
-					className={this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-increment-every'])}
-					disabled={this.isDisabled(Mode.INCREMENT)}
-					value={this.getValues(Mode.INCREMENT)[1]}
-					onChange={(e) => this.setInValue(Mode.INCREMENT, 1, e.target.value)}>
-
-					{this.state.yearCodes.map(item => {
-						return (
-							<option
-								key={item.value}
-								value={item.value}>
-								{item.value}
-							</option>
-						);
-					})}
-				</select>
-
-				<label
-					className="c-increment-option-label2"
-					htmlFor={this.genId(Mode.INCREMENT)}>
-					{this.props.localization.quartz.year.increment.label2}
-				</label>
-
-				<select
-					className={this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-increment-from'])}
-					disabled={this.isDisabled(Mode.INCREMENT)}
-					value={this.getValues(Mode.INCREMENT)[0]}
-					onChange={(e) => this.setInValue(Mode.INCREMENT, 0, e.target.value)}>
-
-					{this.state.years.map(item => {
-						return (
-							<option
-								key={item.value}
-								value={item.value}>
-								{item.label}
-							</option>
-						);
-					})}
-				</select>
-			</div>
+			<SimpleIncrement
+				cssClassPrefix={this.getCssClassPrefix()}
+				segmentId={this.genId(Mode.INCREMENT)}
+				checked={this.uiServiceApi.isIncrementSelected()}
+				disabled={this.uiService.isDisabled()}
+				disabledControls={this.uiServiceApi.isIncrementControlsDisabled()}
+				onSelect={() => this.uiServiceApi.selectIncrement()}
+				label1={this.props.localization.quartz.year.increment.label1}
+				label2={this.props.localization.quartz.year.increment.label2}
+				primaryOptions={this.yearCodes}
+				primaryValue={this.uiServiceApi.getIncrementPrimaryValue()}
+				onPrimaryValueChange={this.uiServiceApi.setIncrementPrimaryValue}
+				secondaryOptions={this.years}
+				secondaryValue={this.uiServiceApi.getIncrementSecondaryValue()}
+				onSecondaryValueChange={this.uiServiceApi.setIncrementSecondaryValue}/>
 		);
 	}
 
 	protected genAnd() {
 		return (
-			<div className={this.genClassName(['form-group'], ['c-and'])}>
-				<div className={this.genClassName(['form-check'], ['c-and-check'])}>
-					<input
-						className={this.genClassName(['form-check-input'], ['c-and-option'])}
-						type="radio"
-						id={this.genId(Mode.AND)}
-						value={Mode.AND}
-						checked={this.state.year.selected === Mode.AND}
-						disabled={this.isDisabled()}
-						onChange={() => this.setSelected(Mode.AND)} />
-
-					<label
-						className={this.genClassName(['form-check-label'], ['c-and-option-label'])}
-						htmlFor={this.genId(Mode.AND)}>
-						{this.props.localization.quartz.year.and.label}
-					</label>
-				</div>
-
-				<div className={this.genClassName(['row', 'pl-3', 'pt-1'], ['c-and-list'])}>
-					{this.state.years.map(item => {
-						return (
-							<div
-								className={this.genClassName(['col-1'], ['c-and-item'])}
-								item-value={item.value}
-								key={this.genId(Mode.AND, item.value)}>
-
-								<div className={this.genClassName(['form-check'], ['c-and-item-check'])}>
-									<input
-										className={this.genClassName(['form-check-input'], ['c-and-item-field'])}
-										type="checkbox"
-										id={this.genId(Mode.AND, item.value)}
-										value={item.value}
-										disabled={this.isDisabled(Mode.AND)}
-										checked={this.inSpecificsList(item.value, Mode.AND)}
-										onChange={() => this.toggleSpecifics(item.value, Mode.AND)} />
-
-									<label
-										className={this.genClassName(['form-check-label'], ['c-and-item-label'])}
-										htmlFor={this.genId(Mode.AND, item.value)}>
-										{item.label}
-									</label>
-								</div>
-							</div>
-						);
-					})}
-				</div>
-			</div>
+			<SimpleAnd
+				cssClassPrefix={this.getCssClassPrefix()}
+				segmentId={this.genId(Mode.AND)}
+				checked={this.uiServiceApi.isAndSelected()}
+				disabled={this.uiService.isDisabled()}
+				disabledControls={this.uiServiceApi.isAndControlsDisabled()}
+				onSelect={() => this.uiServiceApi.selectAnd()}
+				label={this.props.localization.quartz.year.and.label}
+				onValueChange={this.uiServiceApi.selectAndValue}
+				isValueSelected={value => this.uiServiceApi.isSelectedAndValue(value)}
+				options={this.years}/>
 		);
 	}
 
 	protected genRange() {
 		return (
-			<div className={this.genClassName(['form-group', 'form-inline'], ['c-range'])}>
-				<div className={this.genClassName(['form-check'], ['c-range-check'])}>
-				
-					<input
-						className={this.genClassName(['form-check-input'], ['c-range-option'])}
-						type="radio"
-						id={this.genId(Mode.RANGE)}
-						value={Mode.RANGE}
-						checked={this.state.year.selected === Mode.RANGE}
-						disabled={this.isDisabled()}
-						onChange={() => this.setSelected(Mode.RANGE)}/>
-
-					<label
-						className={this.genClassName(['form-check-label'], ['c-range-option-label'])}
-						htmlFor={this.genId(Mode.RANGE)}>
-						{this.props.localization.quartz.year.range.label1}
-					</label>
-				</div>
-
-				<select
-					className={this.genClassName(['form-control', 'form-control-sm', 'mx-1'], ['c-range-from'])}
-					disabled={this.isDisabled(Mode.RANGE)}
-					value={this.getValues(Mode.RANGE)[0]}
-					onChange={(e) => this.setInValue(Mode.RANGE, 0, e.target.value)}>
-
-					{this.state.years.map(item => {
-						return (
-							<option
-								key={item.value}
-								value={item.value}>
-								{item.label}
-							</option>
-						);
-					})}
-				</select>
-
-				<label
-					className="c-range-option-label2"
-					htmlFor={this.genId(Mode.RANGE)}>
-					{this.props.localization.quartz.year.range.label2}
-				</label>
-
-				<select
-					className={this.genClassName(['form-control', 'form-control-sm', 'ml-1'], ['c-range-to'])}
-					disabled={this.isDisabled(Mode.RANGE)}
-					value={this.getValues(Mode.RANGE)[1]}
-					onChange={(e) => this.setInValue(Mode.RANGE, 1, e.target.value)}>
-
-					{this.state.years.map(item => {
-						return (
-							<option
-								key={item.value}
-								value={item.value}>
-								{item.label}
-							</option>
-						);
-					})}
-				</select>
-			</div>
+			<SimpleRange
+				cssClassPrefix={this.getCssClassPrefix()}
+				segmentId={this.genId(Mode.RANGE)}
+				checked={this.uiServiceApi.isRangeSelected()}
+				disabled={this.uiService.isDisabled()}
+				onSelect={() => this.uiServiceApi.selectRange()}
+				disabledControls={this.uiServiceApi.isRangeControlsDisabled()}
+				label1={this.props.localization.quartz.year.range.label1}
+				label2={this.props.localization.quartz.year.range.label2}
+				primaryOptions={this.years}
+				primaryValue={this.uiServiceApi.getRangePrimaryValue()}
+				onPrimaryValueChange={this.uiServiceApi.setRangePrimaryValue}
+				secondaryOptions={this.years}
+				secondaryValue={this.uiServiceApi.getRangeSecondaryValue()}
+				onSecondaryValueChange={this.uiServiceApi.setRangeSecondaryValue}/>
 		);
 	}
 }

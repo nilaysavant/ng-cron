@@ -20,7 +20,9 @@ export class ReCron extends React.Component<ReCronProps> {
 					tabs={this.props.tabs}
 					activeTab={this.props.activeTab}
 					hideTabs={this.props.hideTabs}
-					localization={this.props.localization}>
+					cssClassPrefix={this.props.cssClassPrefix}
+					localization={this.props.localization}
+					onTabChange={this.props.onTabChange}>
 				</ReQuartzCron>
 			);
 		}
@@ -32,7 +34,9 @@ export class ReCron extends React.Component<ReCronProps> {
 				tabs={this.props.tabs}
 				activeTab={this.props.activeTab}
 				hideTabs={this.props.hideTabs}
-				localization={this.props.localization}>
+				cssClassPrefix={this.props.cssClassPrefix}
+				localization={this.props.localization}
+				onTabChange={this.props.onTabChange}>
 			</ReUnixCron>
 		);
 	}

@@ -3,25 +3,13 @@ import { Type } from '@sbzen/cron-core';
 
 import { CronHostComponent } from './../cron-host.abstract';
 import { CronProps } from './../cron-props.type';
-import { CronState } from './../cron-state.type';
-import { ReCronMinute, ReCronHour, ReCronMonth, ReCronDay } from './tabs';
+import { UnixCronMinute, UnixCronHour, UnixCronMonth, UnixCronDay } from './tabs';
 import { UnixCronDI } from './unix-di';
-import { tabs } from './tabs/tabs';
 
 import './../cron.scss';
 
 export type ReUnixCronProps = CronProps;
-export class ReUnixCron extends CronHostComponent<ReUnixCronProps, CronState> {
-	constructor(props: ReUnixCronProps) {
-		super(props, Date.now());
-		const [activeTab] = this.props.activeTab ? [this.props.activeTab] : this.getTabs();
-
-		this.state = {
-			tab: activeTab,
-			session: this.session
-		};
-	}
-
+export class ReUnixCron extends CronHostComponent<ReUnixCronProps> {
 	componentWillUnmount() {
 		UnixCronDI.destroy(this.session);
 	}
@@ -31,7 +19,13 @@ export class ReUnixCron extends CronHostComponent<ReUnixCronProps, CronState> {
 	}
 
 	protected getTabs() {
-		const cronTabs = this.props.tabs || tabs;
+		const cronTabs = this.props.tabs ||  [
+			Type.MINUTES,
+			Type.HOURS,
+			Type.DAY,
+			Type.MONTH
+		];
+
 		return cronTabs.filter(t => ![
 			Type.SECONDS,
 			Type.YEAR
@@ -41,40 +35,40 @@ export class ReUnixCron extends CronHostComponent<ReUnixCronProps, CronState> {
 	protected genContent() {
 		const cronLocalization = this.getLocalization();
 		const minute = (
-			<ReCronMinute
+			<UnixCronMinute
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronMinute>
+			</UnixCronMinute>
 		);
 		const hour = (
-			<ReCronHour
+			<UnixCronHour
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronHour>
+			</UnixCronHour>
 		);
 		const month = (
-			<ReCronMonth
+			<UnixCronMonth
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronMonth>
+			</UnixCronMonth>
 		);
 		const day = (
-			<ReCronDay
+			<UnixCronDay
 				localization={cronLocalization}
-				session={this.state.session}
-				cssClassPrefix={this.getCssClassPrefix()}
+				session={this.session}
+				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>
-			</ReCronDay>
+			</UnixCronDay>
 		);
 		const map = new Map<Type, JSX.Element>([
 			[Type.MINUTES, minute],
@@ -83,10 +77,6 @@ export class ReUnixCron extends CronHostComponent<ReUnixCronProps, CronState> {
 			[Type.DAY, day]
 		]);
 		return map.get(this.state.tab);
-	}
-
-	protected changeTab(tab: Type) {
-		this.setState({ tab });
 	}
 
 	protected getQuartzCron() {

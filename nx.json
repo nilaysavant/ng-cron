@@ -1,5 +1,4 @@
 {
-  "npmScope": "sbzen",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -8,6 +7,7 @@
     "nx.json": "*",
     ".eslintrc.json": "*"
   },
+  "npmScope": "sbzen",
   "projects": {
     "ng-cron": {
       "tags": []
@@ -20,12 +20,17 @@
     },
     "react-doc": {
       "tags": [],
-	  "implicitDependencies": [
-        "re-cron"
-      ]
+      "implicitDependencies": ["re-cron"]
     },
     "re-cron": {
       "tags": []
+    },
+    "test-re-cron": {
+      "tags": []
+    },
+    "test-re-cron-e2e": {
+      "tags": [],
+      "implicitDependencies": ["test-re-cron"]
     }
   }
 }

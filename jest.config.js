@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/cron-core',
     '<rootDir>/apps/react-doc',
     '<rootDir>/libs/re-cron',
+    '<rootDir>/apps/test-re-cron',
   ],
 };

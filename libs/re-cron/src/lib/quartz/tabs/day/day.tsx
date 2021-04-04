@@ -116,7 +116,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								key={item.value}
 								value={item.value}>
-								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfWeek)}
 							</option>
 						);
 					})}
@@ -179,7 +179,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								key={item.value}
 								value={item.value}>
-								{this.props.localization.common.dayOfMonth[item.label]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfMonth)}
 							</option>
 						);
 					})}
@@ -235,7 +235,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 									<label
 										className={genClassName(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-item-label'])}
 										htmlFor={this.genId(Mode.AND, Segment.dayOfWeek + item.value)}>
-										{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
+										{this.localizeLabel(item.label, this.props.localization.common.dayOfWeek)}
 									</label>
 								</div>
 							</div>
@@ -376,7 +376,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								value={item.value + 'L'}
 								key={item.value + 'L'}>
-								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfWeek)}
 							</option>
 						);
 					})}
@@ -462,7 +462,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								key={item.value + 'W'}
 								value={item.value + 'W'}>
-								{this.props.localization.common.dayOfMonth[item.label]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfMonth)}
 							</option>
 						);
 					})}
@@ -508,7 +508,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								value={item.value}
 								key={item.value}>
-								{this.props.localization.common.dayOfMonth[item.label]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfMonth)}
 							</option>
 						);
 					})}
@@ -525,7 +525,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 							<option
 								key={item.value}
 								value={item.value}>
-								{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
+								{this.localizeLabel(item.label, this.props.localization.common.dayOfWeek)}
 							</option>
 						);
 					})}

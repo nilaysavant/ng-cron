@@ -4,10 +4,11 @@ export class UnixCronDI {
 	private static map = new Map<string, CronUnixUIService>();
 
 	static get(session: string) {
-		if (!this.map.has(session)) {
-			this.create(session);
+		let service = this.map.get(session);
+		if (!service) {
+			service = this.create(session);
 		}
-		return this.map.get(session);
+		return service;
 	}
 
 	static destroy(session: string) {
@@ -17,5 +18,6 @@ export class UnixCronDI {
 	private static create(session: string) {
 		const inst = new CronUnixUIService(new UnixService());
 		this.map.set(session, inst);
+		return inst;
 	}
 }

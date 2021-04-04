@@ -73,6 +73,13 @@ export class MonthUtils {
 	}
 
 	static getCode(weekDay: Month) {
-		return codeMap.get(weekDay);
+		return codeMap.get(weekDay) as MonthCode;
+	}
+
+	static getMonth(code: MonthCode) {
+		const info = Array.from(codeMap).find(([v, d]) => {
+			return d === code;
+		});
+		return info ? info[0] : null;
 	}
 }

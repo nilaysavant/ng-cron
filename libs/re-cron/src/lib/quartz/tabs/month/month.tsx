@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, QuartzService, Mode, Type } from '@sbzen/cron-core';
 
 import { SimpleEvery, SimpleAnd, SimpleRange } from './../../../shared';
+import { CronTabBaseProps } from './../../../cron-tab-base.abstract';
 import { QuartzTabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { SimpleIncrement } from './../shared';
 
@@ -11,7 +12,7 @@ export class QuartzCronMonth extends QuartzTabSingleSegmentComponent {
 	private readonly monthCodes = QuartzService.getMonthCodes();
 	private readonly monthes = QuartzService.getList(Segment.month);
 
-	constructor(props) {
+	constructor(props: CronTabBaseProps) {
 		super(props, [Segment.month]);
 	}
 
@@ -41,7 +42,7 @@ export class QuartzCronMonth extends QuartzTabSingleSegmentComponent {
 				primaryOptions={this.monthes.map(({ value }, i) => ({ value, label: i + 1 }))}
 				primaryValue={this.uiServiceApi.getIncrementPrimaryValue()}
 				onPrimaryValueChange={this.uiServiceApi.setIncrementPrimaryValue}
-				secondaryOptions={this.monthes.map(v => ({ ...v, label: this.props.localization.common.month[v.label.toLowerCase()]}))}
+				secondaryOptions={this.localizeList(this.monthes, this.props.localization.common.month)}
 				secondaryValue={this.uiServiceApi.getIncrementSecondaryValue()}
 				onSecondaryValueChange={this.uiServiceApi.setIncrementSecondaryValue}/>
 		);
@@ -60,7 +61,7 @@ export class QuartzCronMonth extends QuartzTabSingleSegmentComponent {
 				label={this.props.localization.quartz.month.and.label}
 				onValueChange={this.uiServiceApi.selectAndValue}
 				isValueSelected={value => this.uiServiceApi.isSelectedAndValue(value)}
-				options={this.monthCodes.map(v => ({ ...v, label: this.props.localization.common.month[v.label.toLowerCase()] }))}/>
+				options={this.localizeList(this.monthCodes, this.props.localization.common.month)}/>
 		);
 	}
 
@@ -75,10 +76,10 @@ export class QuartzCronMonth extends QuartzTabSingleSegmentComponent {
 				disabledControls={this.uiServiceApi.isRangeControlsDisabled()}
 				label1={this.props.localization.quartz.month.range.label1}
 				label2={this.props.localization.quartz.month.range.label2}
-				primaryOptions={this.monthes.map((v) => ({ ...v, label: this.props.localization.common.month[v.label.toLowerCase()] }))}
+				primaryOptions={this.localizeList(this.monthes, this.props.localization.common.month)}
 				primaryValue={this.uiServiceApi.getRangePrimaryValue()}
 				onPrimaryValueChange={this.uiServiceApi.setRangePrimaryValue}
-				secondaryOptions={this.monthes.map((v) => ({ ...v, label: this.props.localization.common.month[v.label.toLowerCase()] }))}
+				secondaryOptions={this.localizeList(this.monthes, this.props.localization.common.month)}
 				secondaryValue={this.uiServiceApi.getRangeSecondaryValue()}
 				onSecondaryValueChange={this.uiServiceApi.setRangeSecondaryValue}/>
 		);

@@ -1,13 +1,13 @@
 import React from 'react';
 import { CronType } from '@sbzen/cron-core';
 
-import { CronProps } from './cron-props.type';
+import { CronHostProps } from './cron-host.abstract';
 import { ReQuartzCron } from './quartz';
 import { ReUnixCron } from './unix';
 
 export type ReCronProps = {
 	cronType?: CronType
-} & CronProps;
+} & CronHostProps;
 
 export class ReCron extends React.Component<ReCronProps> {
 	render() {

@@ -186,7 +186,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 									<label
 										className={genClassName(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-item-label'])}
 										htmlFor={this.genId(Mode.AND, Segment.dayOfWeek + item.value)}>
-										{this.props.localization.common.dayOfWeek[item.label.toLowerCase()]}
+										{this.localizeLabel(item.label, this.props.localization.common.dayOfWeek)}
 									</label>
 								</div>
 							</div>

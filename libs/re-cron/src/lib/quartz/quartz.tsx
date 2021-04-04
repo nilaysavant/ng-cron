@@ -1,15 +1,14 @@
 import React from 'react';
 import { Type } from '@sbzen/cron-core';
 
-import { CronHostComponent } from './../cron-host.abstract';
-import { CronProps } from './../cron-props.type';
+import { CronHostComponent, CronHostProps } from './../cron-host.abstract';
 import { QuartzCronSecond, QuartzCronMinute, QuartzCronHour, QuartzCronMonth, QuartzCronYear, QuartzCronDay } from './tabs';
 import { QuartzCronDI } from './quartz-di';
 
 import './../cron.scss';
 
-export type ReQuartzCronProps = CronProps;
-export class ReQuartzCron extends CronHostComponent<ReQuartzCronProps> {
+export type ReQuartzCronProps = CronHostProps;
+export class ReQuartzCron extends CronHostComponent {
 	componentWillUnmount() {
 		QuartzCronDI.destroy(this.session);
 	}
@@ -93,7 +92,7 @@ export class ReQuartzCron extends CronHostComponent<ReQuartzCronProps> {
 			[Type.YEAR, year],
 			[Type.DAY, day]
 		]);
-		return map.get(this.state.tab);
+		return map.get(this.state.tab) || null;
 	}
 
 	protected getQuartzCron() {

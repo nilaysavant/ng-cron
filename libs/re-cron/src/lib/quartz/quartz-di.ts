@@ -4,10 +4,11 @@ export class QuartzCronDI {
 	private static map = new Map<string, CronQuartzUIService>();
 
 	static get(session: string) {
-		if (!this.map.has(session)) {
-			this.create(session);
+		let service = this.map.get(session);
+		if (!service) {
+			service = this.create(session);
 		}
-		return this.map.get(session);
+		return service;
 	}
 
 	static destroy(session: string) {
@@ -19,5 +20,6 @@ export class QuartzCronDI {
 	private static create(session: string) {
 		const inst = new CronQuartzUIService(new QuartzService());
 		this.map.set(session, inst);
+		return inst
 	}
 }

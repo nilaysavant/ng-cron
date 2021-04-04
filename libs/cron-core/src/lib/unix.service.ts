@@ -23,7 +23,9 @@ export class UnixService extends CoreService {
 			Segment.month,
 			Segment.dayOfWeek
 		];
-		expression.split(' ')
+		expression
+			.split(' ')
+			.slice(0, keys.length)
 			.forEach((s, i) => {
 				const key = keys[i];
 				const v = this.parseSegment(s, key);

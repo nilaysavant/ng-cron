@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, QuartzService, Mode, Type } from '@sbzen/cron-core';
 
 import { SimpleEvery, SimpleAnd, SimpleRange } from './../../../shared';
+import { CronTabBaseProps } from './../../../cron-tab-base.abstract';
 import { QuartzTabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { SimpleIncrement } from './../shared';
 
@@ -11,7 +12,7 @@ export class QuartzCronSecond extends QuartzTabSingleSegmentComponent {
 	private readonly secondCodes = QuartzService.getList(Segment.seconds, true);
 	private readonly secondsList = QuartzService.getList(Segment.seconds);
 
-	constructor(props) {
+	constructor(props: CronTabBaseProps) {
 		super(props, [Segment.seconds]);
 	}
 

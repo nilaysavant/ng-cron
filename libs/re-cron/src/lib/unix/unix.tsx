@@ -1,15 +1,14 @@
 import React from 'react';
 import { Type } from '@sbzen/cron-core';
 
-import { CronHostComponent } from './../cron-host.abstract';
-import { CronProps } from './../cron-props.type';
+import { CronHostComponent, CronHostProps } from './../cron-host.abstract';
 import { UnixCronMinute, UnixCronHour, UnixCronMonth, UnixCronDay } from './tabs';
 import { UnixCronDI } from './unix-di';
 
 import './../cron.scss';
 
-export type ReUnixCronProps = CronProps;
-export class ReUnixCron extends CronHostComponent<ReUnixCronProps> {
+export type ReUnixCronProps = CronHostProps;
+export class ReUnixCron extends CronHostComponent {
 	componentWillUnmount() {
 		UnixCronDI.destroy(this.session);
 	}
@@ -76,7 +75,7 @@ export class ReUnixCron extends CronHostComponent<ReUnixCronProps> {
 			[Type.MONTH, month],
 			[Type.DAY, day]
 		]);
-		return map.get(this.state.tab);
+		return map.get(this.state.tab) || null;
 	}
 
 	protected getQuartzCron() {

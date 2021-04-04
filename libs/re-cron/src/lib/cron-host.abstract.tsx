@@ -1,45 +1,45 @@
 import React from 'react';
 import { Type, CronUIBaseService } from '@sbzen/cron-core';
 
-import { localization, CronLocalization } from './cron-localization';
+import { localization, CronLocalization, DeepPartial } from './cron-localization';
 import { CronBaseProps } from './cron-base.abstract';
 import { CronState } from './cron-state.type';
 import { genClassName } from './helpers';
 
-type RawObject = {
+type RawObject = DeepPartial<{
 	[key: string]: string|RawObject;
-};
+}>;
 
 export type CronHostProps = {
 	localization?: CronLocalization,
 	hideTabs?: boolean,
 	value?: string,
 	activeTab?: Type,
+	tabs?: Type[],
 	disabled?: boolean,
 	onChange?: (cronValue: string) => void,
 	onTabChange?: (tab: Type) => void
 } & CronBaseProps;
 
-export abstract class CronHostComponent<P extends CronHostProps> extends React.Component<P, CronState> {
+export abstract class CronHostComponent extends React.Component<CronHostProps, CronState> {
 	protected readonly session = `${Date.now()}_${Math.random()}`;
 
 	protected abstract getTabs(): Type[];
-	protected abstract genContent(): JSX.Element;
+	protected abstract genContent(): JSX.Element|null;
 	protected abstract getQuartzCron(): CronUIBaseService;
 
-	constructor(props: P) {
+	constructor(props: CronHostProps) {
 		super(props);
 
-		const [activeTab] = this.props.activeTab ? [this.props.activeTab] : this.getTabs();
 		this.state = {
-			tab: activeTab
+			tab: this.getActiveTab()
 		};
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps: CronHostProps) {
 		if (prevProps.activeTab !== this.props.activeTab) {
 			this.setState({
-				tab: this.props.activeTab
+				tab: this.getActiveTab()
 			});
 		}
 		if (prevProps.disabled !== this.props.disabled) {
@@ -63,7 +63,7 @@ export abstract class CronHostComponent<P extends CronHostProps> extends React.C
 
 	protected renderHost(activeTab: Type, addClass: string) {
 		const servce = this.getQuartzCron();
-		servce.fillFromExpression(this.props.value);
+		servce.fillFromExpression(this.props.value || '');
 
 		const hasTabs = !this.props.hideTabs && !!this.getTabs().length;
 		return (
@@ -82,7 +82,18 @@ export abstract class CronHostComponent<P extends CronHostProps> extends React.C
 	}
 
 	protected getLocalization() {
-		return this.mergeDeep<typeof localization>(localization, this.props.localization || {});
+		const args: RawObject[] = [
+			localization
+		];
+		if (this.props.localization) {
+			args.push(this.props.localization);
+		}
+		return this.mergeDeep<typeof localization>(...args);
+	}
+
+	private getActiveTab() {
+		const [activeTab] = this.props.activeTab ? [this.props.activeTab] : this.getTabs();
+		return activeTab;
 	}
 
 	private genTabs(activeTab: Type) {
@@ -101,7 +112,9 @@ export abstract class CronHostComponent<P extends CronHostProps> extends React.C
 	private genTab(tab: Type, activeTab: Type) {
 		const { tabs: tabsLocalization } = this.getLocalization();
 		const isActive = activeTab === tab;
-		const className = genClassName(this.props.cssClassPrefix, ['nav-link'], [activeTab, 'c-tab', isActive ? 'active': '']);
+		const className = genClassName(this.props.cssClassPrefix, ['nav-link'], [tab, 'c-tab', isActive ? 'active': '']);
+		const tabKey = tab.toLowerCase() as keyof typeof tabsLocalization;
+
 		return (
 			<button
 				key={tab}
@@ -112,7 +125,7 @@ export abstract class CronHostComponent<P extends CronHostProps> extends React.C
 				tabIndex={isActive ? 0 : -1}
 				onClick={() => this.changeTab(tab)}>
 
-				{tabsLocalization[tab.toLowerCase()]}
+				{tabsLocalization[tabKey]}
 			</button>
 		);
 	}

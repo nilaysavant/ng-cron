@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, QuartzService, Mode, Type } from '@sbzen/cron-core';
 
 import { SimpleEvery, SimpleAnd, SimpleRange } from './../../../shared';
+import { CronTabBaseProps } from './../../../cron-tab-base.abstract';
 import { UnixTabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { SimpleIncrement } from './../shared';
 
@@ -11,7 +12,7 @@ export class UnixCronMinute extends UnixTabSingleSegmentComponent {
 	private readonly minuteCodes = QuartzService.getList(Segment.minutes, true);
 	private readonly minutesList = QuartzService.getList(Segment.minutes);
 
-	constructor(props) {
+	constructor(props: CronTabBaseProps) {
 		super(props, [Segment.minutes]);
 	}
 

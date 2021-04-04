@@ -9,28 +9,16 @@
   },
   "npmScope": "sbzen",
   "projects": {
-    "ng-cron": {
-      "tags": []
-    },
-    "angular-doc": {
-      "tags": []
-    },
-    "cron-core": {
-      "tags": []
-    },
-    "react-doc": {
-      "tags": [],
-      "implicitDependencies": ["re-cron"]
-    },
-    "re-cron": {
-      "tags": []
-    },
-    "test-re-cron": {
-      "tags": []
-    },
+    "ng-cron": { "tags": [] },
+    "angular-doc": { "tags": [] },
+    "cron-core": { "tags": [] },
+    "react-doc": { "tags": [], "implicitDependencies": ["re-cron"] },
+    "re-cron": { "tags": [] },
+    "test-re-cron": { "tags": [] },
     "test-re-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["test-re-cron"]
-    }
+    },
+    "e2e-shared": { "tags": [] }
   }
 }

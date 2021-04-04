@@ -136,6 +136,12 @@ export const TestContainer = ({
 					onClick={() => setTabs(undefined)}>
 					Reset Tabs
 				</button>
+				<button
+					className="mr-1"
+					data-cron-action="hide-tab"
+					onClick={() => setTabs([])}>
+					Hide Tabs
+				</button>
 				{initialTabs.map((tab, i) => (
 					<button
 						className="mr-1"
@@ -160,6 +166,10 @@ export const TestContainer = ({
 						{tab}
 					</button>
 				))}
+			</div>
+
+			<div data-cron-active-tab={activeTab}>
+				{activeTab}
 			</div>
 
 			<div data-cron-host>

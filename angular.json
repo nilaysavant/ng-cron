@@ -423,6 +423,27 @@
           }
         }
       }
+    },
+    "e2e-shared": {
+      "root": "libs/e2e-shared",
+      "sourceRoot": "libs/e2e-shared/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/e2e-shared/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/e2e-shared"],
+          "options": {
+            "jestConfig": "libs/e2e-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

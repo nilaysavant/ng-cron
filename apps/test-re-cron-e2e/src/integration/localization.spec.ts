@@ -1,12 +1,10 @@
-import { testLocalization } from './shared/localization';
+import { testLocalization } from '@sbzen/e2e-shared';
 
 describe('Localization', () => {
 	beforeEach(() => cy.visit('/'));
 
-	// testLocalization('ReCron');
+	testLocalization('ReCron');
 	testLocalization('ReUnixCron');
-
-	// it('should display welcome message', () => {
-	// });
+	testLocalization('ReQuartzCron');
 });
 

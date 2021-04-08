@@ -33,7 +33,7 @@ export const SimpleIncrement = ({
 	onPrimaryValueChange,
 	segmentId
 }: Props) => (
-	<div className={genClassName(cssClassPrefix, ['form-group', 'form-inline'], ['c-increment'])}>
+	<div className={genClassName(cssClassPrefix, ['form-group', 'form-inline'], ['c-increment', 'c-segment'])}>
 		<div className={genClassName(cssClassPrefix, ['form-check'], ['c-increment-check'])}>
 			<input
 				className={genClassName(cssClassPrefix, ['form-check-input'], ['c-increment-option'])}

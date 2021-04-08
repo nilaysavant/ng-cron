@@ -42,7 +42,7 @@ export const SimpleRange = ({
 	onSecondaryValueChange,
 	segmentId
 }: Props) => (
-	<div className={genClassName(cssClassPrefix, ['form-group', 'form-inline'], ['c-range'])}>
+	<div className={genClassName(cssClassPrefix, ['form-group', 'form-inline'], ['c-range', 'c-segment'])}>
 		<div className={genClassName(cssClassPrefix, ['form-check'], ['c-range-check'])}>
 		
 			<input

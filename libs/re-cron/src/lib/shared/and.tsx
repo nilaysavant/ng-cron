@@ -33,7 +33,7 @@ export const SimpleAnd = ({
 	gridSize = 'col-1',
 	segmentId
 }: Props) => (
-	<div className={genClassName(cssClassPrefix, ['form-group'], ['c-and'])}>
+	<div className={genClassName(cssClassPrefix, ['form-group'], ['c-and', 'c-segment'])}>
 		<div className={genClassName(cssClassPrefix, ['form-check'], ['c-and-check'])}>
 			<input
 				className={genClassName(cssClassPrefix, ['form-check-input'], ['c-and-option'])}

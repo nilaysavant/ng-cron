@@ -12,6 +12,8 @@ export class UnixCronDI {
 	}
 
 	static destroy(session: string) {
+		const service = this.get(session);
+		service.destroy();
 		this.map.delete(session);
 	}
 

@@ -39,7 +39,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genEvery() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-every-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-every-weekday-option'])}
@@ -63,7 +63,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekIncrement() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-increment-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-weekday-option'])}
@@ -127,7 +127,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthIncrement() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-increment-monthday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-monthday-option'])}
@@ -196,7 +196,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekAnd() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-option'])}
@@ -248,7 +248,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthAnd() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-option'])}
@@ -300,7 +300,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthLastDay() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-last-monthday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-last-monthday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-last-monthday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-last-monthday-option'])}
@@ -323,7 +323,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthLastDayWeek() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-last-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-last-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-last-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-last-weekday-option'])}
@@ -346,7 +346,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekLastNTHDayWeek() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-last-nth'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-last-nth', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-last-nth-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-last-nth-option'])}
@@ -393,7 +393,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthDaysBeforeEndMonth() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-day-before-end'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-day-before-end', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-day-before-end-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-day-before-end-option'])}
@@ -433,7 +433,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthNearestWeekDayOfMonth() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nearest'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nearest', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-nearest-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-nearest-option'])}
@@ -479,7 +479,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekNTHWeekDayOfMonth() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nth'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nth', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-nth-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-nth-option'])}

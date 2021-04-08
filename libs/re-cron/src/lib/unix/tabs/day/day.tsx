@@ -30,7 +30,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 
 	private genEvery() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-every-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-every-weekday-option'])}
@@ -54,7 +54,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekIncrement() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-increment-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-weekday-option'])}
@@ -101,7 +101,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthIncrement() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-increment-monthday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-monthday-option'])}
@@ -147,7 +147,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfWeekAnd() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-option'])}
@@ -199,7 +199,7 @@ export class UnixCronDay extends UnixTabBaseComponent<CronTabBaseProps> {
 
 	private genDayOfMonthAnd() {
 		return (
-			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday'])}>
+			<div className={genClassName(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday', 'c-segment'])}>
 				<div className={genClassName(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-check'])}>
 					<input
 						className={genClassName(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-option'])}

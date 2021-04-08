@@ -20,7 +20,7 @@ export const SimpleEvery = ({
 	onSelect,
 	segmentId
 }: Props) => (
-	<div className={genClassName(cssClassPrefix, ['form-group'], ['c-every'])}>
+	<div className={genClassName(cssClassPrefix, ['form-group'], ['c-every', 'c-segment'])}>
 		<div className={genClassName(cssClassPrefix, ['form-check'], ['c-every-check'])}>
 			<input
 				className={genClassName(cssClassPrefix, ['form-check-input'], ['c-every-option'])}

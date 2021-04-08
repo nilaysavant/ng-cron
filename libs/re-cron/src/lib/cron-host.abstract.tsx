@@ -37,14 +37,23 @@ export abstract class CronHostComponent extends React.Component<CronHostProps, C
 	}
 
 	componentDidUpdate(prevProps: CronHostProps) {
+		const servce = this.getQuartzCron();
 		if (prevProps.activeTab !== this.props.activeTab) {
 			this.setState({
 				tab: this.getActiveTab()
 			});
 		}
 		if (prevProps.disabled !== this.props.disabled) {
-			this.getQuartzCron().setDisabled(this.props.disabled);
+			servce.setDisabled(this.props.disabled);
 		}
+		if (prevProps.value !== this.props.value) {
+			servce.fillFromExpression(this.props.value || '');
+		}
+	}
+
+	componentDidMount() {
+		const servce = this.getQuartzCron();
+		servce.fillFromExpression(this.props.value || '');
 	}
 
 	protected changeTab(tab: Type) {
@@ -56,15 +65,13 @@ export abstract class CronHostComponent extends React.Component<CronHostProps, C
 
 	protected applyChanges() {
 		const str = this.getQuartzCron().toString();
-		if (this.props.onChange) {
+
+		if (str !== this.props.value && this.props.onChange) {
 			this.props.onChange(str);
 		}
 	}
 
 	protected renderHost(activeTab: Type, addClass: string) {
-		const servce = this.getQuartzCron();
-		servce.fillFromExpression(this.props.value || '');
-
 		const hasTabs = !this.props.hideTabs && !!this.getTabs().length;
 		return (
 			<div className={`c-host ${addClass}`}>
@@ -82,9 +89,7 @@ export abstract class CronHostComponent extends React.Component<CronHostProps, C
 	}
 
 	protected getLocalization() {
-		const args: RawObject[] = [
-			localization
-		];
+		const args: RawObject[] = [localization];
 		if (this.props.localization) {
 			args.push(this.props.localization);
 		}

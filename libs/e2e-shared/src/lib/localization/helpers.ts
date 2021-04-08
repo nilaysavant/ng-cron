@@ -24,9 +24,11 @@ export const getHelper = (type: string) => {
 		buildFieldSelector: (tab: Type, postfix: string) => `[data-cron-action-value="${getCronTypeLocalizationProp(type)}.${tab2Localization.get(tab)}.${postfix}"]`,
 		checkLocalizationField: (fieldSelector: string, textSelector: string) => {
 			const text = Math.random().toString();
-			findInContainer(`[data-cron-action="localization-field"]${fieldSelector}`).clear().type(text);
+			findInContainer(`[data-cron-action="localization-field"]${fieldSelector}`).clear().type(text, {
+				delay: 0
+			}).focus().blur();
 			const label = findInContainer(textSelector);
-			label.should('have.text', text);
+			label.should(elem => expect(elem.text().trim()).to.equal(text));
 		}
 	}
 };

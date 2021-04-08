@@ -6,7 +6,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 
 	return {
 		everyWeekday: (() => {
-			const box = `.${cssClassPrefix}form-group.c-every-weekday`;
+			const box = `.${cssClassPrefix}form-group.c-every-weekday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-every-weekday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-every-weekday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-every-weekday-option-label`;
@@ -20,7 +20,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		incrementWeekday: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment-weekday`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment-weekday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-increment-weekday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-increment-weekday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-increment-weekday-option-label`;
@@ -44,7 +44,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		incrementMonthday: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment-monthday`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment-monthday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-increment-monthday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-increment-monthday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-increment-monthday-option-label`;
@@ -68,7 +68,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		andWeekday: (() => {
-			const box = `.${cssClassPrefix}form-group.c-and-weekday`;
+			const box = `.${cssClassPrefix}form-group.c-and-weekday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-and-weekday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-and-weekday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-and-weekday-option-label`;
@@ -91,7 +91,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		andMonthday: (() => {
-			const box = `.${cssClassPrefix}form-group.c-and-monthday`;
+			const box = `.${cssClassPrefix}form-group.c-and-monthday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-and-monthday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-and-monthday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-and-monthday-option-label`;
@@ -114,7 +114,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		lastMonthday: (() => {
-			const box = `.${cssClassPrefix}form-group.c-last-monthday`;
+			const box = `.${cssClassPrefix}form-group.c-last-monthday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-last-monthday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-last-monthday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-last-monthday-option-label`;
@@ -128,7 +128,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		lastWeekday: (() => {
-			const box = `.${cssClassPrefix}form-group.c-last-weekday`;
+			const box = `.${cssClassPrefix}form-group.c-last-weekday.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-last-weekday-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-last-weekday-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-last-weekday-option-label`;
@@ -142,7 +142,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		lastNth: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-last-nth`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-last-nth.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-last-nth-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-last-nth-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-last-nth-option-label`;
@@ -160,7 +160,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		dayBeforeEnd: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-day-before-end`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-day-before-end.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-day-before-end-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-day-before-end-option`;
 			const label = `${box} label.c-day-before-end-option-label`;
@@ -176,7 +176,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		nearest: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-nearest`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-nearest.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-nearest-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-nearest-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-nearest-option-label`;
@@ -194,7 +194,7 @@ export const getDayClasses = (type: string, cssClassPrefix = '') => {
 		})(),
 
 		nth: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-nth`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-nth.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-nth-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-nth-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-nth-option-label`;

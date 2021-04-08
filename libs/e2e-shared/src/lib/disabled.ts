@@ -48,7 +48,7 @@ export const testDisabled = (type: string) => {
 		}
 
 		function getSwitchers() {
-			return findInContainer('.c-tab-content > div > div > .form-check').find('.form-check-label, .form-check-input');
+			return findInContainer('.c-tab-content .c-segment > .form-check').find('.form-check-label, .form-check-input');
 		}
 	});
 };

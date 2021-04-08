@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/libs/re-cron',
     '<rootDir>/apps/test-re-cron',
     '<rootDir>/libs/e2e-shared',
+    '<rootDir>/apps/test-ng-cron',
   ],
 };

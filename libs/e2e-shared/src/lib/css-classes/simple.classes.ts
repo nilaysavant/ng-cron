@@ -6,7 +6,7 @@ export const getSingleClasses = (type: string, tab: Type, cssClassPrefix = '') =
 
 	return {
 		every: (() => {
-			const box = `.${cssClassPrefix}form-group.c-every`;
+			const box = `.${cssClassPrefix}form-group.c-every.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-every-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-every-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-every-option-label`;
@@ -20,7 +20,7 @@ export const getSingleClasses = (type: string, tab: Type, cssClassPrefix = '') =
 		})(),
 
 		increment: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-increment.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-increment-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-increment-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-increment-option-label`;
@@ -44,7 +44,7 @@ export const getSingleClasses = (type: string, tab: Type, cssClassPrefix = '') =
 		})(),
 
 		and: (() => {
-			const box = `.${cssClassPrefix}form-group.c-and`;
+			const box = `.${cssClassPrefix}form-group.c-and.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-and-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-and-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-and-option-label`;
@@ -72,7 +72,7 @@ export const getSingleClasses = (type: string, tab: Type, cssClassPrefix = '') =
 		})(),
 
 		range: (() => {
-			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-range`;
+			const box = `.${cssClassPrefix}form-group.${cssClassPrefix}form-inline.c-range.c-segment`;
 			const switcherBox = `${box} .${cssClassPrefix}form-check.c-range-check`;
 			const switcher = `${switcherBox} input.${cssClassPrefix}form-check-input.c-range-option`;
 			const label = `${switcherBox} label.${cssClassPrefix}form-check-label.c-range-option-label`;

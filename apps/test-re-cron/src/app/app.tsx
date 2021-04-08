@@ -13,7 +13,7 @@ export function App() {
 
 			<TestContainer
 				type="ReUnixCron"
-				initialValue="0 4 8-14 * *"
+				initialValue="0,5,12 4 8-14 * *"
 				initialTabs={[Tab.MINUTES, Tab.HOURS, Tab.DAY, Tab.MONTH]}
 				render={props => <ReUnixCron {...props}/>} />
 

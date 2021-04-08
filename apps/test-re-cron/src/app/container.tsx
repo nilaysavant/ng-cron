@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { CronType, Tab } from '@sbzen/re-cron';
+import { Tab } from '@sbzen/re-cron';
 
 import { getLocalizationPathes, getLocalization } from './localization';
 
@@ -12,7 +11,6 @@ export const TestContainer = ({
 }) => {
 	const [value, setValue] = useState(initialValue);
 	const [disabled, setDisabled] = useState(false);
-	const [cronType, setCronType] = useState(CronType.QUARTZ);
 	const [hideTabs, setHideTabs] = useState(false);
 	const [cssClassPrefix, setCssClassPrefix] = useState(undefined);
 	const [activeTab, setActiveTab] = useState(undefined);
@@ -78,18 +76,6 @@ export const TestContainer = ({
 				onClick={() => setDisabled(!disabled)}>
 				Disable
 			</button>
-			<button
-				data-cron-action="use-quartz"
-				className="ml-1"
-				onClick={() => setCronType(CronType.QUARTZ)}>
-				Set QUARTZ
-			</button>
-			<button 
-				data-cron-action="use-unix"
-				className="ml-1"
-				onClick={() => setCronType(CronType.UNIX)}>
-				Set UNIX
-			</button>
 			<button 
 				data-cron-action="hide-tabs"
 				className="ml-1"
@@ -140,7 +126,7 @@ export const TestContainer = ({
 					className="mr-1"
 					data-cron-action="hide-tab"
 					onClick={() => setTabs([])}>
-					Hide Tabs
+					Remove Tabs
 				</button>
 				{initialTabs.map((tab, i) => (
 					<button
@@ -177,7 +163,6 @@ export const TestContainer = ({
 					value,
 					cssClassPrefix,
 					localization,
-					cronType,
 					activeTab,
 					tabs,
 					onChange: setValue,

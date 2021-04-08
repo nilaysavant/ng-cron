@@ -9,7 +9,7 @@
   },
   "npmScope": "sbzen",
   "projects": {
-    "ng-cron": { "tags": [] },
+    "ng-cron": { "tags": [], "implicitDependencies": ["cron-core"] },
     "angular-doc": { "tags": [] },
     "cron-core": { "tags": [] },
     "react-doc": { "tags": [], "implicitDependencies": ["re-cron"] },
@@ -19,6 +19,8 @@
       "tags": [],
       "implicitDependencies": ["test-re-cron"]
     },
-    "e2e-shared": { "tags": [] }
+    "e2e-shared": { "tags": [] },
+    "test-ng-cron": { "tags": [] },
+    "test-ng-cron-e2e": { "tags": [], "implicitDependencies": ["test-ng-cron"] }
   }
 }

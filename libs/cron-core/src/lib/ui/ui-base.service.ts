@@ -97,7 +97,6 @@ export abstract class CronUIBaseService {
 	constructor(protected coreService: CoreService) {}
 
 	destroy() {
-		console.log('destroy');
 		this.listeners = {};
 	}
 
@@ -128,6 +127,15 @@ export abstract class CronUIBaseService {
 			this.view[prop] = Object.assign({}, this.view[prop]);
 		});
 		this.view = this.createView(this.view);
+		this.emitListener([
+			Segment.seconds,
+			Segment.minutes,
+			Segment.hours,
+			Segment.month,
+			Segment.year,
+			Segment.dayOfMonth,
+			Segment.dayOfWeek
+		]);
 	}
 
 	setDisabled(disabled = false) {
@@ -184,7 +192,7 @@ export abstract class CronUIBaseService {
 		const values = view.values[Mode.AND].values;
 		const isRemoving = !!~values.indexOf(value);
 		if (isRemoving && values.length === 1) {
-			return view;
+			return false;
 		}
 
 		if (isRemoving) {
@@ -193,7 +201,8 @@ export abstract class CronUIBaseService {
 		} else {
 			values.push(value);
 		}
-		return this.setSegmentView(segment, view);
+		this.setSegmentView(segment, view)
+		return true;
 	}
 	
 	protected setInValue(mode: Mode, index: 0|1, value: string, segment: Segment) {

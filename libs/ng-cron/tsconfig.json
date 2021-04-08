@@ -3,5 +3,10 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "angularCompilerOptions": {
+	"fullTemplateTypeCheck": true,
+	"strictMetadataEmit": true,
+	"preserveWhitespaces": true
+  }
 }

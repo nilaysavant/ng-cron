@@ -8,7 +8,9 @@
     "types": [],
     "lib": ["dom", "es2018"],
 	"paths": {
-		"@sbzen/cron-core": ["dist/libs/cron-core"],
+		"@sbzen/*": [
+			"dist/libs/*"
+		]
 	}
   },
   "angularCompilerOptions": {

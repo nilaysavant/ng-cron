@@ -1,14 +1,28 @@
-export const basicCron = 
-`import { ReCron, CronType } from '@sbzen/re-cron';
+export const basicCronExample = 
+`import React, { useState } from 'react';
+import { ReCron, ReQuartzCron } from '@sbzen/re-cron';
 
-<ReCron cronType={CronType.UNIX}></ReCron>`;
+const App = () => {
+  const [quartzCron, setQuartzCron] = useState('0 22 * * */3 * *');
 
-export const quartzCron = 
-`import { ReQuartzCron } from '@sbzen/re-cron';
+  return (
+    <ReCron 
+      value={quartzCron} 
+      onChange={setQuartzCron} />
+    // or <ReQuartzCron value={quartzCron} onChange={setQuartzCron} />
+  );
+};
+export default App;`;
 
-<ReQuartzCron value={this.state.quartzCron}></ReQuartzCron>`;
+export const unixCronExample = 
+`import React, { useState } from 'react';
+import { ReUnixCron } from '@sbzen/re-cron';
 
-export const unixCron = 
-`import { ReUnixCron } from '@sbzen/re-cron';
+const App = () => {
+  const [unixCron] = useState('5 0 * 8 *');
 
-<ReUnixCron value={this.state.unixCron}></ReUnixCron>`;
+  return (
+    <ReUnixCron value={unixCron} />
+  );
+};
+export default App;`;

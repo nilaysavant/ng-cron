@@ -1,99 +1,75 @@
 import React from 'react';
-
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 
 import { ReCron } from '@sbzen/re-cron';
 
-import './get-started.scss';
+import { example } from './constants';
 
-type GetStartedState = {
-	template: string;
-}
+export const GetStarted = () => (
+	<div>
+		<h1 className="doc-title">
+			Get Started
+		</h1>
 
-export class GetStarted extends React.Component<{}, GetStartedState> {
-	constructor(props: {}) {
-		super(props);
+		<p>
+			This is an open source project that builds a cron builder component for React applications.
+			<br />
+			It supports{' '}
+			<a
+				target="blank"
+				href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">
+				Quartz
+			</a>
+			{' '}and Unix cron string formats
+			{' '}for both input and output.
+			<br />
+			Inspired by this{' '}
+			<a
+				target="blank"
+				href="https://www.freeformatter.com/cron-expression-generator-quartz.html">
+				non-react
+			</a>
+			{' '}implementation.
+		</p>
 
-		this.state = {
-			template: 
-`import { ReCron } from '@sbzen/re-cron';
+		<h2 className="doc-subtitle mt-5">Installation</h2>
+		<p>
+			You can use either the npm or yarn command-line tool to install packages.
+			<br />
+			<code>npm install --save @sbzen/re-cron</code>
+		</p>
 
-export class App extends React.Component {
-    render() {
-        return (<ReCron></ReCron>);
-    }
-}`
-		}
-	}
+		<h2 className="doc-subtitle mt-5">Display the cron component</h2>
+		<p>
+			Import and add the cron component into your jsx/tsx.
+		</p>
 
-	render() {
-		return (
-			<div>
-				<h1 className="doc-title">
-					Get Started
-				</h1>
+		<Highlight
+			{...defaultProps}
+			theme={oceanicNext}
+			code={example}
+			language="jsx">
 
-				<p>
-					This is an open source project that builds a cron builder component for React applications.
-					<br />
-					It supports{' '}
-					<a
-						target="blank"
-						href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">
-						Quartz
-					</a>
-					{' '}and Unix cron string formats
-					{' '}for both input and output.
-					<br />
-					Inspired by this{' '}
-					<a
-						target="blank"
-						href="https://www.freeformatter.com/cron-expression-generator-quartz.html">
-						non-react
-					</a>
-					{' '}implementation.
-				</p>
+			{({ className, style, tokens, getLineProps, getTokenProps }) => (
+				<pre className={className} style={style}>
+				{tokens.map((line, i) => (
+					<div {...getLineProps({ line, key: i })}>
+					{line.map((token, key) => (
+						<span {...getTokenProps({ token, key })} />
+					))}
+					</div>
+				))}
+				</pre>
+			)}
+		</Highlight>
+		<h2 className="doc-subtitle mt-5">UI widget</h2>
+		<p>
+			As a result you will have this widget
+		</p>
 
-				<h2 className="doc-subtitle mt-5">Installation</h2>
-				<p>
-					You can use either the npm or yarn command-line tool to install packages.
-					<br />
-					<code>npm install --save @sbzen/re-cron</code>
-				</p>
-
-				<h2 className="doc-subtitle mt-5">Display the cron component</h2>
-				<p>
-					Import and add the cron component into your jsx/tsx.
-				</p>
-
-				<Highlight
-					{...defaultProps}
-					theme={oceanicNext}
-					code={this.state.template}
-					language="jsx">
-
-					{({ className, style, tokens, getLineProps, getTokenProps }) => (
-						<pre className={className} style={style}>
-						{tokens.map((line, i) => (
-							<div {...getLineProps({ line, key: i })}>
-							{line.map((token, key) => (
-								<span {...getTokenProps({ token, key })} />
-							))}
-							</div>
-						))}
-						</pre>
-					)}
-				</Highlight>
-				<h2 className="doc-subtitle mt-5">UI widget</h2>
-				<p>
-					As a result you will have this widget
-				</p>
-
-				<div className="demo">
-					<ReCron></ReCron>
-				</div>
-			</div>
-		);
-	}
-};
+		<div className="demo">
+			<ReCron />
+		</div>
+	</div>
+);

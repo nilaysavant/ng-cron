@@ -47,21 +47,6 @@ export const DisabledProp = () => (
 	</div>
 );
 
-export const CronTypeProp = () => (
-	<div className="row">
-		<div className="col-2">
-			<code>cronType</code>
-		</div>
-		<div className="col">
-			Cron Type: Quartz / Unix formats
-			<br />
-			<b>Type: </b> <HashLink smooth to="#cron-type">CronType</HashLink>
-			<br />
-			<b>Default value: </b> <code>CronType.QUARTZ</code>
-		</div>
-	</div>
-);
-
 export const LocalizationProp = () => (
 	<div className="row">
 		<div className="col-2">
@@ -70,7 +55,7 @@ export const LocalizationProp = () => (
 		<div className="col">
 			Localization object
 			<br />
-			<b>Type: </b> <code>CronLocalization</code>
+			<b>Type: </b> <HashLink smooth to="#cron-localization">CronLocalization</HashLink>
 		</div>
 	</div>
 );
@@ -98,6 +83,8 @@ export const HideTabsProp = () => (
 			Control tabs visibility.
 			<br/>
 			<b>Type: </b> <code>boolean</code>
+			<br/>
+			<b>Default value: </b> <code>false</code>
 		</div>
 	</div>
 );
@@ -138,7 +125,7 @@ export const OnTabChangeProp = () => (
 		<div className="col">
 			The callback is triggered when active tab is changed.
 			<br />
-			Event payload is the string of the newly cron value.
+			Event payload is the new activated tab.
 			<br />
 			<b>Type: </b> <code>(tab: <HashLink smooth to="#tab">Tab</HashLink>) =&gt; void</code>
 		</div>

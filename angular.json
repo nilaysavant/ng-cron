@@ -261,18 +261,14 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/react-doc/**/*.ts",
-              "apps/react-doc/**/*.tsx",
-              "apps/react-doc/**/*.spec.ts",
-              "apps/react-doc/**/*.spec.tsx",
-              "apps/react-doc/**/*.spec.js",
-              "apps/react-doc/**/*.spec.jsx",
-              "apps/react-doc/**/*.d.ts"
-            ]
-          }
+			"builder": "@angular-devkit/build-angular:tslint",
+			"options": {
+			  "tsConfig": [
+				"apps/react-doc/tsconfig.app.json",
+				"apps/react-doc/tsconfig.spec.json"
+			  ],
+			  "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+			}
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -290,18 +286,14 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/re-cron/**/*.ts",
-              "libs/re-cron/**/*.tsx",
-              "libs/re-cron/**/*.spec.ts",
-              "libs/re-cron/**/*.spec.tsx",
-              "libs/re-cron/**/*.spec.js",
-              "libs/re-cron/**/*.spec.jsx",
-              "libs/re-cron/**/*.d.ts"
-            ]
-          }
+			"builder": "@angular-devkit/build-angular:tslint",
+			"options": {
+			  "tsConfig": [
+				"libs/re-cron/tsconfig.lib.json",
+				"libs/re-cron/tsconfig.spec.json"
+			  ],
+			  "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+			}
         },
         "build": {
           "builder": "@nrwl/web:package",
@@ -437,10 +429,14 @@
       "projectType": "library",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/e2e-shared/**/*.ts"]
-          }
+			"builder": "@angular-devkit/build-angular:tslint",
+			"options": {
+			  "tsConfig": [
+				"libs/e2e-shared/tsconfig.lib.json",
+				"libs/e2e-shared/tsconfig.spec.json"
+			  ],
+			  "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+			}
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -522,13 +518,15 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/test-ng-cron/src/**/*.ts",
-              "apps/test-ng-cron/src/**/*.html"
-            ]
-          }
+
+			"builder": "@angular-devkit/build-angular:tslint",
+			"options": {
+			  "tsConfig": [
+				"apps/test-ng-cron/tsconfig.app.json",
+				"apps/test-ng-cron/tsconfig.spec.json"
+			  ],
+			  "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+			}
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -559,10 +557,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/test-ng-cron-e2e/**/*.{js,ts}"]
-          }
+			"builder": "@angular-devkit/build-angular:tslint",
+			"options": {
+			  "tsConfig": [
+				"apps/test-ng-cron-e2e/tsconfig.e2e.json"
+			  ],
+			  "exclude": ["**/node_modules/**", "!libs/cron-core/**"]
+			}
         }
       }
     }

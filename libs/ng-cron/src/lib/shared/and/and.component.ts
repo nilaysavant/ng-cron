@@ -7,6 +7,7 @@ import { Mode } from '@sbzen/cron-core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CronAndComponent {
+	mode = Mode.AND;
 	@Output() selected = new EventEmitter<void>();
 	@Input() cssClassPrefix = '';
 	@Input() checked = false;
@@ -21,7 +22,6 @@ export class CronAndComponent {
 	}[] = [];
 	@Input() isValueSelected: (value: string) => boolean = () => false;
 	@Input() selectValue: (value: string) => boolean = () => false;
-	mode = Mode.AND;
 
 	constructor(private readonly cd: ChangeDetectorRef) {}
 

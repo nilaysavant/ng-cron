@@ -9,9 +9,9 @@
 // ***********************************************
 
 declare namespace Cypress {
-  interface Chainable<Subject> {
-    login(email: string, password: string): void;
-  }
+	interface Chainable<Subject> {
+		login(email: string, password: string): void;
+	}
 }
 //
 // -- This is a parent command --

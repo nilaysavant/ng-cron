@@ -1,7 +1,7 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "quartz", "camelCase"],
-    "component-selector": [true, "element", "quartz", "kebab-case"]
+    "directive-selector": [true, "attribute", ["quartz", "unix", "cron"], "camelCase"],
+    "component-selector": [true, "element", ["quartz", "unix", "cron"], "kebab-case"]
   }
 }

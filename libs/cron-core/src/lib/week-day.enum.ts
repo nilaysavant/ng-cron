@@ -44,6 +44,13 @@ export class WeekDayUtils {
 	}
 
 	static getCode(weekDay: WeekDay) {
-		return codeMap.get(weekDay);
+		return codeMap.get(weekDay) as WeekDayCode;
+	}
+
+	static getDay(code: WeekDayCode) {
+		const info = Array.from(codeMap).find(([v, d]) => {
+			return d === code;
+		});
+		return info ? info[0] : null;
 	}
 }

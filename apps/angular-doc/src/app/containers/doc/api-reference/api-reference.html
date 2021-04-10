@@ -2,95 +2,218 @@
 	API Reference
 </h1>
 
-<h2 class="doc-subtitle mt-4">QuartzCronComponent</h2>
-<div class="doc-subtitle mt-3">
-	Selector: <code>quartz-cron</code>
-</div>
+<ul>
+	<li>
+		<a
+			fragment="cron-components"
+			[routerLink]="['./']">
+			Cron Components
+		</a>
+	</li>
+	<li>
+		<a
+			fragment="tab"
+			[routerLink]="['./']">
+			Tab
+		</a>
+	</li>
+	<li>
+		<a
+			fragment="cron-localization"
+			[routerLink]="['./']">
+			CronLocalization
+		</a>
+	</li>
+</ul>
 
-<div class="h4">
-	<span class="badge badge-success">Component</span>
-</div>
-
-<div class="card mt-3">
-	<div class="card-header h5">
-		Inputs
+<div id="cron-components">
+	<h2 class="doc-subtitle mt-4">
+		QuartzCronComponent, UnixCronComponent
+		<span class="badge badge-success">Component</span>
+	</h2>
+	<div class="doc-subtitle mt-3">
+		Selectors: <code>quartz-cron</code>, <code>unix-cron</code>
 	</div>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col-2">
-					<code>cssClassPrefix</code>
+
+	<div class="card mt-3">
+		<div class="card-header h5">
+			Inputs
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>cssClassPrefix</code>
+					</div>
+					<div class="col">
+						The prefix will be used in css classes generating, for example you passed <code>cssClassPrefix="my-"</code> as a result
+						the bootstrap class will be transformed from <code>form-group</code> to <code>my-form-group</code>.
+						<br>
+						<b>Type: </b> <code>string</code>
+						<br>
+						<b>Default value: </b> empty string <code>""</code>
+					</div>
 				</div>
-				<div class="col">
-					The prefix will be used in css classes generating, for example you passed <code>cssClassPrefix="my-"</code> as a result
-					the bootstrap class will be transformed from <code>form-group</code> to <code>my-form-group</code>.
-					<br>
-					<br>
-					<b>Type: </b> <code>string</code>
-					<br>
-					<b>Default value: </b> empty string <code>""</code>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>disabled</code>
+					</div>
+					<div class="col">
+						The disabled state.
+						<br>
+						<b>Type: </b> <code>boolean</code>
+						<br>
+						<b>Default value: </b> <code>false</code>
+					</div>
 				</div>
-			</div>
-		</li>
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col-2">
-					<code>disabled</code>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>localization</code>
+					</div>
+					<div class="col">
+						Localization object
+						<br>
+						<b>Type: </b> 
+						<a
+							fragment="cron-localization"
+							[routerLink]="['./']">
+							CronLocalization
+						</a>
+					</div>
 				</div>
-				<div class="col">
-					The disabled state.
-					<br>
-					<br>
-					<b>Type: </b> <code>boolean</code>
-					<br>
-					<b>Default value: </b> <code>false</code>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>tabs</code>
+					</div>
+					<div class="col">
+						List of visible tabs.
+						<br>
+						<b>Type: </b> 
+						<a
+							fragment="tab"
+							[routerLink]="['./']">
+							Tab[]
+						</a>
+					</div>
 				</div>
-			</div>
-		</li>
-	</ul>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>hideTabs</code>
+					</div>
+					<div class="col">
+						Control tabs visibility.
+						<br>
+						<b>Type: </b> <code>boolean</code>
+						<br>
+						<b>Default value: </b> <code>false</code>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>activeTab</code>
+					</div>
+					<div class="col">
+						The active tab.
+						<br>
+						<b>Type: </b> 
+						
+						<a
+							fragment="tab"
+							[routerLink]="['./']">
+							Tab
+						</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card mt-3">
+		<div class="card-header h5">
+			Outputs
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>changed</code>
+					</div>
+					<div class="col">
+						An event emitted when the user changed the cron value by UI.
+						<br>
+						Event payload is the string of the newly cron value.
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>tabChanged</code>
+					</div>
+					<div class="col">
+						An event emitted when the user changed the active tab by UI.
+						<br>
+						Event payload is the new activated tab.
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card mt-3">
+		<div class="card-header h5">
+			Methods
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-2">
+						<code>writeValue()</code>
+					</div>
+					<div class="col">
+						Writes a new cron value to the component.
+						<br>
+						<code>writeValue(cronValue: string): void</code>
+						<br>
+						<b>Parameter cronValue: </b> <code>string</code>
+						<br>
+						<b>Returns: </b> <code>void</code>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>
 
-<div class="card mt-3">
-	<div class="card-header h5">
-		Outputs
-	</div>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col-2">
-					<code>changed</code>
-				</div>
-				<div class="col">
-					An event emitted when the user changed the cron value by UI.
-					<br>
-					Event payload is the string of the newly cron value.
-				</div>
-			</div>
-		</li>
-	</ul>
+<div
+	id="tab"
+	class="pt-4">
+
+	<h2 class="doc-subtitle">
+		Tab
+		<span class="badge badge-info">Enum</span>
+	</h2>
+	<app-ngx-prism language="ts">{{tabExample}}</app-ngx-prism>	
 </div>
 
-<div class="card mt-3">
-	<div class="card-header h5">
-		Methods
-	</div>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col-2">
-					<code>writeValue()</code>
-				</div>
-				<div class="col">
-					Writes a new cron value to the component.
-					<br>
-					<br>
-					<code>writeValue(cronValue: string): void</code>
-					<br>
-					<b>Parameter cronValue: </b> <code>string</code>
-					<br>
-					<b>Returns: </b> <code>void</code>
-				</div>
-			</div>
-		</li>
-	</ul>
+<div
+	id="cron-localization"
+	class="pt-4">
+
+	<h2 class="doc-subtitle">
+		CronLocalization
+		<span class="badge badge-info">Type</span>
+	</h2>
+
+	<app-ngx-prism language="ts">{{cronLocalizationExample}}</app-ngx-prism>
 </div>

@@ -2,6 +2,9 @@ import { ElementRef, Injectable, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 // @ts-ignore
 import Prism from 'prismjs';
+
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-scss';
 import * as _ from 'lodash-es';
 
 // internal

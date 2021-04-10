@@ -1,27 +1,26 @@
 {
-  "npmScope": "sbzen",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
     "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    ".eslintrc.json": "*"
   },
+  "npmScope": "sbzen",
   "projects": {
-    "ng-cron": {
-      "tags": []
+    "ng-cron": { "tags": [], "implicitDependencies": ["cron-core"] },
+    "angular-doc": { "tags": [] },
+    "cron-core": { "tags": [] },
+    "react-doc": { "tags": [], "implicitDependencies": ["re-cron"] },
+    "re-cron": { "tags": [] },
+    "test-re-cron": { "tags": [] },
+    "test-re-cron-e2e": {
+      "tags": [],
+      "implicitDependencies": ["test-re-cron"]
     },
-    "angular-doc": {
-      "tags": []
-    },
-    "cron-core": {
-      "tags": []
-    },
-    "react-doc": {
-      "tags": []
-    },
-    "re-cron": {
-      "tags": []
-    }
+    "e2e-shared": { "tags": [] },
+    "test-ng-cron": { "tags": [] },
+    "test-ng-cron-e2e": { "tags": [], "implicitDependencies": ["test-ng-cron"] }
   }
 }

@@ -1,0 +1,72 @@
+<h1 class="doc-title">
+	Cron Format
+</h1>
+
+<p>
+	This library supports quartz and unix cron expressions.
+</p>
+
+<ul>
+	<li>
+		<a
+			fragment="quartz-cron"
+			[routerLink]="['./']">
+			Quartz cron
+		</a>
+	</li>
+	<li>
+		<a
+			fragment="unix-cron"
+			[routerLink]="['./']">
+			Unix cron
+		</a>
+	</li>
+</ul>
+
+<div
+	id="quartz-cron"
+	class="pt-1">
+
+	<h2 class="doc-subtitle">Quartz cron</h2>
+	<p>
+		Use <code>quartz-cron</code> component to work with quartz cron expression.
+	</p>
+	<app-ngx-prism language="ts">{{quartzModuleExample}}</app-ngx-prism>
+	<app-ngx-prism language="ts">{{quartzComponentExample}}</app-ngx-prism>
+	<app-ngx-prism language="html">{{quartzHtmlExample}}</app-ngx-prism>
+
+	<div class="py-2">
+		<h3 class="doc-subtitle h6">Example:</h3>
+		<input
+			class="form-control"
+			readonly
+			[value]="quartzCronValue">
+	</div>
+	<div class="demo">
+		<quartz-cron [(ngModel)]="quartzCronValue"></quartz-cron>
+	</div>
+</div>
+
+<div
+	id="unix-cron"
+	class="pt-3">
+
+	<h2 class="doc-subtitle">Unix cron</h2>
+	<p>
+		Use <code>unix-cron</code> component to work with unix cron expression.
+	</p>
+	<app-ngx-prism language="ts">{{unixModuleExample}}</app-ngx-prism>
+	<app-ngx-prism language="ts">{{unixComponentExample}}</app-ngx-prism>
+	<app-ngx-prism language="html">{{unixHtmlExample}}</app-ngx-prism>
+
+	<div class="py-2">
+		<h3 class="doc-subtitle h6">Example:</h3>
+		<input
+			class="form-control"
+			readonly
+			[value]="unixCronValue">
+	</div>
+	<div class="demo">
+		<unix-cron [(ngModel)]="unixCronValue"></unix-cron>
+	</div>
+</div>

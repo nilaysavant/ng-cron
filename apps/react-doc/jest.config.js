@@ -1,9 +1,9 @@
 module.exports = {
-  name: "react-doc",
-  preset: "../../jest.config.js",
+  preset: '../../jest.preset.js',
   transform: {
-    "^.+\\.[tj]sx?$": "ts-jest"
+    '^.+\\.[tj]sx?$': 'ts-jest',
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "html"],
-  coverageDirectory: "../../coverage/apps/react-doc"
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
+  coverageDirectory: '../../coverage/apps/react-doc',
+  displayName: 'react-doc',
 };

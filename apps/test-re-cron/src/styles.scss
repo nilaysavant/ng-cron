@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+.ml-1 {
+	margin-left: 5px;
+}
+
+.mr-1 {
+	margin-right: 5px;
+}
+
+.mt-1 {
+	margin-top: 5px;
+}
+
+.mb-1 {
+	margin-bottom: 5px;
+}
+
+.mw-fixed-70 {
+	max-width: 70px;
+}
+
+.nav-tabs {
+	padding-left: 0;
+}
+
+.c-host {
+	border: 1px solid black;
+	padding: 5px;
+	border-radius: 5px;
+	margin-top: 5px;
+}
+
+.row {
+	overflow: hidden;
+
+	.col-1 {
+		width: calc(100% / 12);
+		float: left;
+	}
+	.col-2 {
+		width: calc(100% / 6);
+		float: left;
+	}
+}
+
+.form-inline {
+	display: flex;
+	flex-direction: row;
+}
+
+.form-control {
+	margin: 0 .2rem;
+}
+
+.form-check-label {
+	padding-left: .4rem;
+}

@@ -1,0 +1,58 @@
+<h1 class="doc-title">
+	Localization
+</h1>
+
+<p>
+	We store all visible texts in a separate file and use them by default.
+</p>
+<p>
+	If you need to change some text field or select option use <code>localization</code> input to pass your version.
+	<br>
+	Your localization version will be deeply merged with the default one, allowing you to override only what you want.
+</p>
+
+<ul>
+	<li>
+		<a
+			fragment="how-to-translate"
+			[routerLink]="['./']">
+			How to translate the cron component?
+		</a>
+	</li>
+	<li>
+		<a
+			fragment="all-localization-properties"
+			[routerLink]="['./']">
+			All localization properties
+		</a>
+	</li>
+</ul>
+
+<div
+	id="how-to-translate"
+	class="mt-4">
+
+	<h2 class="doc-subtitle">How to translate the cron component?</h2>
+	<p>
+		Pass localization object to <code>localization</code> input to have translated texts.
+		<br>
+		See this example of the translation of the "Seconds" tab into Ukrainian.
+	</p>
+
+	<app-ngx-prism language="ts">{{localizationTsExample}}</app-ngx-prism>
+	<app-ngx-prism language="html">{{localizationHtmlExample}}</app-ngx-prism>
+
+	<quartz-cron [localization]="secondsTabLocalization"></quartz-cron>
+</div>
+
+<div
+	id="all-localization-properties"
+	class="mt-4">
+
+	<h2 class="doc-subtitle">All localization properties</h2>
+	<p>
+		Use this manifest for full localization.
+	</p>
+
+	<app-ngx-prism language="ts">{{fullLocalization}}</app-ngx-prism>
+</div>

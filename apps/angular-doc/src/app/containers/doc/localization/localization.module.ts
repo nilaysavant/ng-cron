@@ -5,23 +5,24 @@ import { FormsModule } from '@angular/forms';
 import { QuartzCronModule } from '@sbzen/ng-cron';
 
 import { PrismModule } from './../../../common/prism';
-import { DocGetStartedRoutingModule } from './get-started-routing.module';
-import { DocGetStartedComponent } from './get-started.component';
+
+import { DocLocalizationRoutingModule } from './localization-routing.module';
+import { DocLocalizationComponent } from './localization.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 
-		PrismModule,
 		QuartzCronModule,
-		DocGetStartedRoutingModule
+		PrismModule,
+		DocLocalizationRoutingModule
 	],
 	declarations: [
-		DocGetStartedComponent
+		DocLocalizationComponent
 	],
 	exports: [
-		DocGetStartedComponent
+		DocLocalizationComponent
 	]
 })
-export class DocGetStartedModule {}
+export class DocLocalizationModule {}

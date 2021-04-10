@@ -1,11 +1,10 @@
 <app-header [hideBar]="true"></app-header>
 
-
 <div class="short py-5 px-2 text-center">
 	<div class="d-flex flex-column flex-md-row justify-content-center">
 		<div class="pr-4 pt-2 order-1 order-md-0">
-			<h1>Angular Quartz Cron</h1>
-			UI widget for Angular
+			<h1>Angular Cron Widget</h1>
+			Quartz / Unix Cron expressions
 
 			<div class="pt-4 text-center">
 				<a
@@ -46,8 +45,8 @@
 	<div class="row mt-5">
 		<div class="col-md-5">
 			<app-ngx-prism language="html">{{template}}</app-ngx-prism>
-			<app-ngx-prism language="js">{{component}}</app-ngx-prism>
-			<app-ngx-prism language="js">{{module}}</app-ngx-prism>
+			<app-ngx-prism language="ts">{{component}}</app-ngx-prism>
+			<app-ngx-prism language="ts">{{module}}</app-ngx-prism>
 		</div>
 		<div class="col-md-7">
 			<input
@@ -56,11 +55,11 @@
 				name="cron"
 				[(ngModel)]="cronValue">
 
-			<quartz-cron [(ngModel)]="cronValue"></quartz-cron>
+			<quartz-cron [ngModel]="cronValue"></quartz-cron>
 		</div>
 	</div>
 </div>
 
 <div class="footer p-3 text-center">
-	© 2019 - present. Code licensed under the MIT License.
+	© 2019-{{currentYear}} - present. Code licensed under the MIT License.
 </div>

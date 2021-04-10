@@ -1,6 +1,6 @@
 <div class="c-host {{hostClass}}">
 	<ul
-		*ngIf="!hideTabs"
+		*ngIf="!hideTabs && tabs.length"
 		class="{{cssClassPrefix}}nav {{cssClassPrefix}}nav-tabs {{cssClassPrefix}}mb-2 c-tabs"
 		role="tablist"
 		aria-label="Cron Generator Tabs">

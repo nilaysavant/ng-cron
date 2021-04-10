@@ -19,7 +19,13 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
-		RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
+		RouterModule.forRoot(routes, {
+			useHash: true,
+			relativeLinkResolution: 'legacy',
+			anchorScrolling: 'enabled',
+			scrollPositionRestoration: 'enabled',
+			scrollOffset: [0, 50]
+		})
 	],
 	exports: [
 		RouterModule

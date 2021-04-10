@@ -33,7 +33,10 @@
     "publish:ng-cron": "npm run build ng-cron && node libs/ng-cron/pre-publish && npm publish dist/libs/ng-cron --access=public || true",
     "publish:re-cron": "npm run build re-cron && cp libs/re-cron/README.md dist/libs/re-cron && npm publish dist/libs/re-cron --access=public || true",
     "pub": "npm publish --access=public",
-    "workspace-generator": "nx workspace-generator",
+    "dev-publish:cron-code": "npm run build cron-core && LIB=\"cron-core\" node versions-up && npm publish dist/libs/cron-core --access=public || true",
+	"dev-publish:ng-cron": "npm run build ng-cron && LIB=\"ng-cron\" node versions-up && node libs/ng-cron/pre-publish && npm publish dist/libs/ng-cron --access=public || true",
+	"dev-publish:re-cron": "npm run build re-cron && LIB=\"re-cron\" node versions-up && cp libs/re-cron/README.md dist/libs/re-cron && npm publish dist/libs/re-cron --access=public || true",
+	"workspace-generator": "nx workspace-generator",
     "postinstall": "ngcc --properties es2015 browser module main"
   },
   "private": true,

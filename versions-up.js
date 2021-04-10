@@ -6,7 +6,7 @@ const content = fs.readFileSync(packageFilePath);
 const json = JSON.parse(content);
 const nextPackage = JSON.stringify({
 	...json,
-	version: `${json.version}-beta-${Date.now()}`
+	version: `${json.version}-beta.${Date.now()}`
 });
 
 fs.writeFileSync(packageFilePath, nextPackage);

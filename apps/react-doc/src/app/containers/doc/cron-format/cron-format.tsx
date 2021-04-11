@@ -8,7 +8,7 @@ import { basicCronExample, unixCronExample } from './constants';
 import './cron-format.scss';
 
 export const CronFormat = () => {
-	const [unixCron] = useState('5 0 * 8 *');
+	const [unixCron] = useState('5 0 * JAN *');
 	const [quartzCron, setQuartzCron] = useState('2,0,4,3,1 0/1 3/2 ? * WED *');
 
 	return (

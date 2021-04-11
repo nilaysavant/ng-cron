@@ -15,7 +15,7 @@ export const Localization = () => (
 		</h1>
 
 		<p>
-			We store all visible texts in a separate file and use them by default.
+			We have default localization object that contains all visible texts.
 		</p>
 
 		<p>

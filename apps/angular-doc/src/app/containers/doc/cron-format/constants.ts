@@ -17,7 +17,7 @@ export const quartzModuleExample =
 export const unixHtmlExample = `<unix-cron [(ngModel)]="unixCronValue"></unix-cron>`;
 export const unixComponentExample = 
 `export class MyComponent {
-	unixCronValue = '5 0 * 8 *';
+	unixCronValue = '5 0 * JAN *';
 }`;
 export const unixModuleExample = 
 `import { UnixCronModule } from '@sbzen/ng-cron';

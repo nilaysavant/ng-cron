@@ -1,4 +1,4 @@
-# Quartz Cron Component - React
+# Quartz/unix Cron Component - React
 
 [React](https://reactjs.org/) cron widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
 
@@ -30,7 +30,7 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/r
 ## Getting Started
 
 This is an open source project that builds a cron builder component for React applications.
-It supports Quartz cron string format for both input and output.
+It supports Quartz/Unix cron string formats for both input and output.
 Inspired by this [non-react](https://www.freeformatter.com/cron-expression-generator-quartz.html) implementation.
 
 ## Installation

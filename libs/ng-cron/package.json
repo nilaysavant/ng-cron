@@ -24,6 +24,7 @@
 	"quartz",
 	"quartz cron"
   ],
+  "sideEffects": false,
   "dependencies": {
 	"@sbzen/cron-core": "0.0.4"
   },

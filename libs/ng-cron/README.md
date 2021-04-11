@@ -80,3 +80,4 @@ Here is the versions compatibility list:
 | Ng Cron          |    Angular    |  Bootstrap CSS |
 | -------------    | ------------- | -------------- |
 | 0.0.1            | 7.x.x         | 4.x.x          |
+| 1.0.1            | 11.x.x        | 4.x.x          |

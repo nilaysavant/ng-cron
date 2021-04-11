@@ -1,4 +1,4 @@
-# Quartz/unix Cron Component - React
+# Quartz/Unix Cron Component - React
 
 [React](https://reactjs.org/) cron widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
 

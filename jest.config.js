@@ -1,10 +1,12 @@
 module.exports = {
-  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
-  transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest'
-  },
-  resolver: '@nrwl/jest/plugins/resolver',
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageReporters: ['html'],
-  passWithNoTests: true
+  projects: [
+    '<rootDir>/apps/angular-doc',
+    '<rootDir>/libs/ng-cron',
+    '<rootDir>/libs/cron-core',
+    '<rootDir>/apps/react-doc',
+    '<rootDir>/libs/re-cron',
+    '<rootDir>/apps/test-re-cron',
+    '<rootDir>/libs/e2e-shared',
+    '<rootDir>/apps/test-ng-cron',
+  ],
 };

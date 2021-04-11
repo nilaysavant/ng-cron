@@ -49,7 +49,7 @@ export class ModeUtils {
 		if (str.includes('L')) {
 			return Mode.LAST_NTH_DAY_WEEK;
 		}
-		if (str.includes('W')) {
+		if (str.endsWith('W')) {
 			return Mode.NEAREST_WEEKDAY_OF_MONTH;
 		}
 		if (str.includes(Separator.INCREMENT)) {

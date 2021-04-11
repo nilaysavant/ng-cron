@@ -1,6 +1,6 @@
 {
   "name": "@sbzen/re-cron",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "Quartz Cron Component - React",
   "author": "Serhii Bzenko <bzenkosergey@gmail.com>",
   "license": "MIT",
@@ -21,8 +21,9 @@
 	"cron generator",
 	"quartz cron"
   ],
+  "sideEffects": ["*.css"],
   "dependencies": {
-	"@sbzen/cron-core": "0.0.4"
+	"@sbzen/cron-core": "1.0.0"
   },
   "peerDependencies": {
     "react": "*",

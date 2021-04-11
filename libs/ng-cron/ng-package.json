@@ -4,10 +4,10 @@
   "lib": {
 	"entryFile": "src/index.ts",
 	"umdModuleIds": {
-		"@sbzen/cron-core": "@sbzen/cron-core"
+		"@sbzen/cron-core": "sbzen.cron-core"
 	}
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
 	"@sbzen/cron-core"
   ]
 }

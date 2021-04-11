@@ -14,8 +14,38 @@
 	<a
 		class="nav-link"
 		routerLinkActive="active"
+		[routerLink]="['cron-format']">
+		Cron Format
+	</a>
+	<a
+		class="nav-link"
+		routerLinkActive="active"
 		[routerLink]="['customization']">
 		Customization
+	</a>
+	<ul>
+		<li>
+			<a
+				class="nav-link"
+				routerLinkActive="active"
+				[routerLink]="['customization', 'visibility-inputs']">
+				Visibility inputs
+			</a>
+		</li>
+		<li>
+			<a
+				class="nav-link"
+				routerLinkActive="active"
+				[routerLink]="['customization', 'css-styling']">
+				CSS styling
+			</a>
+		</li>
+	</ul>
+	<a
+		class="nav-link"
+		routerLinkActive="active"
+		[routerLink]="['localization']">
+		Localization
 	</a>
 	<a
 		class="nav-link"

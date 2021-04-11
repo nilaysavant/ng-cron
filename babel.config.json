@@ -1,5 +1,4 @@
 {
-	"presets": ["@nrwl/web/babel"],
-	"babelrcRoots": ["*"]
-  }
-  
+  "presets": ["@babel/preset-typescript"],
+  "babelrcRoots": ["*"]
+}

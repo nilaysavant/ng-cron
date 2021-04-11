@@ -1,0 +1,100 @@
+<h1 class="doc-title">
+	Visibility inputs
+</h1>
+
+<p>
+	There are several inputs to control elements visibility:
+</p>
+
+<ul>
+	<li>
+		<a
+			fragment="tabs-managing"
+			[routerLink]="['./']">
+			Tabs managing
+		</a>
+	</li>
+	<li>
+		<a
+			fragment="tabs-visibility"
+			[routerLink]="['./']">
+			Tabs visibility
+		</a>
+	</li>
+</ul>
+
+<div
+	id="tabs-managing"
+	class="mt-4">
+
+	<h2 class="doc-subtitle">Tabs managing</h2>
+	<p>
+		Use <code>tabs</code> input to pass tabs you want to show.
+		<br>
+		The order of the tabs depends on the order of the tab list you specify.
+	</p>
+	<p>
+		<b>Available values:</b>
+		<br>
+		<code>Tab.SECONDS, Tab.MINUTES, Tab.HOURS, Tab.DAY, Tab.MONTH, Tab.YEAR</code>
+	</p>
+
+	<app-ngx-prism language="ts">{{tabsManagingTsExample}}</app-ngx-prism>
+	<app-ngx-prism language="html">{{tabsManagingHtmlExample}}</app-ngx-prism>
+
+	<h3 class="doc-subtitle h6">Example:</h3>
+	<input
+		class="form-control mb-4"
+		readonly
+		[value]="tabsCronValue">
+	
+	<div class="mb-3">
+		<b class="mr-2">Visible tabs:</b>
+
+		<div
+			*ngFor="let tab of allTabs"
+			class="form-check form-check-inline">
+
+			<input
+				type="checkbox"
+				class="form-check-input"
+				[attr.id]="'tabs-managing-' + tab"
+				[checked]="isVisibleTab(tab)"
+				(click)="toggleTab(tab)">
+
+			<label
+				class="form-check-label"
+				[attr.for]="'tabs-managing-' + tab">
+				{{tab.toLowerCase()}}
+			</label>
+		</div>
+	</div>
+
+	<quartz-cron 
+		[tabs]="tabs"
+		[(ngModel)]="tabsCronValue">
+	</quartz-cron>
+</div>
+
+<div
+	id="tabs-visibility"
+	class="mt-5">
+
+	<h2 class="doc-subtitle">Tabs visibility</h2>
+	<p>
+		Use <code>hideTabs</code> input to hide tab buttons.
+	</p>
+	<app-ngx-prism language="ts">{{hideTabsTsExample}}</app-ngx-prism>
+	<app-ngx-prism language="html">{{hideTabsHtmlExample}}</app-ngx-prism>
+	<h3 class="doc-subtitle h6">Example:</h3>
+	<button
+		class="btn btn-primary mb-3"
+		type="button"
+		(click)="hideTabs = !hideTabs">
+		{{!hideTabs ? 'Hide tabs' : 'Show tabs'}}
+	</button>
+
+	<div class="demo">
+		<quartz-cron [hideTabs]="hideTabs"></quartz-cron>
+	</div>
+</div>

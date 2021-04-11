@@ -21,8 +21,16 @@ const routes: Routes = [
 				loadChildren: () => import('./usage-demo/usage-demo.module').then(mod => mod.DocUsageDemoModule)
 			},
 			{
+				path: 'cron-format',
+				loadChildren: () => import('./cron-format/cron-format.module').then(mod => mod.DocCronFormatModule)
+			},
+			{
 				path: 'customization',
 				loadChildren: () => import('./customization/customization.module').then(mod => mod.DocCustomizationModule)
+			},
+			{
+				path: 'localization',
+				loadChildren: () => import('./localization/localization.module').then(mod => mod.DocLocalizationModule)
 			},
 			{
 				path: 'api-reference',

@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 
+import { Tab } from '@sbzen/ng-cron';
+
 @Component({
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
 export class HomeComponent {
+	currentYear = new Date().getFullYear();
+	tabs = [Tab.DAY];
 	cronValue = '2,0,4,3,1 0/1 3/2 ? * 4/5 *';
 	features = [
 		{

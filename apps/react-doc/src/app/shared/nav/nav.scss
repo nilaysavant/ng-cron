@@ -9,4 +9,15 @@
 			color: #1976d2;
 		}
 	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			padding-left: 20px;
+			font-size: .9rem;
+		}
+	}
 }

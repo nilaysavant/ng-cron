@@ -23,8 +23,38 @@ export class Nav extends React.Component {
 				<NavLink
 					className="nav-link"
 					activeClassName="active"
+					to="/doc/cron-format">
+					Cron Format
+				</NavLink>
+				<NavLink
+					className="nav-link"
+					activeClassName="active"
 					to="/doc/customization">
 					Customization
+				</NavLink>
+				<ul>
+					<li>
+						<NavLink
+							className="nav-link"
+							activeClassName="active"
+							to="/doc/customization/visibility-props">
+							Visibility props
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							className="nav-link"
+							activeClassName="active"
+							to="/doc/customization/css-styling">
+							CSS styling
+						</NavLink>
+					</li>
+				</ul>
+				<NavLink
+					className="nav-link"
+					activeClassName="active"
+					to="/doc/localization">
+					Localization
 				</NavLink>
 				<NavLink
 					className="nav-link"

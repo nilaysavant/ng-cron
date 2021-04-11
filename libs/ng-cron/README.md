@@ -1,4 +1,4 @@
-# Quartz Cron Component - Angular
+# Quartz/Unix Cron Component - Angular
 
 [Angular](https://angular.io/) cron widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
 
@@ -30,7 +30,7 @@ Please check our [demo & documentation](https://bzenkosergey.github.io/ng-cron/a
 ## Getting Started
 
 This is an open source project that builds a cron builder component for Angular applications.
-It supports Quartz cron string format for both input and output.
+It supports Quartz/Unix cron string formats for both input and output.
 Inspired by this [non-angular](https://www.freeformatter.com/cron-expression-generator-quartz.html) implementation.
 
 ## Installation

@@ -1,10 +1,10 @@
-# Quartz Cron Component - Angular/React
+# Quartz Cron/Unix Component - Angular/React
 
 This is an open source project that builds a cron builder component for applications based on different framaworks.
 
 The widget built from the ground up using only [Bootstrap 4](https://getbootstrap.com/) CSS.
 
-It supports Quartz cron string format for both input and output.
+It supports Quartz/Unix cron string formats for both input and output.
 Inspired by this [implementation](https://www.freeformatter.com/cron-expression-generator-quartz.html).
 
 Please check our demo & documentations ([Angular](https://bzenkosergey.github.io/ng-cron/angular/), [React](https://bzenkosergey.github.io/ng-cron/react/)) and the list of

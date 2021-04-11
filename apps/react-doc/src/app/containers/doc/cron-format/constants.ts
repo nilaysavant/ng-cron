@@ -19,7 +19,7 @@ export const unixCronExample =
 import { ReUnixCron } from '@sbzen/re-cron';
 
 const App = () => {
-  const [unixCron] = useState('5 0 * 8 *');
+  const [unixCron] = useState('5 0 * JAN *');
 
   return (
     <ReUnixCron value={unixCron} />

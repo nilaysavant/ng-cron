@@ -1,3 +1,11 @@
+# [1.0.0] (2021-04-11)
+
+* supported unix cron expression
+* added tabs control
+* added hideTabs control
+* added activeTab control
+* added localization
+
 # [0.0.10] (2020-11-06)
 
 * set MIT license to cron-core dependency

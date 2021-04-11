@@ -22,5 +22,5 @@ export class DocCronFormatComponent {
 	unixComponentExample = unixComponentExample;
 	unixHtmlExample = unixHtmlExample;
 	unixModuleExample = unixModuleExample;
-	unixCronValue = '5 0 * 8 *';
+	unixCronValue = '5 0 * JAN *';
 }

@@ -781,7 +781,7 @@ class CronQuartzUIService extends _ui_base_service__WEBPACK_IMPORTED_MODULE_3__[
   resetsDaysOfMonth() {
     const dayOfMonth = this.getSegmentView(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth);
     dayOfMonth.selected = _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NONE;
-    dayOfMonth.values.NONE.values = ['*'];
+    dayOfMonth.values.NONE.values = ['?'];
     this.setSegmentView(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, dayOfMonth);
   }
 

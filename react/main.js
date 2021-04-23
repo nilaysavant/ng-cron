@@ -788,7 +788,7 @@ class CronQuartzUIService extends _ui_base_service__WEBPACK_IMPORTED_MODULE_3__[
   resetDaysOfWeek() {
     const dayOfWeek = this.getSegmentView(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek);
     dayOfWeek.selected = _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NONE;
-    dayOfWeek.values.NONE.values = ['*'];
+    dayOfWeek.values.NONE.values = ['?'];
     this.setSegmentView(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, dayOfWeek);
   }
 

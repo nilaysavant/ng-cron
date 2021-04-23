@@ -139,7 +139,7 @@ export class CronQuartzUIService extends CronUIBaseService {
 	private resetDaysOfWeek() {
 		const dayOfWeek = this.getSegmentView(Segment.dayOfWeek);
 		dayOfWeek.selected = Mode.NONE;
-		dayOfWeek.values.NONE.values = ['*'];
+		dayOfWeek.values.NONE.values = ['?'];
 		this.setSegmentView(Segment.dayOfWeek, dayOfWeek);
 	}
 

@@ -1,3 +1,8 @@
+# [1.0.3] (2021-04-23)
+
+### Bug Fixes
+* incorrect cron quartz expression, dayofweek
+
 # [1.0.2] (2021-04-23)
 
 ### Bug Fixes

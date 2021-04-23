@@ -132,7 +132,7 @@ export class CronQuartzUIService extends CronUIBaseService {
 	private resetsDaysOfMonth() {
 		const dayOfMonth = this.getSegmentView(Segment.dayOfMonth);
 		dayOfMonth.selected = Mode.NONE;
-		dayOfMonth.values.NONE.values = ['*'];
+		dayOfMonth.values.NONE.values = ['?'];
 		this.setSegmentView(Segment.dayOfMonth, dayOfMonth);
 	}
 

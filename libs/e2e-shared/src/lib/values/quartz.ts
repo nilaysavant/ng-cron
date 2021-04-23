@@ -25,6 +25,15 @@ export const testQuartz = (type: string) => {
 				findInContainer('.c-increment .c-increment-every').should('have.value', '4');
 				findInContainer('.c-increment .c-increment-from').should('have.value', '2');
 			}
+		},
+		{
+			value: '2,0,4,3,1 0/1 3/2 ? * SUN,MON *',
+			checker: () => {
+				findInContainer(`.c-tab.${Type.DAY}`).click();
+				findInContainer('.c-and-weekday .c-and-weekday-option').should('be.checked');
+				findInContainer('.c-and-weekday-list .c-and-weekday-item[item-value="SUN"] .c-and-weekday-item-field').should('be.checked');
+				findInContainer('.c-and-weekday-list .c-and-weekday-item[item-value="MON"] .c-and-weekday-item-field').should('be.checked');
+			}
 		}
 	];
 

@@ -119,6 +119,7 @@ export abstract class CronUIBaseService {
 	}
 
 	fillFromExpression(cronExpression: string) {
+		cronExpression = cronExpression.replace(/[ ]{2,}/g, ' ');
 		const m = this.coreService.toModel(cronExpression);
 
 		Object.keys(m).forEach((prop: keyof DataModel) => {

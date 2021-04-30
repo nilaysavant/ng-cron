@@ -966,6 +966,7 @@ class CronUIBaseService {
   }
 
   fillFromExpression(cronExpression) {
+    cronExpression = cronExpression.replace(/[ ]{2,}/g, ' ');
     const m = this.coreService.toModel(cronExpression);
     Object.keys(m).forEach(prop => {
       this.view[prop].selected = m[prop].mode;

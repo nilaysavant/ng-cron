@@ -1,6 +1,6 @@
 {
 	"name": "@sbzen/cron-core",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"author": "Serhii Bzenko <bzenkosergey@gmail.com>",
 	"license" : "MIT",
 	"repository": {

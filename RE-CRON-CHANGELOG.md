@@ -1,3 +1,8 @@
+# [1.0.4] (2021-04-30)
+
+### Bug Fixes
+* fix expression double spaces
+
 # [1.0.3] (2021-04-23)
 
 ### Bug Fixes

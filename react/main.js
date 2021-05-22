@@ -116,7 +116,7 @@ class CoreService {
 
   normalizeValues(mode, values, valueType) {
     // conver 1,2,3 to SUN,MON,TUE
-    if (valueType === _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek && mode === _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].AND) {
+    if (valueType === _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek && [_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].AND, _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE].includes(mode)) {
       return values.map(v => {
         const value = +v;
 
@@ -714,6 +714,14 @@ class CronQuartzUIService extends _ui_base_service__WEBPACK_IMPORTED_MODULE_3__[
         isDayOfWeekAndControlsDisabled: () => this.isDisabled(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].AND, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
         isSelectedDayOfWeekAndValue: value => this.hasAndValue(value, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
         selectDayOfWeekAndValue: value => this.toggleAndValue(value, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+        // Every day between day 0 and day 1
+        isDayOfWeekRangeSelected: () => this.isSelectedSegment(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE),
+        selectDayOfWeekRange: () => this.selectDaySegment(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
+        isDayOfWeekRangeControlsDisabled: () => this.isDisabled(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+        getDayOfWeekRangePrimary: () => this.getSegmentValues(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE)[0],
+        setDayOfWeekRangePrimary: value => this.setInValue(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE, 0, value, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
+        getDayOfWeekRangeSecondary: () => this.getSegmentValues(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek, _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE)[1],
+        setDayOfWeekRangeSecondary: value => this.setInValue(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE, 1, value, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
         // Specific day of month (choose one or many)
         isDayOfMonthAndSelected: () => this.isSelectedSegment(_segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].AND),
         selectDayOfMonthAnd: () => this.selectDaySegment(_mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].AND, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
@@ -918,6 +926,7 @@ class CronUIBaseService {
           INCREMENT: this.createValue(['1', '1'], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].INCREMENT),
           NTH_WEEKDAY_OF_MONTH: this.createValue(['1', '1'], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NTH_WEEKDAY_OF_MONTH),
           LAST_NTH_DAY_WEEK: this.createValue(['1L'], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].LAST_NTH_DAY_WEEK),
+          RANGE: this.createValue(['1', '2'], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE),
           NONE: this.createValue([''], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NONE),
           EVERY: this.createValue(['*'], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].EVERY)
         }
@@ -1067,7 +1076,12 @@ class CronUIBaseService {
     Object.keys(this.view).forEach(prop => {
       const i = this.view[prop];
       const selected = i.selected;
-      const value = i.values[selected];
+      const value = i.values[selected]; // ignore not supported expressions
+
+      if (!value) {
+        return;
+      }
+
       value.mode = i.selected;
       m[prop] = value;
     });
@@ -1151,6 +1165,7 @@ class CronUIBaseService {
           NTH_WEEKDAY_OF_MONTH: this.createValue([...dayOfWeek.values.NTH_WEEKDAY_OF_MONTH.values], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NTH_WEEKDAY_OF_MONTH),
           LAST_NTH_DAY_WEEK: this.createValue([...dayOfWeek.values.LAST_NTH_DAY_WEEK.values], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].LAST_NTH_DAY_WEEK),
           NONE: this.createValue([...dayOfWeek.values.NONE.values], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].NONE),
+          RANGE: this.createValue([...dayOfWeek.values.RANGE.values], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].RANGE),
           EVERY: this.createValue([...dayOfWeek.values.EVERY.values], _mode_enum__WEBPACK_IMPORTED_MODULE_0__["Mode"].EVERY)
         }
       },
@@ -1767,6 +1782,10 @@ const localization = {
       dayOfWeekAnd: {
         label: 'Specific day of week (choose one or many)'
       },
+      dayOfWeekRange: {
+        label1: 'Every day between',
+        label2: 'and'
+      },
       dayOfMonthAnd: {
         label: 'Specific day of month (choose one or many)'
       },
@@ -2245,13 +2264,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @sbzen/cron-core */ "../../../libs/cron-core/src/index.ts");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../helpers */ "../../../libs/re-cron/src/lib/helpers.ts");
-/* harmony import */ var _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../tab-base.abstract */ "../../../libs/re-cron/src/lib/quartz/tabs/tab-base.abstract.ts");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../shared */ "../../../libs/re-cron/src/lib/shared/index.ts");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../helpers */ "../../../libs/re-cron/src/lib/helpers.ts");
+/* harmony import */ var _tab_base_abstract__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../tab-base.abstract */ "../../../libs/re-cron/src/lib/quartz/tabs/tab-base.abstract.ts");
 
 
 
 
-class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["QuartzTabBaseComponent"] {
+
+class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_4__["QuartzTabBaseComponent"] {
   constructor(props) {
     super(props, [_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek]);
     this.uiService = this.getQuartzCron();
@@ -2265,16 +2286,16 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
   }
 
   render() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.genEvery(), this.genDayOfWeekIncrement(), this.genDayOfMonthIncrement(), this.genDayOfWeekAnd(), this.genDayOfMonthAnd(), this.genDayOfMonthLastDay(), this.genDayOfMonthLastDayWeek(), this.genDayOfWeekLastNTHDayWeek(), this.genDayOfMonthDaysBeforeEndMonth(), this.genDayOfMonthNearestWeekDayOfMonth(), this.genDayOfWeekNTHWeekDayOfMonth());
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.genEvery(), this.genDayOfWeekIncrement(), this.genDayOfMonthIncrement(), this.genDayOfWeekAnd(), this.getDayOfWeekRange(), this.genDayOfMonthAnd(), this.genDayOfMonthLastDay(), this.genDayOfMonthLastDayWeek(), this.genDayOfWeekLastNTHDayWeek(), this.genDayOfMonthDaysBeforeEndMonth(), this.genDayOfMonthNearestWeekDayOfMonth(), this.genDayOfWeekNTHWeekDayOfMonth());
   }
 
   genEvery() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-every-weekday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-every-weekday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-every-weekday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-every-weekday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-every-weekday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY,
@@ -2282,18 +2303,18 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectEvery()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-every-weekday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-every-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].EVERY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.every.label)));
   }
 
   genDayOfWeekIncrement() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-weekday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-increment-weekday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-increment-weekday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-weekday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-weekday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
@@ -2301,10 +2322,10 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfWeekIncrement()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-increment-weekday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-increment-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.dayOfWeekIncrement.label1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-every']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-every']),
       disabled: this.uiServiceApi.isDayOfWeekIncrementControlsDisabled(),
       value: this.uiServiceApi.getDayOfWeekIncrementPrimary(),
       onChange: e => this.uiServiceApi.setDayOfWeekIncrementPrimary(e.target.value)
@@ -2317,7 +2338,7 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       className: "c-increment-weekday-option-label2",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.dayOfWeekIncrement.label2), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-from']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-weekday-from']),
       disabled: this.uiServiceApi.isDayOfWeekIncrementControlsDisabled(),
       value: this.uiServiceApi.getDayOfWeekIncrementSecondary(),
       onChange: e => this.uiServiceApi.setDayOfWeekIncrementSecondary(e.target.value)
@@ -2331,11 +2352,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfMonthIncrement() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-increment-monthday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-increment-monthday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-increment-monthday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-monthday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-increment-monthday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
@@ -2343,10 +2364,10 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthIncrement()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-increment-monthday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-increment-monthday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthIncrement.label1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-every']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-every']),
       disabled: this.uiServiceApi.isDayOfMonthIncrementControlsDisabled(),
       value: this.uiServiceApi.getDayOfMonthIncrementPrimary(),
       onChange: e => this.uiServiceApi.setDayOfMonthIncrementPrimary(e.target.value)
@@ -2359,7 +2380,7 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       className: "c-increment-monthday-option-label2",
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthIncrement.label2), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-from']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-increment-monthday-from']),
       disabled: this.uiServiceApi.isDayOfMonthIncrementControlsDisabled(),
       value: this.uiServiceApi.getDayOfMonthIncrementSecondary(),
       onChange: e => this.uiServiceApi.setDayOfMonthIncrementSecondary(e.target.value)
@@ -2376,11 +2397,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfWeekAnd() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-and-weekday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
@@ -2388,19 +2409,19 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfWeekAnd()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.dayOfWeekAnd.label)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['row', 'pl-3', 'pt-1'], ['c-and-weekday-list'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['row', 'pl-3', 'pt-1'], ['c-and-weekday-list'])
     }, this.daysOfWeekCodes.map(item => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['col-2'], ['c-and-weekday-item']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['col-2'], ['c-and-weekday-item']),
         "item-value": item.value,
         key: item.value
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-item-check'])
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-weekday-item-check'])
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-item-field']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-weekday-item-field']),
         type: "checkbox",
         id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek + item.value),
         value: item.value,
@@ -2408,19 +2429,38 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
         checked: this.uiServiceApi.isSelectedDayOfWeekAndValue(item.value),
         onChange: () => this.uiServiceApi.selectDayOfWeekAndValue(item.value)
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-item-label']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-weekday-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek + item.value)
       }, this.localizeLabel(item.label, this.props.localization.common.dayOfWeek))));
     })));
   }
 
+  getDayOfWeekRange() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shared__WEBPACK_IMPORTED_MODULE_2__["SimpleRange"], {
+      cssClassPrefix: this.getCssClassPrefix(),
+      segmentId: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].RANGE),
+      checked: this.uiServiceApi.isDayOfWeekRangeSelected(),
+      disabled: this.uiService.isDisabled(),
+      onSelect: () => this.uiServiceApi.selectDayOfWeekRange(),
+      disabledControls: this.uiServiceApi.isDayOfWeekRangeControlsDisabled(),
+      label1: this.props.localization.quartz.day.dayOfWeekRange.label1,
+      label2: this.props.localization.quartz.day.dayOfWeekRange.label2,
+      primaryOptions: this.daysOfWeekCodes,
+      primaryValue: this.uiServiceApi.getDayOfWeekRangePrimary(),
+      onPrimaryValueChange: this.uiServiceApi.setDayOfWeekRangePrimary,
+      secondaryOptions: this.daysOfWeekCodes,
+      secondaryValue: this.uiServiceApi.getDayOfWeekRangeSecondary(),
+      onSecondaryValueChange: this.uiServiceApi.setDayOfWeekRangeSecondary
+    });
+  }
+
   genDayOfMonthAnd() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-and-monthday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].INCREMENT,
@@ -2428,19 +2468,19 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthAnd()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-monthday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-monthday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthAnd.label)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['row', 'pl-3', 'pt-1'], ['c-and-monthday-list'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['row', 'pl-3', 'pt-1'], ['c-and-monthday-list'])
     }, this.daysOfMonth.map(item => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['col-1'], ['c-and-monthday-item']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['col-1'], ['c-and-monthday-item']),
         "item-value": item.value,
         key: item.value
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-item-check'])
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-and-monthday-item-check'])
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-item-field']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-and-monthday-item-field']),
         type: "checkbox",
         id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth + item.value),
         value: item.value,
@@ -2448,7 +2488,7 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
         checked: this.uiServiceApi.isSelectedDayOfMonthAndValue(item.value),
         onChange: () => this.uiServiceApi.selectDayOfMonthAndValue(item.value)
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-monthday-item-label']),
+        className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-and-monthday-item-label']),
         htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].AND, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth + item.value)
       }, item.label)));
     })));
@@ -2456,11 +2496,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfMonthLastDay() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-last-monthday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-last-monthday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-monthday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-monthday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-monthday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-monthday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY,
@@ -2468,18 +2508,18 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthLastDay()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-monthday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-monthday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthLastDay.label)));
   }
 
   genDayOfMonthLastDayWeek() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-last-weekday', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group'], ['c-last-weekday', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-weekday-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-weekday-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-weekday-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-weekday-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY_WEEK,
@@ -2487,18 +2527,18 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthLastDayWeek()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-weekday-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-weekday-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthLastDayWeek.label)));
   }
 
   genDayOfWeekLastNTHDayWeek() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-last-nth', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-last-nth', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-nth-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-last-nth-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-nth-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-last-nth-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK,
@@ -2506,10 +2546,10 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfWeekLastNTHDayWeek()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-nth-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-last-nth-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].LAST_NTH_DAY_WEEK, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.dayOfWeekLastNTHDayWeek.label1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-last-nth-weekday']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-last-nth-weekday']),
       disabled: this.uiServiceApi.isDayOfWeekLastNTHDayWeekControlsDisabled(),
       value: this.uiServiceApi.getDayOfWeekLastNTHDayWeekValue(),
       onChange: e => this.uiServiceApi.setDayOfWeekLastNTHDayWeekValue(e.target.value)
@@ -2526,11 +2566,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfMonthDaysBeforeEndMonth() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-day-before-end', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-day-before-end', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-day-before-end-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-day-before-end-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-day-before-end-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-day-before-end-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].DAYS_BEFORE_END_MONTH,
@@ -2538,7 +2578,7 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthDaysBeforeEndMonth()
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-day-before-end-monthday']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-day-before-end-monthday']),
       disabled: this.uiServiceApi.isDayOfMonthDaysBeforeEndMonthControlsDisabled(),
       value: this.uiServiceApi.getDayOfMonthDaysBeforeEndMonthValue(),
       onChange: e => this.uiServiceApi.setDayOfMonthDaysBeforeEndMonthValue(e.target.value)
@@ -2555,11 +2595,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfMonthNearestWeekDayOfMonth() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nearest', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nearest', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-nearest-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-nearest-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-nearest-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-nearest-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH,
@@ -2567,10 +2607,10 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfMonthNearestWeekDayOfMonth()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-nearest-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-nearest-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NEAREST_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfMonth)
     }, this.props.localization.quartz.day.dayOfMonthNearestWeekDayOfMonth.label1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nearest-monthday']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nearest-monthday']),
       disabled: this.uiServiceApi.isDayOfMonthNearestWeekDayOfMonthControlsDisabled(),
       value: this.uiServiceApi.getDayOfMonthNearestWeekDayOfMonthValue(),
       onChange: e => this.uiServiceApi.setDayOfMonthNearestWeekDayOfMonthValue(e.target.value)
@@ -2587,11 +2627,11 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
 
   genDayOfWeekNTHWeekDayOfMonth() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nth', 'c-segment'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-group', 'form-inline'], ['c-nth', 'c-segment'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-nth-check'])
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check'], ['c-nth-check'])
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-nth-option']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-input'], ['c-nth-option']),
       type: "radio",
       id: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek),
       value: _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH,
@@ -2599,10 +2639,10 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
       disabled: this.uiService.isDisabled(),
       onChange: () => this.uiServiceApi.selectDayOfWeekNTHWeekDayOfMonth()
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-nth-option-label']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-check-label'], ['c-nth-option-label']),
       htmlFor: this.genId(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Mode"].NTH_WEEKDAY_OF_MONTH, _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].dayOfWeek)
     }, this.props.localization.quartz.day.dayOfWeekNTHWeekDayOfMonth.label1)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every']),
       disabled: this.uiServiceApi.isDayOfWeekNTHWeekDayOfMonthControlsDisabled(),
       value: this.uiServiceApi.getDayOfWeekNTHWeekDayOfMonthPrimaryValue(),
       onChange: e => this.uiServiceApi.setDayOfWeekNTHWeekDayOfMonthPrimaryValue(e.target.value)
@@ -2612,7 +2652,7 @@ class QuartzCronDay extends _tab_base_abstract__WEBPACK_IMPORTED_MODULE_3__["Qua
         key: item.value
       }, this.localizeLabel(item.label, this.props.localization.common.dayOfMonth));
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every-weekday']),
+      className: Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["genClassName"])(this.props.cssClassPrefix, ['form-control', 'form-control-sm', 'mx-1'], ['c-nth-every-weekday']),
       disabled: this.uiServiceApi.isDayOfWeekNTHWeekDayOfMonthControlsDisabled(),
       value: this.uiServiceApi.getDayOfWeekNTHWeekDayOfMonthSecondaryValue(),
       onChange: e => this.uiServiceApi.setDayOfWeekNTHWeekDayOfMonthSecondaryValue(e.target.value)
@@ -4980,6 +5020,10 @@ const cronLocalizationExample = `type CronLocalization = {
       dayOfWeekAnd?: {
         label?: string
       },
+      dayOfWeekRange?: {
+        label1?: string,
+        label2?: string
+      },
       dayOfMonthAnd?: {
         label?: string
       },
@@ -6292,6 +6336,10 @@ const fullLocalization = `{
       dayOfWeekAnd: {
         label: 'Specific day of week (choose one or many)'
       },
+      dayOfWeekRange: {
+        label1: 'Every day between',
+        label2: 'and'
+      },
       dayOfMonthAnd: {
         label: 'Specific day of month (choose one or many)'
       },
@@ -6935,7 +6983,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 const Home = () => {
-  const [cronValue, setCronValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('2,0,4,3,1 0/1 3/2 ? * 4/5 *');
+  const [cronValue, setCronValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('0 40 7 ? * MON-FRI *');
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "home"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shared_header_header__WEBPACK_IMPORTED_MODULE_5__["Header"], {

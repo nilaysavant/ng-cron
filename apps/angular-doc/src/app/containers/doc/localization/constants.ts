@@ -137,6 +137,10 @@ export const fullLocalization =
       dayOfWeekAnd: {
         label: 'Specific day of week (choose one or many)'
       },
+      dayOfWeekRange: {
+        label1: 'Every day between',
+        label2: 'and'
+      },
       dayOfMonthAnd: {
         label: 'Specific day of month (choose one or many)'
       },

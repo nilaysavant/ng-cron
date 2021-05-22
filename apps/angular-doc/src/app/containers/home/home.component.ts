@@ -9,7 +9,7 @@ import { Tab } from '@sbzen/ng-cron';
 export class HomeComponent {
 	currentYear = new Date().getFullYear();
 	tabs = [Tab.DAY];
-	cronValue = '2,0,4,3,1 0/1 3/2 ? * 4/5 *';
+	cronValue = '0 40 7 ? * MON-FRI *';
 	features = [
 		{
 			icon: 'fab fa-angellist',

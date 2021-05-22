@@ -25,7 +25,6 @@ export class DocCustomizationVisibilityInputsComponent {
 	constructor(private readonly cd: ChangeDetectorRef) {}
 
 	toggleTab(tab: Tab) {
-		console.log(tab, this.tabs);
 		if (this.isVisibleTab(tab)) {
 			this.tabs = this.tabs.filter(t => t !== tab);
 			this.cd.detectChanges();

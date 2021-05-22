@@ -1,3 +1,8 @@
+# [1.0.5] (2021-05-23)
+
+### Bug Fixes
+* supported day of week range
+
 # [1.0.4] (2021-04-30)
 
 ### Bug Fixes

@@ -33,7 +33,7 @@ export abstract class CronHostComponent implements ControlValueAccessor {
 	) {}
 
 	writeValue(cronValue: string) {
-		this.cronUI.fillFromExpression(cronValue);
+		this.cronUI.fillFromExpression(cronValue || '');
 	}
 
 	registerOnChange(fn: (cronValue: string) => {}) {

@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CronRangeModule } from './../../../shared';
 import { QuartzCronDayComponent } from './day.component';
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+
+		CronRangeModule
 	],
 	declarations: [
 		QuartzCronDayComponent

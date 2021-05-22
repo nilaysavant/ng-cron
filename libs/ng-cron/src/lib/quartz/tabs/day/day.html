@@ -177,6 +177,23 @@
 	</div>
 </div>
 
+<cron-range
+	[label]="localization.quartz.day.dayOfWeekRange.label1"
+	[label2]="localization.quartz.day.dayOfWeekRange.label2"
+	[cssClassPrefix]="cssClassPrefix"
+	[checked]="api.isDayOfWeekRangeSelected()"
+	[disabled]="cronUI.isDisabled()"
+	[segmentId]="genId(mode.RANGE)"
+	[disabledControls]="api.isDayOfWeekRangeControlsDisabled()"
+	[primaryOptions]="daysOfWeekCodes"
+	[secondaryOptions]="daysOfWeekCodes"
+	[primaryValue]="api.getDayOfWeekRangePrimary()"
+	[secondaryValue]="api.getDayOfWeekRangeSecondary()"
+	(selected)="api.selectDayOfWeekRange()"
+	(primaryValueChanged)="api.setDayOfWeekRangePrimary($event)"
+	(secondaryValueChanged)="api.setDayOfWeekRangeSecondary($event)">
+</cron-range>
+
 <div class="{{cssClassPrefix}}form-group c-and-monthday c-segment">
 	<div class="{{cssClassPrefix}}form-check c-and-monthday-check">
 		<input

@@ -94,6 +94,10 @@ export const cronLocalizationExample =
       dayOfWeekAnd?: {
         label?: string
       },
+      dayOfWeekRange?: {
+        label1?: string,
+        label2?: string
+      },
       dayOfMonthAnd?: {
         label?: string
       },

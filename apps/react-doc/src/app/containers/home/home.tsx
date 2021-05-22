@@ -11,7 +11,7 @@ import { features, example } from './constants';
 import './home.scss';
 
 export const Home = () => {
-	const [cronValue, setCronValue] = useState('2,0,4,3,1 0/1 3/2 ? * 4/5 *');
+	const [cronValue, setCronValue] = useState('0 40 7 ? * MON-FRI *');
 
 	return (
 		<div className="home">

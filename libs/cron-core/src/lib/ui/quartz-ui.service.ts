@@ -58,6 +58,15 @@ export class CronQuartzUIService extends CronUIBaseService {
 			isSelectedDayOfWeekAndValue: (value: string) => this.hasAndValue(value, Segment.dayOfWeek),
 			selectDayOfWeekAndValue: (value: string) => this.toggleAndValue(value, Segment.dayOfWeek),
 
+			// Every day between day 0 and day 1
+			isDayOfWeekRangeSelected: () => this.isSelectedSegment(Segment.dayOfWeek, Mode.RANGE),
+			selectDayOfWeekRange: () => this.selectDaySegment(Mode.RANGE, Segment.dayOfWeek, Segment.dayOfMonth),
+			isDayOfWeekRangeControlsDisabled: () => this.isDisabled(Mode.RANGE, Segment.dayOfWeek),
+			getDayOfWeekRangePrimary: () => this.getSegmentValues(Segment.dayOfWeek, Mode.RANGE)[0],
+			setDayOfWeekRangePrimary: (value: string) => this.setInValue(Mode.RANGE, 0, value, Segment.dayOfWeek),
+			getDayOfWeekRangeSecondary: () => this.getSegmentValues(Segment.dayOfWeek, Mode.RANGE)[1],
+			setDayOfWeekRangeSecondary: (value: string) => this.setInValue(Mode.RANGE, 1, value, Segment.dayOfWeek),
+
 			// Specific day of month (choose one or many)
 			isDayOfMonthAndSelected: () => this.isSelectedSegment(Segment.dayOfMonth, Mode.AND),
 			selectDayOfMonthAnd: () => this.selectDaySegment(Mode.AND, Segment.dayOfMonth, Segment.dayOfWeek),

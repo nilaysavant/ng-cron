@@ -100,7 +100,7 @@ export abstract class CoreService {
 
 	private normalizeValues(mode: Mode, values: string[], valueType: Segment) {
 		// conver 1,2,3 to SUN,MON,TUE
-		if (valueType === Segment.dayOfWeek && mode === Mode.AND) {
+		if (valueType === Segment.dayOfWeek && [Mode.AND, Mode.RANGE].includes(mode)) {
 			return values
 				.map(v => {
 					const value = +v;

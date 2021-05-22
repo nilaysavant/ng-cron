@@ -66,6 +66,7 @@ export abstract class CronUIBaseService {
 				INCREMENT: this.createValue(['1', '1'], Mode.INCREMENT),
 				NTH_WEEKDAY_OF_MONTH: this.createValue(['1', '1'], Mode.NTH_WEEKDAY_OF_MONTH),
 				LAST_NTH_DAY_WEEK: this.createValue(['1L'], Mode.LAST_NTH_DAY_WEEK),
+				RANGE: this.createValue(['1', '2'], Mode.RANGE),
 				NONE: this.createValue([''], Mode.NONE),
 				EVERY: this.createValue(['*'], Mode.EVERY)
 			}
@@ -228,6 +229,10 @@ export abstract class CronUIBaseService {
 				const i = this.view[prop];
 				const selected = i.selected;
 				const value = i.values[selected];
+				// ignore not supported expressions
+				if (!value) {
+					return;
+				}
 				value.mode = i.selected;
 				m[prop] = value;
 			});
@@ -301,6 +306,7 @@ export abstract class CronUIBaseService {
 					NTH_WEEKDAY_OF_MONTH: this.createValue([...dayOfWeek.values.NTH_WEEKDAY_OF_MONTH.values], Mode.NTH_WEEKDAY_OF_MONTH),
 					LAST_NTH_DAY_WEEK: this.createValue([...dayOfWeek.values.LAST_NTH_DAY_WEEK.values], Mode.LAST_NTH_DAY_WEEK),
 					NONE: this.createValue([...dayOfWeek.values.NONE.values], Mode.NONE),
+					RANGE: this.createValue([...dayOfWeek.values.RANGE.values], Mode.RANGE),
 					EVERY: this.createValue([...dayOfWeek.values.EVERY.values], Mode.EVERY)
 				}
 			},

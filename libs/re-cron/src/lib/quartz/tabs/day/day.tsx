@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, QuartzService, Mode, Type } from '@sbzen/cron-core';
 
+import { SimpleRange } from './../../../shared';
 import { CronTabBaseProps } from './../../../cron-tab-base.abstract';
 import { genClassName } from './../../../helpers';
 import { QuartzTabBaseComponent } from './../tab-base.abstract';
@@ -26,6 +27,7 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 				{this.genDayOfWeekIncrement()}
 				{this.genDayOfMonthIncrement()}
 				{this.genDayOfWeekAnd()}
+				{this.getDayOfWeekRange()}
 				{this.genDayOfMonthAnd()}
 				{this.genDayOfMonthLastDay()}
 				{this.genDayOfMonthLastDayWeek()}
@@ -243,6 +245,26 @@ export class QuartzCronDay extends QuartzTabBaseComponent<CronTabBaseProps> {
 					})}
 				</div>
 			</div>
+		);
+	}
+
+	private getDayOfWeekRange() {
+		return (
+			<SimpleRange
+				cssClassPrefix={this.getCssClassPrefix()}
+				segmentId={this.genId(Mode.RANGE)}
+				checked={this.uiServiceApi.isDayOfWeekRangeSelected()}
+				disabled={this.uiService.isDisabled()}
+				onSelect={() => this.uiServiceApi.selectDayOfWeekRange()}
+				disabledControls={this.uiServiceApi.isDayOfWeekRangeControlsDisabled()}
+				label1={this.props.localization.quartz.day.dayOfWeekRange.label1}
+				label2={this.props.localization.quartz.day.dayOfWeekRange.label2}
+				primaryOptions={this.daysOfWeekCodes}
+				primaryValue={this.uiServiceApi.getDayOfWeekRangePrimary()}
+				onPrimaryValueChange={this.uiServiceApi.setDayOfWeekRangePrimary}
+				secondaryOptions={this.daysOfWeekCodes}
+				secondaryValue={this.uiServiceApi.getDayOfWeekRangeSecondary()}
+				onSecondaryValueChange={this.uiServiceApi.setDayOfWeekRangeSecondary}/>
 		);
 	}
 

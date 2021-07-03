@@ -46,7 +46,7 @@ export class ModeUtils {
 		if (str === 'LW') {
 			return Mode.LAST_DAY_WEEK;
 		}
-		if (str.includes('L')) {
+		if (str.match(/[0-9]{1}L/i)) {
 			return Mode.LAST_NTH_DAY_WEEK;
 		}
 		if (str.endsWith('W')) {

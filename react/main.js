@@ -72,7 +72,7 @@ class CoreService {
     }));
   }
 
-  static getList(segment, every = false) {
+  static getList(segment, every = false, yearFrom, yearTo) {
     if (segment === _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].seconds) {
       return every ? CoreService.secondsEvery : CoreService.seconds;
     }
@@ -90,7 +90,15 @@ class CoreService {
     }
 
     if (segment === _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].year) {
-      return every ? CoreService.yearEvery : CoreService.year;
+      if (every) {
+        return CoreService.yearEvery;
+      }
+
+      if (!yearFrom && !yearTo) {
+        return CoreService.year;
+      }
+
+      return CoreService.genList(yearFrom || CoreService.yearFrom, yearTo || CoreService.yearTo);
     }
 
     if (segment === _segment_enum__WEBPACK_IMPORTED_MODULE_1__["Segment"].month) {
@@ -139,7 +147,9 @@ CoreService.minutes = CoreService.genList(0, 59);
 CoreService.minutesEvery = CoreService.genList(1, 60);
 CoreService.hours = CoreService.genList(0, 23);
 CoreService.hoursEvery = CoreService.genList(1, 24);
-CoreService.year = CoreService.genList(2019, 2098);
+CoreService.yearFrom = 2019;
+CoreService.yearTo = 2098;
+CoreService.year = CoreService.genList(CoreService.yearFrom, CoreService.yearTo);
 CoreService.yearEvery = CoreService.genList(1, 93);
 CoreService.dayOfMonth = CoreService.genList(1, 31);
 CoreService.dayOfMonthEvery = CoreService.createOptions(_month_enum__WEBPACK_IMPORTED_MODULE_4__["MonthUtils"].everyList());
@@ -376,7 +386,7 @@ class ModeUtils {
       return Mode.LAST_DAY_WEEK;
     }
 
-    if (str.includes('L')) {
+    if (str.match(/[0-9]{1}L/i)) {
       return Mode.LAST_NTH_DAY_WEEK;
     }
 

@@ -2237,6 +2237,8 @@ class ReQuartzCron extends _cron_host_abstract__WEBPACK_IMPORTED_MODULE_2__["Cro
     const year = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tabs__WEBPACK_IMPORTED_MODULE_3__["QuartzCronYear"], {
       localization: cronLocalization,
       session: this.session,
+      renderYearsFrom: this.props.renderYearsFrom,
+      renderYearsTo: this.props.renderYearsTo,
       cssClassPrefix: this.props.cssClassPrefix,
       disabled: this.props.disabled,
       onChange: () => this.applyChanges()
@@ -3279,6 +3281,11 @@ class QuartzCronYear extends _tab_single_segment_abstract__WEBPACK_IMPORTED_MODU
     this.uiServiceApi = this.uiService.getApi(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Type"].YEAR);
     this.yearCodes = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["QuartzService"].getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year, true);
     this.years = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["QuartzService"].getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year);
+    const {
+      renderYearsFrom,
+      renderYearsTo
+    } = props;
+    this.years = _sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["QuartzService"].getList(_sbzen_cron_core__WEBPACK_IMPORTED_MODULE_1__["Segment"].year, false, renderYearsFrom, renderYearsTo);
   }
 
   genEvery() {

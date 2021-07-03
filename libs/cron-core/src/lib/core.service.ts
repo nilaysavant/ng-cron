@@ -15,7 +15,9 @@ export abstract class CoreService {
 	private static hours = CoreService.genList(0, 23);
 	private static hoursEvery = CoreService.genList(1, 24);
 
-	private static year = CoreService.genList(2019, 2098);
+	private static readonly yearFrom = 2019;
+	private static readonly yearTo = 2098;
+	private static year = CoreService.genList(CoreService.yearFrom, CoreService.yearTo);
 	private static yearEvery = CoreService.genList(1, 93);
 
 	private static dayOfMonth = CoreService.genList(1, 31);
@@ -62,7 +64,7 @@ export abstract class CoreService {
 			}));
 	}
 
-	static getList(segment: Segment, every = false) {
+	static getList(segment: Segment, every = false, yearFrom?: number, yearTo?: number) {
 		if (segment === Segment.seconds) {
 			return every ? CoreService.secondsEvery : CoreService.seconds;
 		}
@@ -76,7 +78,13 @@ export abstract class CoreService {
 			return every ? CoreService.dayOfMonthEvery : CoreService.dayOfMonth;
 		}
 		if (segment === Segment.year) {
-			return every ? CoreService.yearEvery : CoreService.year;
+			if (every) {
+				return CoreService.yearEvery;
+			}
+			if (!yearFrom && !yearTo) {
+				return CoreService.year;
+			}
+			return CoreService.genList(yearFrom || CoreService.yearFrom, yearTo || CoreService.yearTo);
 		}
 		if (segment === Segment.month) {
 			return every ? CoreService.monthEvery : CoreService.month;

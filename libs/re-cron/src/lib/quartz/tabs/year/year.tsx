@@ -6,14 +6,21 @@ import { CronTabBaseProps } from './../../../cron-tab-base.abstract';
 import { QuartzTabSingleSegmentComponent } from './../tab-single-segment.abstract';
 import { SimpleIncrement } from './../shared';
 
-export class QuartzCronYear extends QuartzTabSingleSegmentComponent {
+export type CronTabYearProps = {
+	renderYearsFrom?: number,
+	renderYearsTo?: number
+} & CronTabBaseProps;
+
+export class QuartzCronYear extends QuartzTabSingleSegmentComponent<CronTabYearProps> {
 	private readonly uiService = this.getQuartzCron();
 	private readonly uiServiceApi = this.uiService.getApi<Type.YEAR>(Type.YEAR);
 	private readonly yearCodes = QuartzService.getList(Segment.year, true);
 	private readonly years = QuartzService.getList(Segment.year);
 
-	constructor(props: CronTabBaseProps) {
+	constructor(props: CronTabYearProps) {
 		super(props, [Segment.year]);
+		const { renderYearsFrom, renderYearsTo } = props;
+		this.years = QuartzService.getList(Segment.year, false, renderYearsFrom, renderYearsTo);
 	}
 
 	protected genEvery() {

@@ -3,7 +3,7 @@ import { CronUnixUIService, CronQuartzUIService } from '@sbzen/cron-core';
 
 import { CronTabBaseComponent, CronTabBaseProps } from './cron-tab-base.abstract';
 
-export abstract class CronTabSingleSegmentComponent<T extends CronUnixUIService|CronQuartzUIService> extends CronTabBaseComponent<CronTabBaseProps, T> {
+export abstract class CronTabSingleSegmentComponent<T extends CronUnixUIService|CronQuartzUIService, K extends CronTabBaseProps> extends CronTabBaseComponent<K, T> {
 	protected abstract genEvery(): JSX.Element;
 	protected abstract genIncrement(): JSX.Element;
 	protected abstract genAnd(): JSX.Element;

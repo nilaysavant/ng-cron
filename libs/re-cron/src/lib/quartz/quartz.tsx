@@ -70,6 +70,8 @@ export class ReQuartzCron extends CronHostComponent {
 			<QuartzCronYear
 				localization={cronLocalization}
 				session={this.session}
+				renderYearsFrom={this.props.renderYearsFrom}
+				renderYearsTo={this.props.renderYearsTo}
 				cssClassPrefix={this.props.cssClassPrefix}
 				disabled={this.props.disabled}
 				onChange={() => this.applyChanges()}>

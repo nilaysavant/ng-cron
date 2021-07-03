@@ -17,6 +17,8 @@ export type CronHostProps = {
 	activeTab?: Type,
 	tabs?: Type[],
 	disabled?: boolean,
+	renderYearsFrom?: number,
+	renderYearsTo?: number,
 	onChange?: (cronValue: string) => void,
 	onTabChange?: (tab: Type) => void
 } & CronBaseProps;
